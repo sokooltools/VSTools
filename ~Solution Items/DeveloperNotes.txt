@@ -1,0 +1,100 @@
+[DEBUGGING]
+
+To get this solution to work on Windows 10 you may have to run Visual Studio as an Administrator.
+
+[PROJECT PROPERTIES (DEBUG TAB)]
+
+	IncrementVersionNumber:
+		Start Project:  true
+		Commmand line arguments: "%DOCUMENTS%\Visual Studio 2019\DevTools\VSTools"
+
+	VSTools:
+		Start External Program: C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\IDE\devenv.exe
+		Commmand line arguments: /rootsuffix Exp
+
+[VERSION NUMBER]
+
+	The version number needs to be incremented in the following three files whenever rolling out a new release
+
+		AsssemblyInfo.cs
+		source.extension.vsixmanifest
+		VsToolsPackage.cs
+
+	This is handled automatically by calling the IncrementVersionNumber executable
+
+
+[BUILD ERROR]
+
+If getting error during build about a "prerequisites" element missing from a file: 
+	
+	Exit the solution;
+
+	Remove these two files from the project folder:
+		VsTools.nuget.props
+		VsTools.nuget.targets
+
+	Restart the solution;
+
+
+[INSTALLATION LOCATION]
+
+During installation, Extensions and Updates looks for the contents of the VSIX package in a folder under:
+	
+	Experimental Instance: 
+		%LocalAppData%\Microsoft\VisualStudio\16.0_4c6c253fExp\Extensions\SokoolTools\VSTools\[VERSION_NUMBER]
+			-or-
+		%LocalAppData%\Microsoft\VisualStudio\16.0_6e759407Exp\Extensions\SokoolTools\VSTools\[VERSION_NUMBER]
+
+	Normal VSIXinstall:
+		%LocalAppData%\Microsoft\VisualStudio\16.0_4c6c253f\Extensions\earzmhv3.5wq   
+			-or-
+		%LocalAppData%\Microsoft\VisualStudio\16.0_6e759407\Extensions\jj2vfkt1.fdw
+
+By default, the installation applies only to the current user, because %LocalAppData% is a user-specific directory. 
+
+However, if you set the AllUsers element of the manifest to True, the extension will be installed under:
+	
+	%ProgramFiles(x86)%\Microsoft Visual Studio 16.0\Common7\IDE\Extensions
+
+and will be available to all users of the computer.
+
+[EXPERIMENTAL INSTANCE]
+
+Run the following from the command line should the Experimental instance get somehow out of whack!
+"%USERPROFILE%\Documents\Visual Studio 2019\ResetExpInstance.cmd"
+
+[VSIX SIGNING TOOL]
+
+https://www.nuget.org/packages/Microsoft.VSSDK.Vsixsigntool
+
+VSIXSignTool.exe sign /f "%USERPROFILE%\Documents\Visual Studio 2015\DevTools\Certificates\Parker_Hannifin_Corp_SHA-256.pfx" /p ParkerKey "%DEVTOOLS%\VsTools\bin\SokoolTools.VsTools.vsix"
+
+
+[UNREGISTER PACKAGE]
+
+"%ProgramFiles(x86)%\Microsoft Visual Studio 14.0\VSSDK\VisualStudioIntegration\Tools\Bin\regpkg.exe" /unregister /root:Software\Microsoft\VisualStudio\14.0  "%DEVTOOLS%\bin\SokoolTools.VsTools.dll"
+
+[REGISTER PACKAGE (REG FILE)]
+
+"%ProgramFiles(x86)%\Microsoft Visual Studio 14.0\VSSDK\VisualStudioIntegration\Tools\Bin\regpkg.exe" /regfile:"%TEMP%\VSTools.reg" /root:Software\Microsoft\VisualStudio\14.0  "%DEVTOOLS%\VsTools\bin\SokoolTools.VsTools.dll"
+
+
+[VERSION INFO HELP]
+https://blogs.msdn.microsoft.com/visualstudio/2013/08/08/update-for-extension-authors-vsix-manifest-version-range-attribute/
+
+
+[FOR USE WITH VS 2017]
+
+Make sure "<VsixType>v3</VsixType>" is in the VsTools.csproj as shown below:
+
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="packages\Microsoft.VSSDK.BuildTools.15.0.26201\build\Microsoft.VSSDK.BuildTools.props" Condition="'$(VisualStudioVersion)' != '14.0' And Exists('packages\Microsoft.VSSDK.BuildTools.15.0.26201\build\Microsoft.VSSDK.BuildTools.props')" />
+  <Import Project="packages\Microsoft.VisualStudio.Sdk.BuildTasks.14.0.14.0.23-pre\build\Microsoft.VisualStudio.Sdk.BuildTasks.14.0.props" Condition="'$(VisualStudioVersion)' == '14.0' And Exists('packages\Microsoft.VisualStudio.Sdk.BuildTasks.14.0.14.0.23-pre\build\Microsoft.VisualStudio.Sdk.BuildTasks.14.0.props')" />
+  <PropertyGroup>
+	<MinimumVisualStudioVersion>14.0</MinimumVisualStudioVersion>
+	<VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+	<VsixType>v3</VsixType>

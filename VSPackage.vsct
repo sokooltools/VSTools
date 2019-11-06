@@ -1,0 +1,918 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CommandTable xmlns="http://schemas.microsoft.com/VisualStudio/2005-10-18/CommandTable" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <!-- 
+	  This is the file that defines the actual layout and type of the commands.
+	  It is divided in different sections (e.g. command definition, command  placement, ...), with each defining 
+	  a specific set of properties. See the comment before each section or the VSCT schema for more details about how to use it.
+	-->
+
+  <!--
+	  The VSCT compiler (the tool that translates this file into the binary format that VisualStudio will consume) has the ability
+	  to import external files with definition of constants that can be used inside the definition of your command.
+	  The way to include these files is to add an "Extern" tag to your VSCT file and specify the name of the file to reference 
+	  inside the href attribute. Using this ability of the compiler here, we include some files defining some of the constants 
+	  that we will use inside the file.
+	-->
+
+  <!--
+	 The "href" files defined below can be found in this folder:  
+		%USERPROFILE%\.nuget\packages\Microsoft.VSSDK.BuildTools\15.0.26201\tools\vssdk\inc
+	-->
+
+  <!-- This is the file that defines the IDs for all the commands exposed by VisualStudio. -->
+  <Extern href="stdidcmd.h" />
+
+  <!-- This header contains the command ids for the menus provided by the shell. -->
+  <Extern href="vsshlids.h"/>
+
+  <!-- This header contains the image monikers for various images -->
+  <Include href="KnownImageIds.vsct"/>
+
+  <!--
+	 This header contains data for a custom image moniker
+	 NOTE: The custom moniker data does not have to be defined in a separate file, it can also be defined in this .vsct file.
+	-->
+  <Include href="CustomMoniker.vsct"/>
+
+  <!--
+	 The first section of this file is the Commands section. This is where we define the commands, menus and menu groups. 
+	 This section uses a Guid to identify the package that provides the command defined inside it.
+	 Note that the package's GUID is expressed as a symbol that the compiler will translate in an actual GUID at compile 
+	 time. It is not allow to use an actual GUID for the package attribute.
+	-->
+  <Commands package="guidVsToolsPkg">
+    <!--
+		 Inside this section we can have different sub-sections: one for the menus, another for the menu groups, one for 
+		 the buttons (the actual commands), one for the combos and the last one for the bitmaps used. Each element is 
+		 identified by a command id that	is a unique pair of guid and numeric identifier; the guid part of the identifier 
+		 is usually called "command set" and is used to group different command inside a logically related group; 
+		 your package should define its own command set in order to avoid collisions	with command ids defined by other packages.
+		 In the VSCT syntax you have to specify this unique identifier using two required attributes:
+		 the guid attribute for the command set and the id attribute for the numeric part.
+		-->
+
+    <!-- This is the sub-section that defines the menus and toolbars. -->
+    <Menus>
+      <!--
+			 To define a menu element we need an ID, a parent group, a display priority,  a menu type, a name and a default text. 
+			 The exception to requiring a parent is if we are a top level piece of UI (i.e. a toolbar or a context menu. In other
+			 words an element that doesn't live on any other command UI, or if we will later parent our command via a 
+			 CommandPlacement element to one or more locations).
+	  
+			 In this example we define a toolbar, so we set the type attribute to Toolbar.
+	  
+			 Toolbars can set their priority field to affect where they are shown in the toolbar tray. The lower 16 bits of the 
+			 priority value is taken as a vertical row offset from row 0 (where the standard toolbar is) and is further 
+			 interpreted as a priority offset within the row the toolbar appears in. So below, by specifying we are at priority 
+			 0x0001 we say we want to be in the first row (below the standard toolbar) with a priority value of 1 relative to 
+			 other toolbar's priority values that are in that same row.
+			-->
+      <Menu guid="guidVsToolsCmdSet" id="MyToolbar" priority="0x0001" type="Toolbar">
+        <Strings>
+          <!--
+					 The String section contains the localizable strings for an element, in this case our toolbar. 
+					 In this example we are not defining a localizable set of commands, so we do not specify the "language" 
+					 attribute for the Strings tag. It is possible however to specify different String sections inside any 
+					 element definition, one for each supported language.
+					-->
+          <ButtonText>VsTools</ButtonText>
+        </Strings>
+      </Menu>
+
+      <Menu guid="guidVsToolsCmdSet" id="VsToolsMenu" priority="775" type="Menu">
+        <Parent guid="guidSHLMainMenu" id="IDG_VS_MM_TOOLSADDINS"/>
+        <Strings>
+          <ButtonText>VST&amp;ools</ButtonText>
+          <!--This is the top level menu caption-->
+          <CommandName>VSTools</CommandName>
+        </Strings>
+      </Menu>
+
+      <Menu guid="guidVsToolsCmdSet" id="BookmarksSubMenu" priority="1" type="Menu">
+        <Parent guid="guidVsToolsCmdSet" id="VsToolsGroup4"/>
+        <Strings>
+          <ButtonText>&amp;Bookmarks</ButtonText>
+          <CommandName>Bookmarks</CommandName>
+        </Strings>
+      </Menu>
+
+      <Menu guid="guidVsToolsCmdSet" id="SummariesSubMenu" priority="2" type="Menu">
+        <Parent guid="guidVsToolsCmdSet" id="VsToolsGroup5"/>
+        <Strings>
+          <ButtonText>Su&amp;mmaries</ButtonText>
+          <CommandName>Summaries</CommandName>
+        </Strings>
+      </Menu>
+
+      <Menu guid="guidVsToolsCmdSet" id="CodeBlockSubMenu" priority="3" type="Menu">
+        <Parent guid="guidVsToolsCmdSet" id="VsToolsGroup6"/>
+        <Strings>
+          <ButtonText>Code Bloc&amp;k</ButtonText>
+          <CommandName>CodeBlock</CommandName>
+        </Strings>
+      </Menu>
+
+      <Menu guid="guidVsToolsCmdSet" id="ConvertUnitTestsSubMenu" priority="4" type="Menu">
+        <Parent guid="guidVsToolsCmdSet" id="VsToolsGroup7"/>
+        <Strings>
+          <ButtonText>Con&amp;vert Unit Tests</ButtonText>
+          <CommandName>ConvertUnitTests</CommandName>
+        </Strings>
+      </Menu>
+
+      <Menu guid="guidVsToolsCmdSet" id="UrlSubMenu" priority="5" type="Menu">
+        <Parent guid="guidVsToolsCmdSet" id="VsToolsGroup8"/>
+        <Strings>
+          <ButtonText>&amp;Url</ButtonText>
+          <CommandName>Url</CommandName>
+        </Strings>
+      </Menu>
+
+      <Menu guid="guidVsToolsCmdSet" id="JavascriptSubMenu" priority="6" type="Menu">
+        <Parent guid="guidVsToolsCmdSet" id="VsToolsGroup9"/>
+        <Strings>
+          <ButtonText>&amp;Javascript</ButtonText>
+          <CommandName>Javascript</CommandName>
+        </Strings>
+      </Menu>
+
+      <Menu guid="guidVsToolsCmdSet" id="ExternalToolsSubMenu" priority="7" type="Menu">
+        <Parent guid="guidVsToolsCmdSet" id="VsToolsGroup14"/>
+        <Strings>
+          <ButtonText>&amp;External Tools</ButtonText>
+          <CommandName>ExternalTools</CommandName>
+        </Strings>
+      </Menu>
+
+    </Menus>
+
+    <!-- =============================================================================================================
+		 In this section we define new menu groups. A group is a container for menus or buttons (commands); 
+		 from a visual point of view you can see the group as the part of a menu contained between two lines (separators). 
+		 The parent of a group must be a menu/toolbar.
+		============================================================================================================= -->
+    <Groups>
+      <Group guid="guidVsToolsCmdSet" id="VsToolsGroup" priority="0" >
+        <Parent guid="guidVsToolsCmdSet" id="VsToolsMenu" />
+      </Group>
+
+      <Group guid="guidVsToolsCmdSet" id="VsToolsGroup1" priority="1" >
+        <Parent guid="guidVsToolsCmdSet" id="VsToolsMenu"/>
+      </Group>
+
+      <Group guid="guidVsToolsCmdSet" id="VsToolsGroup2" priority="2" >
+        <Parent guid="guidVsToolsCmdSet" id="VsToolsMenu"/>
+      </Group>
+
+      <Group guid="guidVsToolsCmdSet" id="VsToolsGroup3" priority="3" >
+        <Parent guid="guidVsToolsCmdSet" id="VsToolsMenu"/>
+      </Group>
+
+      <Group guid="guidVsToolsCmdSet" id="VsToolsGroup4" priority="4" >
+        <Parent guid="guidVsToolsCmdSet" id="VsToolsMenu"/>
+      </Group>
+
+      <Group guid="guidVsToolsCmdSet" id="VsToolsGroup5" priority="5" >
+        <Parent guid="guidVsToolsCmdSet" id="VsToolsMenu"/>
+      </Group>
+
+      <Group guid="guidVsToolsCmdSet" id="VsToolsGroup6" priority="6" >
+        <Parent guid="guidVsToolsCmdSet" id="VsToolsMenu"/>
+      </Group>
+
+      <Group guid="guidVsToolsCmdSet" id="VsToolsGroup7" priority="7" >
+        <Parent guid="guidVsToolsCmdSet" id="VsToolsMenu"/>
+      </Group>
+
+      <Group guid="guidVsToolsCmdSet" id="VsToolsGroup8" priority="8" >
+        <Parent guid="guidVsToolsCmdSet" id="VsToolsMenu"/>
+      </Group>
+
+      <Group guid="guidVsToolsCmdSet" id="VsToolsGroup9" priority="9" >
+        <Parent guid="guidVsToolsCmdSet" id="VsToolsMenu"/>
+      </Group>
+
+      <Group guid="guidVsToolsCmdSet" id="VsToolsGroup10" priority="10" >
+        <Parent guid="guidVsToolsCmdSet" id="VsToolsMenu"/>
+      </Group>
+
+      <Group guid="guidVsToolsCmdSet" id="VsToolsGroup11" priority="11" >
+        <Parent guid="guidVsToolsCmdSet" id="VsToolsMenu"/>
+      </Group>
+
+      <Group guid="guidVsToolsCmdSet" id="VsToolsGroup12" priority="12" >
+        <Parent guid="guidVsToolsCmdSet" id="VsToolsMenu"/>
+      </Group>
+
+      <Group guid="guidVsToolsCmdSet" id="VsToolsGroup13" priority="13" >
+        <Parent guid="guidVsToolsCmdSet" id="VsToolsMenu"/>
+      </Group>
+
+      <Group guid="guidVsToolsCmdSet" id="VsToolsGroup14" priority="14" >
+        <Parent guid="guidVsToolsCmdSet" id="VsToolsMenu"/>
+      </Group>
+
+      <Group guid="guidVsToolsCmdSet" id="VsToolsGroup15" priority="15" >
+        <Parent guid="guidVsToolsCmdSet" id="VsToolsMenu"/>
+      </Group>
+
+      <Group guid="guidVsToolsCmdSet" id="VsToolsGroup16" priority="16" >
+        <Parent guid="guidVsToolsCmdSet" id="VsToolsMenu"/>
+      </Group>
+
+      <Group guid="guidVsToolsCmdSet" id="BookmarksSubMenuGroup" priority="4" >
+        <Parent guid="guidVsToolsCmdSet" id="BookmarksSubMenu"/>
+      </Group>
+
+      <Group guid="guidVsToolsCmdSet" id="SummariesSubMenuGroup" priority="5" >
+        <Parent guid="guidVsToolsCmdSet" id="SummariesSubMenu"/>
+      </Group>
+
+      <Group guid="guidVsToolsCmdSet" id="CodeBlockSubMenuGroup" priority="6" >
+        <Parent guid="guidVsToolsCmdSet" id="CodeBlockSubMenu"/>
+      </Group>
+
+      <Group guid="guidVsToolsCmdSet" id="ConvertUnitTestsSubMenuGroup" priority="7" >
+        <Parent guid="guidVsToolsCmdSet" id="ConvertUnitTestsSubMenu"/>
+      </Group>
+
+      <Group guid="guidVsToolsCmdSet" id="UrlSubMenuGroup" priority="8" >
+        <Parent guid="guidVsToolsCmdSet" id="UrlSubMenu"/>
+      </Group>
+
+      <Group guid="guidVsToolsCmdSet" id="JavascriptSubMenuGroup" priority="9" >
+        <Parent guid="guidVsToolsCmdSet" id="JavascriptSubMenu"/>
+      </Group>
+
+      <Group guid="guidVsToolsCmdSet" id="ExternalToolsSubMenuGroup" priority="10" >
+        <Parent guid="guidVsToolsCmdSet" id="ExternalToolsSubMenu"/>
+      </Group>
+
+      <!-- =============================================================================================================
+			 To define a group we have to specify its ID, the parent and its display priority.
+			 In this case we use as our parent menu the Tools menu of VS; its ID is defined in vsshlids.h.
+			 ============================================================================================================= -->
+      <Group guid="guidVsToolsCmdSet" id="MyGroupInToolsMenu" priority="0x600">
+        <Parent guid="guidSHLMainMenu" id="IDM_VS_MENU_TOOLS"/>
+      </Group>
+
+      <!-- =============================================================================================================
+			 The second group is created inside the main toolbar of Visual Studio.
+			 Again, you can find the ID inside vsshlids.h.
+			 ============================================================================================================= -->
+      <Group guid="guidVsToolsCmdSet" id="MyMainToolbarGroup" priority="0x100">
+        <Parent guid="guidSHLMainMenu" id="IDM_VS_TOOL_STANDARD"/>
+      </Group>
+
+      <!-- =============================================================================================================
+			 Here we create a menu group for the toolbar defined above in the Menus section. We always need a menu group 
+			 because this is the only possible container for commands.
+			 ============================================================================================================= -->
+      <Group guid="guidVsToolsCmdSet" id="MyToolbarGroup" priority="0x100">
+        <Parent guid="guidVsToolsCmdSet" id="MyToolbar"/>
+      </Group>
+
+      <!--
+			 Now create a new group inside the standard editor's context menu. As always the ID of this menu is defined 
+			 inside vsshlids.h.
+			-->
+      <Group guid="guidVsToolsCmdSet" id="MyEditorCtxGroup" priority="0x600">
+        <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_CODEWIN"/>
+      </Group>
+    </Groups>
+
+    <!-- Buttons section. -->
+    <!-- This section defines the elements the user can interact with, like a menu command or a button or combo box. -->
+    <Buttons>
+      <!--To define a menu group you have to specify its ID, the parent menu and its display priority.
+          The command is visible and enabled by default. If you need to change the visibility, status, etc, you can use the CommandFlag node.
+          You can add more than one CommandFlag node e.g.:
+              <CommandFlag>DefaultInvisible</CommandFlag>
+              <CommandFlag>DynamicVisibility</CommandFlag>
+          If you do not want an image next to your command, remove the Icon node /> -->
+      <!-- =============================================================================================================
+			 An element inside this section is defined by its ID and must specify a parent group, a display priority,  
+			 an image, a type, some visibility flags (optional) and a default text.
+			 ============================================================================================================= -->
+
+      <Button guid="guidVsToolsCmdSet" id="FormatComments" priority="1" type="Button">
+        <Parent guid="guidVsToolsCmdSet" id="VsToolsGroup1"/>
+        <Icon guid="VSToolsImages" id="FormatComments"/>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <Strings>
+          <ButtonText>&amp;Format Comments</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="guidVsToolsCmdSet" id="RemoveAllDividerLines" priority="2" type="Button">
+        <Parent guid="guidVsToolsCmdSet" id="VsToolsGroup1"/>
+        <Icon guid="VSToolsImages" id="Blank"/>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <Strings>
+          <ButtonText>&amp;Remove All Divider Lines</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="guidVsToolsCmdSet" id="SolutionExplorerCollapse" priority="1" type="Button">
+        <Parent guid="guidVsToolsCmdSet" id="VsToolsGroup2"/>
+        <Icon guid="VSToolsImages" id="Blank"/>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <Strings>
+          <ButtonText>&amp;Collapse Solution Explorer</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="guidVsToolsCmdSet" id="RegionsToggleCurrent" priority="1" type="Button">
+        <Parent guid="guidVsToolsCmdSet" id="VsToolsGroup3"/>
+        <Icon guid="VSToolsImages" id="RegionsToggle"/>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <Strings>
+          <ButtonText>&amp;Toggle Current Region</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="guidVsToolsCmdSet" id="RegionsExpandAll" priority="2" type="Button">
+        <Parent guid="guidVsToolsCmdSet" id="VsToolsGroup3"/>
+        <Icon guid="VSToolsImages" id="RegionsExpand"/>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <Strings>
+          <ButtonText>&amp;Expand All Regions</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="guidVsToolsCmdSet" id="RegionsCollapseAll" priority="3" type="Button">
+        <Parent guid="guidVsToolsCmdSet" id="VsToolsGroup3"/>
+        <Icon guid="VSToolsImages" id="RegionsCollapse"/>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <Strings>
+          <ButtonText>Collapse All &amp;Regions</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="guidVsToolsCmdSet" id="BookmarksCut" priority="1" type="Button">
+        <Parent guid="guidVsToolsCmdSet" id="BookmarksSubMenuGroup"/>
+        <Icon guid="ImageCatalogGuid" id="Cut"/>
+        <CommandFlag>IconIsMoniker</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <Strings>
+          <ButtonText>&amp;Cut</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="guidVsToolsCmdSet" id="BookmarksCopy" priority="2" type="Button">
+        <Parent guid="guidVsToolsCmdSet" id="BookmarksSubMenuGroup"/>
+        <Icon guid="ImageCatalogGuid" id="Copy"/>
+        <CommandFlag>IconIsMoniker</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <Strings>
+          <ButtonText>Cop&amp;y</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="guidVsToolsCmdSet" id="BookmarksDelete" priority="3" type="Button">
+        <Parent guid="guidVsToolsCmdSet" id="BookmarksSubMenuGroup"/>
+        <Icon guid="ImageCatalogGuid" id="DeleteDocument"/>
+        <CommandFlag>IconIsMoniker</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <Strings>
+          <ButtonText>&amp;Delete</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="guidVsToolsCmdSet" id="SummariesCollapseAll" priority="1" type="Button">
+        <Parent guid="guidVsToolsCmdSet" id="SummariesSubMenuGroup"/>
+        <Icon guid="ImageCatalogGuid" id="ExpandDownGroup"/>
+        <CommandFlag>IconIsMoniker</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <Strings>
+          <ButtonText>&amp;Collapse All</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="guidVsToolsCmdSet" id="SummariesExpandAll" priority="2" type="Button">
+        <Parent guid="guidVsToolsCmdSet" id="SummariesSubMenuGroup"/>
+        <Icon guid="ImageCatalogGuid" id="CollapseUpGroup"/>
+        <CommandFlag>IconIsMoniker</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <Strings>
+          <ButtonText>&amp;Expand All</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="guidVsToolsCmdSet" id="CodeBlockCollapse" priority="1" type="Button">
+        <Parent guid="guidVsToolsCmdSet" id="CodeBlockSubMenuGroup"/>
+        <Icon guid="ImageCatalogGuid" id="CollapseUp"/>
+        <CommandFlag>IconIsMoniker</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <Strings>
+          <ButtonText>&amp;Collapse</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="guidVsToolsCmdSet" id="CodeBlockExpand" priority="2" type="Button">
+        <Parent guid="guidVsToolsCmdSet" id="CodeBlockSubMenuGroup"/>
+        <Icon guid="ImageCatalogGuid" id="ExpandDown"/>
+        <CommandFlag>IconIsMoniker</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <Strings>
+          <ButtonText>&amp;Expand</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="guidVsToolsCmdSet" id="MsTestToNunit" priority="1" type="Button">
+        <Parent guid="guidVsToolsCmdSet" id="ConvertUnitTestsSubMenuGroup"/>
+        <Icon guid="VSToolsImages" id="Blank"/>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <Strings>
+          <ButtonText>&amp;MSTest to nUnit</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="guidVsToolsCmdSet" id="NunitToMsTest" priority="2" type="Button">
+        <Parent guid="guidVsToolsCmdSet" id="ConvertUnitTestsSubMenuGroup"/>
+        <Icon guid="VSToolsImages" id="Blank"/>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <Strings>
+          <ButtonText>&amp;nUnit to MSTest</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="guidVsToolsCmdSet" id="UrlEncode" priority="1" type="Button">
+        <Parent guid="guidVsToolsCmdSet" id="UrlSubMenuGroup"/>
+        <Icon guid="VSToolsImages" id="Blank"/>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <Strings>
+          <ButtonText>&amp;Encode</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="guidVsToolsCmdSet" id="UrlDecode" priority="2" type="Button">
+        <Parent guid="guidVsToolsCmdSet" id="UrlSubMenuGroup"/>
+        <Icon guid="VSToolsImages" id="Blank"/>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <Strings>
+          <ButtonText>&amp;Decode</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="guidVsToolsCmdSet" id="JavascriptFormat" priority="1" type="Button">
+        <Parent guid="guidVsToolsCmdSet" id="JavascriptSubMenuGroup"/>
+        <Icon guid="VSToolsImages" id="JavascriptFormat"/>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <Strings>
+          <ButtonText>&amp;Format</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="guidVsToolsCmdSet" id="JavascriptCompact" priority="2" type="Button">
+        <Parent guid="guidVsToolsCmdSet" id="JavascriptSubMenuGroup"/>
+        <Icon guid="VSToolsImages" id="JavascriptCompact"/>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <Strings>
+          <ButtonText>&amp;Compact</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="guidVsToolsCmdSet" id="OptimizeUsings" priority="1" type="Button">
+        <Parent guid="guidVsToolsCmdSet" id="VsToolsGroup10"/>
+        <Icon guid="VSToolsImages" id="Blank"/>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <Strings>
+          <ButtonText>&amp;Optimize Usings</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="guidVsToolsCmdSet" id="ShowProjectReferences" priority="2" type="Button">
+        <Parent guid="guidVsToolsCmdSet" id="VsToolsGroup10"/>
+        <Icon guid="VSToolsImages" id="Blank"/>
+        <Strings>
+          <ButtonText>Show Pro&amp;ject References</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="guidVsToolsCmdSet" id="ShowSolutionBuild" priority="3" type="Button">
+        <Parent guid="guidVsToolsCmdSet" id="VsToolsGroup10"/>
+        <Icon guid="VSToolsImages" id="Blank"/>
+        <Strings>
+          <ButtonText>Show Solution &amp;Build Config</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="guidVsToolsCmdSet" id="TogglePublish" priority="4" type="Button">
+        <Parent guid="guidVsToolsCmdSet" id="VsToolsGroup10"/>
+        <Icon guid="VSToolsImages" id="Blank"/>
+        <Strings>
+          <ButtonText>To&amp;ggle Publish</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="guidVsToolsCmdSet" id="GenerateTranslationReport" priority="1" type="Button">
+        <Parent guid="guidVsToolsCmdSet" id="VsToolsGroup11"/>
+        <Icon guid="VSToolsImages" id="Blank"/>
+        <Strings>
+          <ButtonText>&amp;Generate Translation Report...</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="guidVsToolsCmdSet" id="PasteAsComments" priority="1" type="Button">
+        <Parent guid="guidVsToolsCmdSet" id="VsToolsGroup12"/>
+        <Icon guid="VSToolsImages" id="Blank"/>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <Strings>
+          <ButtonText>Paste as Co&amp;mments</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="guidVsToolsCmdSet" id="LineupDeclarations" priority="2" type="Button">
+        <Parent guid="guidVsToolsCmdSet" id="VsToolsGroup12"/>
+        <Icon guid="VSToolsImages" id="Blank"/>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <Strings>
+          <ButtonText>&amp;Lineup Variable Declarations</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="guidVsToolsCmdSet" id="SortSelectedLines" priority="3" type="Button">
+        <Parent guid="guidVsToolsCmdSet" id="VsToolsGroup12"/>
+        <Icon guid="ImageCatalogGuid" id="SortAscending"/>
+        <CommandFlag>IconIsMoniker</CommandFlag>
+        <CommandFlag>DefaultDisabled</CommandFlag>
+        <Strings>
+          <ButtonText>Sort Selecte&amp;d Lines</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="guidVsToolsCmdSet" id="RegexFindAndReplace" priority="1" type="Button">
+        <Parent guid="guidVsToolsCmdSet" id="VsToolsGroup13"/>
+        <Icon guid="ImageCatalogGuid" id="Search"/>
+        <CommandFlag>IconIsMoniker</CommandFlag>
+        <Strings>
+          <ButtonText>&amp;Regex Find and Replace...</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="guidVsToolsCmdSet" id="ExternalTools1" priority="1" type="Button">
+        <Parent guid="guidVsToolsCmdSet" id="ExternalToolsSubMenuGroup"/>
+        <Icon guid="VSToolsImages" id="Blank"/>
+        <Strings>
+          <ButtonText>&amp;External Tool 1</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="guidVsToolsCmdSet" id="ExternalTools2" priority="2" type="Button">
+        <Parent guid="guidVsToolsCmdSet" id="ExternalToolsSubMenuGroup"/>
+        <Icon guid="VSToolsImages" id="Blank"/>
+        <Strings>
+          <ButtonText>&amp;External Tool 2</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="guidVsToolsCmdSet" id="Options" priority="1" type="Button">
+        <Parent guid="guidVsToolsCmdSet" id="VsToolsGroup14"/>
+        <Icon guid="ImageCatalogGuid" id="FSWorkerTemplateFile"/>
+        <CommandFlag>IconIsMoniker</CommandFlag>
+        <Strings>
+          <ButtonText>&amp;Options...</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="guidVsToolsCmdSet" id="About" priority="1" type="Button">
+        <Parent guid="guidVsToolsCmdSet" id="VsToolsGroup15"/>
+        <Icon guid="ImageCatalogGuid" id="AboutBox"/>
+        <CommandFlag>IconIsMoniker</CommandFlag>
+        <Strings>
+          <ButtonText>&amp;About...</ButtonText>
+        </Strings>
+      </Button>
+
+      <!-- =============================================================================================================
+			 Here there is the definition of the commands placed inside the toolbars. Notice that there is no difference 
+			 between these toolbar button definitions and the menu item definition above.
+			 ============================================================================================================= -->
+      <Button guid="guidVsToolsCmdSet" id="FormatComments" priority="0x100" type="Button">
+        <Parent guid="guidVsToolsCmdSet" id="MyMainToolbarGroup"/>
+        <Icon guid="VSToolsImages" id="FormatComments"/>
+        <Strings>
+          <ButtonText>Format Comments</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidVsToolsCmdSet" id="FormatComments" priority="0x100" type="Button">
+        <Parent guid="guidVsToolsCmdSet" id="MyToolbarGroup"/>
+        <Icon guid="VSToolsImages" id="FormatComments"/>
+        <Strings>
+          <ButtonText>Format Comments</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidVsToolsCmdSet" id="MyGraph" priority="0x200" type="Button">
+        <Parent guid="guidVsToolsCmdSet" id="MyToolbarGroup"/>
+        <Icon guid="ImageCatalogGuid" id="GenericChart"/>
+        <CommandFlag>IconIsMoniker</CommandFlag>
+        <Strings>
+          <ButtonText>VSTools MyGraph</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidVsToolsCmdSet" id="MyZoom" priority="0x300" type="Button">
+        <Parent guid="guidVsToolsCmdSet" id="MyToolbarGroup"/>
+        <Icon guid="ImageCatalogGuid" id="Search"/>
+        <CommandFlag>IconIsMoniker</CommandFlag>
+        <Strings>
+          <ButtonText>VSTools MyZoom</ButtonText>
+        </Strings>
+      </Button>
+
+      <!-- Begin Dynamic Buttons -->
+      <!-- =============================================================================================================
+			 Now we define a menu item with dynamic text. From the VSCT point of view all we have to do is to add a 
+			 "CommandFlag" section to the button definition and make sure that it contains the "TextChanges" flag; we
+			 still have to provide a text and it will be used as default text for the command. The "TextChanges" flag
+			 implies that when the package is loaded Visual Studio will ask the package for the text before display
+			 the command.
+			 ============================================================================================================= -->
+      <Button guid="guidVsToolsCmdSet" id="DynamicTxt" priority="0x200" type="Button">
+        <Parent guid="guidVsToolsCmdSet" id="VsToolsGroup16"/>
+        <CommandFlag>TextChanges</CommandFlag>
+        <Strings>
+          <ButtonText>VSTools Text Changes</ButtonText>
+        </Strings>
+      </Button>
+
+      <!-- =============================================================================================================
+			 The following two buttons have the the DynamicVisibility flag set inside the CommandFlag section.
+			 When this flag is set and the package providing this command is loaded, VisualStudio will ask the package to 
+			 find out if the command is visible or not; if the package is not loaded, then the command is visible only
+			 if you don't specify the DefaultInvisible flag.
+
+			 In this example, when the MenuAndCommands package is not loaded, the first command will be visible and the 
+			 second invisible; when the package is loaded it will control the visibility.
+			 ============================================================================================================= -->
+      <Button guid="guidVsToolsCmdSet" id="DynVisibility1" priority="0x300" type="Button">
+        <Parent guid="guidVsToolsCmdSet" id="VsToolsGroup16"/>
+        <Icon guid="CustomMoniker" id="Application"/>
+        <CommandFlag>IconIsMoniker</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <Strings>
+          <ButtonText>VSTools Dynamic Visibility 1</ButtonText>
+        </Strings>
+      </Button>
+
+      <!-- Note the arrow icon is not shown when 'Dynamic Visibility 2' is displayed. -->
+      <Button guid="guidVsToolsCmdSet" id="DynVisibility2" priority="0x300" type="Button">
+        <Parent guid="guidVsToolsCmdSet" id="VsToolsGroup16"/>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <Strings>
+          <ButtonText>VSTools Dynamic Visibility 2</ButtonText>
+        </Strings>
+      </Button>
+      <!-- End Dynamic Buttons -->
+
+    </Buttons>
+
+    <!--The bitmaps section is used to define the bitmaps that are used for the commands.-->
+    <!-- =============================================================================================================
+     The bitmap id is defined in a way that is a little bit different from the others:
+     the declaration starts with a guid for the bitmap strip, then there is the resource id of the
+     bitmap strip containing the bitmaps and then there are the numeric ids of the elements used
+     inside a button definition. An important aspect of this declaration is that the element id
+     must be the actual index (1-based) of the bitmap inside the bitmap strip. 
+     ============================================================================================================= -->
+    <Bitmaps>
+      <Bitmap guid="VSToolsImages" href="Resources\VSToolsImages.png"
+					usedList="Blank, FormatComments, BookmarksCut, BookmarksCopy, BookmarksDelete, 
+					JavascriptCompact, JavascriptFormat, RegionsToggle, RegionsCollapse, RegionsExpand"/>
+    </Bitmaps>
+
+  </Commands>
+
+  <!-- =============================================================================================================
+	 Inside this section, we have the ability to place menu groups inside some other menu or menu / commands inside other groups.
+	 For instance, it is possible to place one of VisualStudio's menus or commands inside one of our groups or one of our groups 
+	 inside a menu defined somewhere else.
+	 =============================================================================================================-->
+  <CommandPlacements>
+
+    <!-- The parent of the top menu will be the main menu -->
+    <!--
+		<CommandPlacement guid="guidVsToolsCmdSet" id="VsToolsMenu" priority="775">
+			<Parent guid="guidSHLMainMenu" id="IDG_VS_MM_TOOLSADDINS"/>
+		</CommandPlacement>
+		-->
+
+    <!--Here we place two commands inside the empty menu group we created in the Groups section.-->
+    <CommandPlacement guid="guidVsToolsCmdSet" id="FormatComments" priority="0x100">
+      <Parent guid="guidVsToolsCmdSet" id="MyEditorCtxGroup"/>
+    </CommandPlacement>
+
+    <!--
+		<CommandPlacement guid="guidVsToolsCmdSet" id="MyZoom" priority="0x200">
+			<Parent guid="guidVsToolsCmdSet" id="MyEditorCtxGroup"/>
+		</CommandPlacement>
+		-->
+
+    <!--Place a previously defined group inside the Solution Explorer toolbar.-->
+    <!--
+		<CommandPlacement guid="guidVsToolsCmdSet" id="MyToolbarGroup" priority="0x600">
+			<Parent guid="guidSHLMainMenu" id="IDM_VS_TOOL_PROJWIN"/>
+		</CommandPlacement>
+		-->
+
+  </CommandPlacements>
+
+  <VisibilityConstraints>
+    <VisibilityItem guid="guidVsToolsCmdSet" id="FormatComments" context="UICONTEXT_CodeWindow" />
+    <VisibilityItem guid="guidVsToolsCmdSet" id="RemoveAllDividerLines" context="UICONTEXT_CodeWindow" />
+
+    <VisibilityItem guid="guidVsToolsCmdSet" id="SolutionExplorerCollapse" context="UICONTEXT_SolutionHasSingleProject" />
+    <VisibilityItem guid="guidVsToolsCmdSet" id="SolutionExplorerCollapse" context="UICONTEXT_SolutionHasMultipleProjects" />
+  </VisibilityConstraints>
+
+  <!-- =============================================================================================================
+	This section is where you can associate a command with a keyboard shortcut; this association is
+	valid within a specific UI context, that is when the shell is inside a specific mode, e.g. during
+	debugging, editing a file or when the user is using a specific designer.
+  ============================================================================================================= -->
+  <KeyBindings>
+    <!-- =============================================================================================================
+		To define a binding, we have to specify the sequence of keys to press to activate the command (keystate).
+		A key binding can use one or two key and optionally up to two modifiers (Alt, Control or Shift keys); the keys are 
+		using the key1 and key2 attributes (key2 can be omitted) and the modifiers using the specified mod1 and mod2 
+		attributes (both optional).
+
+		The editor attribute is used to specify the UI context that activates the key binding.
+
+		Notice that Visual Studio has a lot of components and commands, so it can be difficult to find a key binding not 
+		used by somebody else; if the key bindings are conflicting only one will be used and one problem is that the shell
+		will not inform the user that a conflict was found. The only way to detect the problem is to start Visual Studio 
+		under debugger, try to execute any command and look if there is a message in the output window about a duplicated
+		accelerator found.
+    ============================================================================================================= -->
+
+    <KeyBinding guid="guidVsToolsCmdSet" id="FormatComments" editor="guidVSStd97" mod1="ALT" key1="L" mod2="ALT" key2="F"  />
+    <KeyBinding guid="guidVsToolsCmdSet" id="RemoveAllDividerLines" editor="guidVSStd97" mod1="ALT" key1="L" mod2="ALT" key2="9"  />
+
+    <KeyBinding guid="guidVsToolsCmdSet" id="SolutionExplorerCollapse" editor="guidVSStd97" mod1="ALT" key1="L" mod2="ALT" key2="C"  />
+
+    <KeyBinding guid="guidVsToolsCmdSet" id="RegionsToggleCurrent" editor="guidVSStd97" mod1="ALT" key1="L" mod2="ALT" key2="T"  />
+    <KeyBinding guid="guidVsToolsCmdSet" id="RegionsExpandAll" editor="guidVSStd97" mod1="ALT" key1="L" mod2="ALT" key2="E"  />
+    <KeyBinding guid="guidVsToolsCmdSet" id="RegionsCollapseAll" editor="guidVSStd97" mod1="ALT" key1="L" mod2="ALT" key2="R"  />
+
+    <KeyBinding guid="guidVsToolsCmdSet" id="BookmarksCut" editor="guidVSStd97" mod1="ALT" key1="L" mod2="ALT" key2="1"  />
+    <KeyBinding guid="guidVsToolsCmdSet" id="BookmarksCopy" editor="guidVSStd97" mod1="ALT" key1="L" mod2="ALT" key2="2"  />
+    <KeyBinding guid="guidVsToolsCmdSet" id="BookmarksDelete" editor="guidVSStd97" mod1="ALT" key1="L" mod2="ALT" key2="3"  />
+
+    <KeyBinding guid="guidVsToolsCmdSet" id="CodeBlockCollapse" editor="guidVSStd97"  mod1="ALT" key1="L"  mod2="ALT" key2="VK_OEM_COMMA"/>
+    <KeyBinding guid="guidVsToolsCmdSet" id="CodeBlockExpand" editor="guidVSStd97" mod1="ALT" key1="L" mod2="ALT" key2="VK_OEM_PERIOD"  />
+
+    <KeyBinding guid="guidVsToolsCmdSet" id="SummariesCollapseAll" editor="guidVSStd97" mod1="ALT" key1="L" mod2="ALT" key2="6"  />
+    <KeyBinding guid="guidVsToolsCmdSet" id="SummariesExpandAll" editor="guidVSStd97" mod1="ALT" key1="L" mod2="ALT" key2="7"  />
+
+    <KeyBinding guid="guidVsToolsCmdSet" id="PasteAsComments" editor="guidVSStd97" mod1="ALT" key1="L" mod2="ALT" key2="V"  />
+    <KeyBinding guid="guidVsToolsCmdSet" id="LineupDeclarations" editor="guidVSStd97" mod1="ALT" key1="L" mod2="ALT" key2="L"  />
+    <KeyBinding guid="guidVsToolsCmdSet" id="SortSelectedLines" editor="guidVSStd97" mod1="ALT" key1="L" mod2="ALT" key2="S"  />
+
+    <KeyBinding guid="guidVsToolsCmdSet" id="RegexFindAndReplace" editor="guidVSStd97" mod1="ALT" key1="L" mod2="ALT" key2="H"  />
+    <KeyBinding guid="guidVsToolsCmdSet" id="Options" editor="guidVSStd97" mod1="ALT" key1="L" mod2="ALT" key2="O"  />
+    <KeyBinding guid="guidVsToolsCmdSet" id="About" editor="guidVSStd97" mod1="ALT" key1="L" mod2="ALT" key2="A"  />
+
+  </KeyBindings>
+
+  <!-- =============================================================================================================
+	In this example we have always used descriptive names for the GUIDs and numeric IDs inside the definition of the elements. 
+	The VSCT compiler actually enforces the usage of these names instead of hard-coding the numbers in the definitions.
+
+	We have also seen that the compiler can read some of these constants from the files imported with the "Extern" tag at the 
+	beginning of the file. The problem is then how to define the other constants.
+
+	The "Symbols" section is where this association between descriptive names and actual values happen.
+  ============================================================================================================= -->
+  <Symbols>
+
+    <!-- =============================================================================================================
+		The definition of symbols in a VSCT file derives from the way the IDs of the elements are defined by the command table. 
+		We have seen that the ID is a GUID/Number pair, where the GUID is also called Command Set and it provides the context in 
+		which the numeric ID is evaluated.
+
+		It makes sense for the VSCT schema to define the GuidSymbl tag as top level element containing the definiton of the 
+		numeric IDs.
+		============================================================================================================= -->
+
+    <!-- The first GUID defined here is the one for the package. It does not contains numeric IDs. -->
+    <GuidSymbol name="guidVsToolsPkg" value="{8CCE8876-C155-4A94-95A3-EF619E2D2736}" />
+
+    <GuidSymbol name="VSToolsImages" value="{D950B972-A484-4A07-86EC-61264A1C7AC9}">
+      <IDSymbol name="Blank" value="1" />
+      <IDSymbol name="FormatComments" value="2" />
+      <IDSymbol name="BookmarksCut" value="3" />
+      <IDSymbol name="BookmarksCopy" value="4" />
+      <IDSymbol name="BookmarksDelete" value="5" />
+      <IDSymbol name="JavascriptCompact" value="6" />
+      <IDSymbol name="JavascriptFormat" value="7" />
+      <IDSymbol name="RegionsToggle" value="8" />
+      <IDSymbol name="RegionsCollapse" value="9" />
+      <IDSymbol name="RegionsExpand" value="10" />
+    </GuidSymbol>
+
+    <!-- =============================================================================================================
+			The GUID for the command set is the one that contains the numeric IDs used in this sample with the only exception 
+      of the one used for the bitmap.
+      =============================================================================================================-->
+    <GuidSymbol name="guidVsToolsCmdSet" value="{19492BCB-32B3-4EC3-8826-D67CD5526653}">
+      <IDSymbol name="MyToolbar" value="4096" />
+      <IDSymbol name="MyToolbarGroup" value="4097" />
+      <IDSymbol name="MyMainToolbarGroup" value="4098" />
+      <IDSymbol name="MyEditorCtxGroup" value="4099" />
+      <IDSymbol name="MyGroupInToolsMenu" value="4100" />
+
+      <IDSymbol name="VsToolsMenu" value="8100" />
+      <IDSymbol name="VsToolsGroup" value="8101" />
+      <IDSymbol name="VsToolsGroup1" value="8102" />
+      <IDSymbol name="VsToolsGroup2" value="8103" />
+      <IDSymbol name="VsToolsGroup3" value="8104" />
+      <IDSymbol name="VsToolsGroup4" value="8105" />
+      <IDSymbol name="VsToolsGroup5" value="8106" />
+      <IDSymbol name="VsToolsGroup6" value="8107" />
+      <IDSymbol name="VsToolsGroup7" value="8108" />
+      <IDSymbol name="VsToolsGroup8" value="8109" />
+      <IDSymbol name="VsToolsGroup9" value="8110" />
+      <IDSymbol name="VsToolsGroup10" value="8111" />
+      <IDSymbol name="VsToolsGroup11" value="8112" />
+      <IDSymbol name="VsToolsGroup12" value="8113" />
+      <IDSymbol name="VsToolsGroup13" value="8114" />
+      <IDSymbol name="VsToolsGroup14" value="8115" />
+      <IDSymbol name="VsToolsGroup15" value="8116" />
+      <IDSymbol name="VsToolsGroup16" value="8117" />
+
+      <!-- 1 ======================================================= -->
+      <IDSymbol name="FormatComments" value="8210" />
+      <IDSymbol name="RemoveAllDividerLines" value="8220" />
+      <!-- 2 ======================================================= -->
+      <IDSymbol name="SolutionExplorerCollapse" value="8230" />
+      <!-- 3 ======================================================= -->
+      <IDSymbol name="RegionsToggleCurrent" value="8241" />
+      <IDSymbol name="RegionsExpandAll" value="8242" />
+      <IDSymbol name="RegionsCollapseAll" value="8243" />
+      <!-- 4 ======================================================= -->
+      <IDSymbol name="BookmarksSubMenuGroup" value="8250" />
+      <IDSymbol name="BookmarksSubMenu" value="8251" />
+      <IDSymbol name="BookmarksCut" value="8252" />
+      <IDSymbol name="BookmarksCopy" value="8253" />
+      <IDSymbol name="BookmarksDelete" value="8254" />
+      <!-- 5 ======================================================= -->
+      <IDSymbol name="SummariesSubMenuGroup" value="8270" />
+      <IDSymbol name="SummariesSubMenu" value="8271" />
+      <IDSymbol name="SummariesCollapseAll" value="8272" />
+      <IDSymbol name="SummariesExpandAll" value="8273" />
+      <!-- 6 ======================================================= -->
+      <IDSymbol name="CodeBlockSubMenuGroup" value="8280" />
+      <IDSymbol name="CodeBlockSubMenu" value="8281" />
+      <IDSymbol name="CodeBlockCollapse" value="8282" />
+      <IDSymbol name="CodeBlockExpand" value="8283" />
+      <!-- 7 ======================================================= -->
+      <IDSymbol name="ConvertUnitTestsSubMenuGroup" value="8290" />
+      <IDSymbol name="ConvertUnitTestsSubMenu" value="8291" />
+      <IDSymbol name="MsTestToNunit" value="8292" />
+      <IDSymbol name="NunitToMsTest" value="8293" />
+      <!-- 8 ======================================================= -->
+      <IDSymbol name="UrlSubMenuGroup" value="8300" />
+      <IDSymbol name="UrlSubMenu" value="8301" />
+      <IDSymbol name="UrlEncode" value="8302" />
+      <IDSymbol name="UrlDecode" value="8303" />
+      <!-- 9 ======================================================= -->
+      <IDSymbol name="JavascriptSubMenuGroup" value="8310" />
+      <IDSymbol name="JavascriptSubMenu" value="8311" />
+      <IDSymbol name="JavascriptFormat" value="8312" />
+      <IDSymbol name="JavascriptCompact" value="8313" />
+      <!-- 10 ====================================================== -->
+      <IDSymbol name="OptimizeUsings" value="8320" />
+      <IDSymbol name="ShowProjectReferences" value="8330" />
+      <IDSymbol name="ShowSolutionBuild" value="8340" />
+      <IDSymbol name="TogglePublish" value="8341" />
+      <!-- 11 ====================================================== -->
+      <IDSymbol name="GenerateTranslationReport" value="8350" />
+      <!-- 12 ====================================================== -->
+      <IDSymbol name="PasteAsComments" value="8360" />
+      <IDSymbol name="LineupDeclarations" value="8370" />
+      <IDSymbol name="SortSelectedLines" value="8380" />
+      <!-- 13 ====================================================== -->
+      <IDSymbol name="RegexFindAndReplace" value="8390" />
+      <!-- 14 ====================================================== -->
+      <IDSymbol name="ExternalToolsSubMenuGroup" value="8400" />
+      <IDSymbol name="ExternalToolsSubMenu" value="8401" />
+      <IDSymbol name="ExternalTools1" value="8402" />
+      <IDSymbol name="ExternalTools2" value="8403" />
+      <!-- 15 ====================================================== -->
+      <IDSymbol name="Options" value="8500" />
+      <!-- 16 ====================================================== -->
+      <IDSymbol name="About" value="8510" />
+      <!-- 17 ====================================================== -->
+      <!-- Remove the following prior to deployment !!! -->
+      <IDSymbol name="MyGraph" value="8520" />
+      <IDSymbol name="MyZoom" value="8530" />
+      <!-- Remove the following prior to deployment !!! -->
+      <IDSymbol name="DynamicTxt" value="8784" />
+      <IDSymbol name="DynVisibility1" value="8785" />
+      <IDSymbol name="DynVisibility2" value="8786" />
+    </GuidSymbol>
+
+  </Symbols>
+</CommandTable>
