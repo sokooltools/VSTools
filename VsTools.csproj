@@ -130,7 +130,7 @@
     <Reference Include="Microsoft.VisualStudio.TextManager.Interop, Version=7.1.40304.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <Private>False</Private>
     </Reference>
-    <Reference Include="Microsoft.VisualStudio.Threading, Version=16.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.VisualStudio.Threading, Version=16.3.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
@@ -243,6 +243,7 @@
     <Compile Include="Helpers\VsProperties.cs" />
     <Compile Include="Helpers\VsStatusBar.cs" />
     <Compile Include="Helpers\NativeMethods.cs" />
+    <Compile Include="VSPackage.Designer.cs" />
     <Compile Include="VsToolsPackage.cs" />
     <Compile Include="source.extension.cs">
       <DependentUpon>source.extension.vsixmanifest</DependentUpon>
@@ -305,6 +306,14 @@
     <EmbeddedResource Include="source.extension.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
+    <Content Include="Images\image01.png" />
+    <Content Include="Images\image02.jpg" />
+    <Content Include="Images\image02.png" />
+    <Content Include="Images\image03.png" />
+    <Content Include="Images\image04.png" />
+    <Content Include="Images\image05.png" />
+    <Content Include="Images\image06.png" />
+    <Content Include="Images\image07.png" />
     <Content Include="license.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
@@ -334,6 +343,7 @@
       <ManifestResourceName>VSPackage</ManifestResourceName>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <PostBuildEvent>
     </PostBuildEvent>
