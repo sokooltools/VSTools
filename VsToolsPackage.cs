@@ -20,7 +20,7 @@ namespace SokoolTools.VsTools
 	//----------------------------------------------------------------------------------------------------------------------------
 	[PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)]
 	[Guid("8CCE8876-C155-4A94-95A3-EF619E2D2736")]
-	[InstalledProductRegistration("#110", "#112", "3.0.1.61", IconResourceID = 400)]
+	[InstalledProductRegistration("#110", "#112", "3.0.1.64", IconResourceID = 400)]
 	[SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "pkgdef, VS and vsixmanifest are valid VS terms")]
 	[ProvideMenuResource("Menus.ctmenu", 1)]
 	// These following two lines make our Command initialize at Visual Studio startup.

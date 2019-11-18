@@ -620,14 +620,14 @@
         </Strings>
       </Button>
 
-      <!-- Begin Dynamic Buttons -->
-      <!-- =============================================================================================================
+      <!-- Begin Dynamic Buttons --><!--
+      --><!-- =============================================================================================================
 			 Now we define a menu item with dynamic text. From the VSCT point of view all we have to do is to add a 
 			 "CommandFlag" section to the button definition and make sure that it contains the "TextChanges" flag; we
 			 still have to provide a text and it will be used as default text for the command. The "TextChanges" flag
 			 implies that when the package is loaded Visual Studio will ask the package for the text before display
 			 the command.
-			 ============================================================================================================= -->
+			 ============================================================================================================= --><!--
       <Button guid="guidVsToolsCmdSet" id="DynamicTxt" priority="0x200" type="Button">
         <Parent guid="guidVsToolsCmdSet" id="VsToolsGroup16"/>
         <CommandFlag>TextChanges</CommandFlag>
@@ -636,7 +636,7 @@
         </Strings>
       </Button>
 
-      <!-- =============================================================================================================
+      --><!-- =============================================================================================================
 			 The following two buttons have the the DynamicVisibility flag set inside the CommandFlag section.
 			 When this flag is set and the package providing this command is loaded, VisualStudio will ask the package to 
 			 find out if the command is visible or not; if the package is not loaded, then the command is visible only
@@ -644,7 +644,7 @@
 
 			 In this example, when the MenuAndCommands package is not loaded, the first command will be visible and the 
 			 second invisible; when the package is loaded it will control the visibility.
-			 ============================================================================================================= -->
+			 ============================================================================================================= --><!--
       <Button guid="guidVsToolsCmdSet" id="DynVisibility1" priority="0x300" type="Button">
         <Parent guid="guidVsToolsCmdSet" id="VsToolsGroup16"/>
         <Icon guid="CustomMoniker" id="Application"/>
@@ -655,7 +655,7 @@
         </Strings>
       </Button>
 
-      <!-- Note the arrow icon is not shown when 'Dynamic Visibility 2' is displayed. -->
+      --><!-- Note the arrow icon is not shown when 'Dynamic Visibility 2' is displayed. --><!--
       <Button guid="guidVsToolsCmdSet" id="DynVisibility2" priority="0x300" type="Button">
         <Parent guid="guidVsToolsCmdSet" id="VsToolsGroup16"/>
         <CommandFlag>DynamicVisibility</CommandFlag>
@@ -664,7 +664,7 @@
           <ButtonText>VSTools Dynamic Visibility 2</ButtonText>
         </Strings>
       </Button>
-      <!-- End Dynamic Buttons -->
+      --><!-- End Dynamic Buttons -->
 
     </Buttons>
 

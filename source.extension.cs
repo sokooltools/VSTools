@@ -11,7 +11,7 @@ namespace SokoolTools.VsTools
         public const string Name = "VSTools";
         public const string Description = @"Visual Studio Tools Extension Copyright © 2012-2019 SokoolTools.";
         public const string Language = "en-US";
-        public const string Version = "3.0.1.61";
+        public const string Version = "3.0.1.64";
         public const string Author = "SokoolTools";
         public const string Tags = "";
     }
