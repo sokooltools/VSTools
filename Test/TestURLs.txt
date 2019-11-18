@@ -1,0 +1,33 @@
+
+http://localhost/accessnet/ASMReports/includes/scripts/ReportProcessor.asp?tid={B61932A9-2C2A-467C-9560-8310F7E622C7}&action=runtemplate
+
+	http%3a%2f%2flocalhost%2faccessnet%2fASMReports%2fentry.asp%3fsectok%3d%7bD36EDC54-F28F-4CED-9219-A60E8C4F2625%7d%26appid%3d%7b95A2304C-F14B-44E5-8834-65B6402ACF67%7d
+	
+	http://localhost/accessnet/ASMReports/reportdownload.asp?file={EA00E951-7007-4643-B13E-95B540259DAE}.doc&type=application/msword
+
+	http://localhost/accessnet/asmreports/exit.asp?ref=http://localhost/voldermort/(ncowkq45nm2ffa55xrqs4pmn)/ADMIN/administration/SearchResults.aspx?sectok={6BF97510-BF37-46B0-8820-4EE51BCD624A}
+
+	http://localhost/accessnet/ASMReports/appreports.asp?mode=appreports&sort=submittime!&refresh=4
+	
+	http://localhost/accessnet/ASMReports/appreports.asp?action=delete&mode=appreports&deletecol={6572C16C-F46D-46D7-8F1D-FDFF7C52DC30}
+
+
+http://localhost/accessnet/ASMReports/entry.asp?
+sectok={0685058E-32A8-4542-9EF4-0D90C7BE9357}
+&appid={95A2304C-F14B-44E5-8834-65B6402ACF67}
+&CustomSite=OnlineEnrollment
+&CustomTitle=Bank of America Fulfillment Report
+&CustomReturnText=Bank of America Online Administration
+&ReturnURL=http://localhost/voldermort/(ssssssssssssssssssssssss)/ADMIN/administration/SearchResults.aspx
+&ChooseReport=OE_Fulfillment
+&CustomData=
+GUID~|
+NAME~Fulfillment Report - Test|
+PATH~OnLineEnrollment/OE_BOA|
+DESC~Bank of America|
+FORMAT~WordTemplate|
+OUTPUT~7
+	
+	
+	
+void test
