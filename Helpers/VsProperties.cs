@@ -34,7 +34,7 @@ namespace SokoolTools.VsTools
 				{
 					try
 					{
-						msg += projProps.Item(i).Name + ": " + projProps.Item(i).Value + "\n";
+						msg += $"{projProps.Item(i).Name}: {projProps.Item(i).Value}\n";
 					}
 					catch (Exception ex)
 					{
@@ -49,19 +49,19 @@ namespace SokoolTools.VsTools
 				Properties configProps = config.Properties;
 
 				for (int i = 1; i <= configProps.Count; i++)
-					msg += configProps.Item(i).Name + ": " + configProps.Item(i).Value + "\n";
+					msg += $"{configProps.Item(i).Name}: {configProps.Item(i).Value}\n";
 				MessageBox.Show(msg);
 
 				msg = null;
 
 				Property prop = configProps.Item("PlatformTarget");
-				msg += @"The platform target for this project is: " + prop.Value;
+				msg += $@"The platform target for this project is: {prop.Value}";
 
 				prop = project.Properties.Item("AssemblyName");
-				msg += "\nThe assembly name is: " + prop.Value;
+				msg += $"\nThe assembly name is: {prop.Value}";
 
 				prop = configProps.Item("OutputPath");
-				msg += "\nThe output path of this project is set to: " + prop.Value;
+				msg += $"\nThe output path of this project is set to: {prop.Value}";
 
 				//msg += (@"Changing the warning level to 3...");
 				//prop.Value = "3";
@@ -72,7 +72,7 @@ namespace SokoolTools.VsTools
 					msg += "\nThe project is a Visual C# Project";
 
 					prop = configProps.Item("LanguageVersion");
-					msg += "\nThe language version value is : " + prop.Value;
+					msg += $"\nThe language version value is : {prop.Value}";
 
 					//msg += (@"Setting the language version to ISO-1");
 					//prop.Value = "ISO-1";
@@ -105,13 +105,13 @@ namespace SokoolTools.VsTools
                 Properties folderProps = folder.Properties;
 
 				Property prop = folderProps.Item("FullPath");
-				msg += "\nThe full path of the new folder is: " + prop.Value;
+				msg += $"\nThe full path of the new folder is: {prop.Value}";
 
 				prop = folderProps.Item("FileName");
-				msg += "\nThe file name of the new folder is:" + prop.Value;
+				msg += $"\nThe file name of the new folder is:{prop.Value}";
 
 				prop = folderProps.Item("URL");
-				msg += "\nThe new folder has the following URL:" + prop.Value;
+				msg += $"\nThe new folder has the following URL:{prop.Value}";
 
 				MessageBox.Show(msg);
 			}
@@ -134,14 +134,13 @@ namespace SokoolTools.VsTools
 				{
 					ProjectItem projItem = projItems.Item(i);
 					Property prop = projItem.Properties.Item("FileName");
-					msg += @"The file name of item " + i + @" is: " + prop.Value;
-					if (prop.Value.ToString().Contains(".cs") || prop.Value.ToString().Contains(".vb"))
-					{
-						prop = projItem.Properties.Item("FileSize");
-						msg += @"\nThe file size of item " + i + @" is: " + prop.Value;
-						prop = projItem.Properties.Item("DateCreated");
-						msg += @"\nThe creation date of item " + i + @" is: " + prop.Value;
-					}
+					msg += $@"The file name of item {i} is: {prop.Value}";
+					if (!prop.Value.ToString().Contains(".cs") && !prop.Value.ToString().Contains(".vb")) 
+						continue;
+					prop = projItem.Properties.Item("FileSize");
+					msg += $@"\nThe file size of item {i} is: {prop.Value}";
+					prop = projItem.Properties.Item("DateCreated");
+					msg += $@"\nThe creation date of item {i} is: {prop.Value}";
 				}
 				MessageBox.Show(msg);
 			}

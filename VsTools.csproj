@@ -280,12 +280,18 @@
     <Content Include="CustomMoniker.imagemanifest">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
+    <Content Include="~Solution Items\2019-07-26_11-00-12.png" />
+    <Content Include="~Solution Items\DeveloperNotes.txt" />
+    <Content Include="~Solution Items\VSTools.References.txt" />
     <None Include="app.config" />
     <None Include="Key.snk" />
     <None Include="PreBuild.bat" />
+    <None Include="README.md" />
     <None Include="source.extension.vsixmanifest">
       <SubType>Designer</SubType>
     </None>
+    <None Include="~Solution Items\How to upgrade extension.url" />
+    <None Include="~Solution Items\New features for extensions.url" />
   </ItemGroup>
   <ItemGroup>
     <VSCTCompile Include="VSPackage.vsct">
