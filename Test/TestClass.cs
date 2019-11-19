@@ -12,7 +12,6 @@ namespace VsToolsTest
 	[System.ComponentModel.DesignerCategory(@"code")]
 	public class TestClass
 	{
-
 		#region Region1
 
 		public TestClass()
@@ -26,18 +25,8 @@ namespace VsToolsTest
 
 		public bool Something
 		{
-			get
-			{
-				if (true)
-					_something = false;
-				return _something;
-			}
-			set
-			{
-				if (true)
-					_something = true;
-				_something = value;
-			}
+			get { if (true) _something = false; return _something; }
+			set { if (true) _something = true; _something = value; }
 		}
 
 		// ReSharper disable UnusedMember.Global
@@ -48,8 +37,6 @@ namespace VsToolsTest
 		}
 
 		#endregion
-
-
 		#region Region2
 
 		/// <summary>
@@ -61,7 +48,6 @@ namespace VsToolsTest
 		/// <returns>This thing returns a whole lot of stuff and then some more stuff.</returns>
 		public void Test1(string sTxt, int iMaxLength)
 		{
-
 			// An internal comment
 			Console.WriteLine(Regex.Replace("abc", "b", "x", RegexOptions.IgnoreCase));
 
@@ -81,9 +67,6 @@ namespace VsToolsTest
 		}
 
 		#endregion
-
-		//..................................................................................................................................
-
 		#region Region3
 
 		/// <summary>
@@ -99,18 +82,14 @@ namespace VsToolsTest
 		public void Test3(string sPar1, string sPar2, string sPar3)
 		{
 		}
-
 		#region Nested Region3-a
 
 		// Inside 3-a
-
-
 		#region Nested Region3a-1
 
 		// Inside 3a-1
 
 		#endregion
-
 		#region Nested Region3a-2
 
 		// Inside 3a-2
@@ -131,10 +110,7 @@ namespace VsToolsTest
 		/// <seealso class='Exec' />
 		public void Test4()
 		{
-
-			//--
 			// Utility function to get the region name from a text line which is assumed to be a start region compiler definition.
-			//--
 		}
 
 		#endregion
@@ -146,8 +122,6 @@ namespace VsToolsTest
 		/// <exception cref="System.FormatException"></exception>
 		public void Test5()
 		{
-
 		}
-
 	}
 }

@@ -1,21 +1,11 @@
-# vstools
+# VSTools
 Development Tools
-This solution creates an VISIX extension for use with Visual Studio 2019.
-It provides many new menu items to aid in development.
+
+This solution creates an VSIX extension for use with Visual Studio 2019 providing many new easy to use features items to aid in development.
+
+To more information, be sure to consult the [Help](http://github.com/sokooltools/vstools/help/help.htm/ "SokoolToolsHelp") documentation.
 
 ![File01](Images/image01.png)
-
-![File02](Images/image02.png)
-
-![File03](Images/image03.png)
-
-![File03](Images/image04.png)
-
-![File03](Images/image05.png)
-
-![File03](Images/image06.png)
-
-![File03](Images/image07.png)
 
 <hr>
 
