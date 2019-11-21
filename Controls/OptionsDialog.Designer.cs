@@ -674,6 +674,12 @@ namespace SokoolTools.VsTools
 		private NumericUpDown updCommentDividerLineRepeat;
 		private NumericUpDown updPasteCommentsMaxLineLength;
 		private NumericUpDown updRegionDividerLineRepeat;
+		private Button btnBrowseExternalTool1;
+		private Button btnBrowseExternalTool2;
+		private EllipsisTextBox txtExternalToolPath1;
+		private EllipsisTextBox txtExternalToolPath2;
+		private Label lblExternalTool1;
+		private Label lblExternalTool2;
 		private NumericUpDown updAutoCloseSeconds;
 		private NumericUpDown updVariableAlignment;
 		private TabControl tabControl1;
@@ -682,12 +688,6 @@ namespace SokoolTools.VsTools
 		private TextBox txtCommentDividerLineChar;
 		private TextBox txtRegionDividerLineChar;
 		private ToolTip toolTip1;
-		private EllipsisTextBox txtExternalToolPath2;
-		private Label lblExternalTool2;
-		private EllipsisTextBox txtExternalToolPath1;
-		private Button btnBrowseExternalTool2;
-		private Label lblExternalTool1;
-		private Button btnBrowseExternalTool1;
 		private Label label1;
 		private TabPage tabPageLogFile;
 		private EllipsisTextBox txtLogFile;

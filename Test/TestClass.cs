@@ -5,13 +5,17 @@ using System.Text.RegularExpressions;
 
 namespace VsToolsTest
 {
+	//----------------------------------------------------------------------------------------------------------------------------
 	/// <summary>
 	/// Summary description for TestClass.
 	/// </summary>
+	//----------------------------------------------------------------------------------------------------------------------------
 	[System.ComponentModel.Description(@"code")]
 	[System.ComponentModel.DesignerCategory(@"code")]
 	public class TestClass
 	{
+		//..................................................................................................................................
+
 		#region Region1
 
 		public TestClass()
@@ -21,6 +25,11 @@ namespace VsToolsTest
 			//
 		}
 
+		// Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna 
+		// aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+		// Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint 
+		// occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		
 		private bool _something;
 
 		public bool Something
@@ -29,6 +38,7 @@ namespace VsToolsTest
 			set { if (true) _something = true; _something = value; }
 		}
 
+		//------------------------------------------------------------------------------------------------------------------------
 		// ReSharper disable UnusedMember.Global
 		private static string GetStringTest
 		{
@@ -37,8 +47,12 @@ namespace VsToolsTest
 		}
 
 		#endregion
+
+		//..................................................................................................................................
+
 		#region Region2
 
+		//------------------------------------------------------------------------------------------------------------------------
 		/// <summary>
 		/// Implements the Exec method of the IDTCommandTarget interface.
 		/// This is called when the command is invoked.
@@ -46,6 +60,7 @@ namespace VsToolsTest
 		/// <param name="sTxt">This is the text parameter that is used for the text for this example.</param>
 		/// <param name="iMaxLength">This is the maximum length parameter for text.</param>
 		/// <returns>This thing returns a whole lot of stuff and then some more stuff.</returns>
+		//------------------------------------------------------------------------------------------------------------------------
 		public void Test1(string sTxt, int iMaxLength)
 		{
 			// An internal comment
@@ -56,19 +71,25 @@ namespace VsToolsTest
 			// A separate paragraph.
 		}
 
+		//------------------------------------------------------------------------------------------------------------------------
 		/// <summary>
 		/// This is a great big long summary description that shows how wrapping comments works.
 		/// </summary>
 		/// <exception cref="ArgumentNullException">Thrown when an argument is not supplied.</exception>
 		/// <exception cref="ArgumentOutOfRangeException">Thrown when too many business rules are found.</exception>
 		/// <exception cref="Exception">Thrown when the reference data is not available.</exception>
+		//------------------------------------------------------------------------------------------------------------------------
 		public void Test2()
 		{
 		}
 
 		#endregion
+
+		//..................................................................................................................................
+
 		#region Region3
 
+		//------------------------------------------------------------------------------------------------------------------------
 		/// <summary>
 		/// Utility function to get the region name from a text line which is assumed to be a start region compiler definition.
 		/// </summary>
@@ -79,17 +100,27 @@ namespace VsToolsTest
 		/// <remarks>
 		/// Note that for visual basic, the region name is bracketted by quotes.
 		/// </remarks>
+		//------------------------------------------------------------------------------------------------------------------------
 		public void Test3(string sPar1, string sPar2, string sPar3)
 		{
 		}
+
+		//..................................................................................................................................
+
 		#region Nested Region3-a
 
 		// Inside 3-a
+
+		//..................................................................................................................................
+
 		#region Nested Region3a-1
 
 		// Inside 3a-1
 
 		#endregion
+
+		//..................................................................................................................................
+
 		#region Nested Region3a-2
 
 		// Inside 3a-2
@@ -98,6 +129,7 @@ namespace VsToolsTest
 
 		#endregion
 
+		//------------------------------------------------------------------------------------------------------------------------
 		/// <summary>
 		/// 1) This is a comment containing a hard return at the end of this line.
 		/// 
@@ -108,6 +140,7 @@ namespace VsToolsTest
 		/// <param term='status'>The state of the command in the user interface.</param>
 		/// <param term='commandText'>Text requested by the neededText parameter.</param>
 		/// <seealso class='Exec' />
+		//------------------------------------------------------------------------------------------------------------------------
 		public void Test4()
 		{
 			// Utility function to get the region name from a text line which is assumed to be a start region compiler definition.
@@ -115,11 +148,13 @@ namespace VsToolsTest
 
 		#endregion
 
+		//------------------------------------------------------------------------------------------------------------------------
 		/// <summary>
 		/// Updates the network adapter corresponding to the specified old IP address with the new IP address specified.
 		/// </summary>
 		/// <exception cref="System.InvalidProgramException"></exception>
 		/// <exception cref="System.FormatException"></exception>
+		//------------------------------------------------------------------------------------------------------------------------
 		public void Test5()
 		{
 		}

@@ -61,10 +61,10 @@ namespace SokoolTools.VsTools
 
 		private void ChkRegionDividerLinesInsert_CheckedChanged(object sender, EventArgs e)
 		{
-			bool bEnabled = (chkRegionDividerLinesInsert.Checked);
-			txtRegionDividerLineChar.Enabled = bEnabled;
+			bool bEnabled                      = chkRegionDividerLinesInsert.Checked;
+			txtRegionDividerLineChar.Enabled   = bEnabled;
 			updRegionDividerLineRepeat.Enabled = bEnabled;
-			btnOK.Enabled = _isLoaded;
+			btnOK.Enabled                      = _isLoaded;
 		}
 
 		private void Checkbox_CheckedChanged(object sender, EventArgs e)

@@ -289,6 +289,7 @@
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
     <Content Include="Help\help.htm" />
+    <Content Include="Help\Images\About.png" />
     <Content Include="Help\Images\Bookmarks01.png" />
     <Content Include="Help\Images\Bookmarks02.png" />
     <Content Include="Help\Images\CodeBlockCollapse01.png" />
@@ -301,13 +302,31 @@
     <Content Include="Help\Images\ConvertUnitTests02.png" />
     <Content Include="Help\Images\ExpandAllRegions01.png" />
     <Content Include="Help\Images\ExpandAllRegions02.png" />
+    <Content Include="Help\Images\ExternalTools.png" />
+    <Content Include="Help\Images\ExternalTools01.png" />
+    <Content Include="Help\Images\ExternalTools02.png" />
     <Content Include="Help\Images\FormatComments00a.png" />
     <Content Include="Help\Images\FormatComments00b.png" />
     <Content Include="Help\Images\FormatComments01.png" />
     <Content Include="Help\Images\FormatComments02.png" />
     <Content Include="Help\Images\FormatComments03.png" />
+    <Content Include="Help\Images\GenerateTranslationREport.png" />
+    <Content Include="Help\Images\LineupVariableDeclaration01.png" />
+    <Content Include="Help\Images\LineupVariableDeclaration02.png" />
+    <Content Include="Help\Images\Options.png" />
+    <Content Include="Help\Images\Options01.png" />
+    <Content Include="Help\Images\Options02.png" />
+    <Content Include="Help\Images\PasteAsComments01.png" />
+    <Content Include="Help\Images\PasteAsComments02.png" />
+    <Content Include="Help\Images\Regex.png" />
+    <Content Include="Help\Images\ShowProjectReferences.png" />
+    <Content Include="Help\Images\ShowSolutionBuildConfig.png" />
+    <Content Include="Help\Images\SortSelectedLines01.png" />
+    <Content Include="Help\Images\SortSelectedLines02.png" />
     <Content Include="Help\Images\Summaries01.png" />
     <Content Include="Help\Images\Summaries02.png" />
+    <Content Include="Help\Images\TogglePublish01.png" />
+    <Content Include="Help\Images\TogglePublish02.png" />
     <Content Include="Help\Images\VSTools.png" />
     <Content Include="Help\Images\Bookmarks.png" />
     <Content Include="Help\Images\Summaries.png" />
