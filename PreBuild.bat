@@ -2,7 +2,7 @@
 
 if "%5" NEQ "" (goto:SKIP)
 
-title Pre-Build: [SokoolTools.VSTools]
+title SokoolTools: Pre-Build
 
 @echo ===============================================================================================================
 @echo = (c) 2012-2019 SokoolTools.
