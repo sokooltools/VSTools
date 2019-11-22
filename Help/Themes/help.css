@@ -143,6 +143,35 @@ li.li2 > a:hover
 	margin: 2px 10px 0 0;
 	padding: 3px 10px;
 }
+/* Container holding the image and the text */
+/*.container {
+	position: relative;
+	text-align: left;
+	color: red;
+	font-weight: 800;
+}*/
+/* Centered text */
+/*.centered {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}*/
+
+.image {
+	position: relative;
+	text-align: left;
+	color: red;
+	font-weight: 800;
+}
+/* Centered text */
+.centered {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	float: left;
+}
 /* Page Data */
 .td1
 {

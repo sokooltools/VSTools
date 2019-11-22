@@ -319,6 +319,7 @@
     <Content Include="Help\Images\PasteAsComments01.png" />
     <Content Include="Help\Images\PasteAsComments02.png" />
     <Content Include="Help\Images\Regex.png" />
+    <Content Include="Help\Images\Regex01.png" />
     <Content Include="Help\Images\ShowProjectReferences.png" />
     <Content Include="Help\Images\ShowSolutionBuildConfig.png" />
     <Content Include="Help\Images\SortSelectedLines01.png" />

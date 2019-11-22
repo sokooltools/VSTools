@@ -175,16 +175,27 @@ function scrollToElement(elId) {
 	//		}
 };
 
+//function showImageNames() {
+//	if ($("span").hasClass("imns"))
+//		return;
+//	var sel1 = $("li.li2 > a");
+//	var sel2 = $("[src$='.png']");
+//	for (var i = 0; i < sel1.length; i++) {
+//		sel1[i].innerHTML += "<span class='imns'> [" + sel2[i].src.substring(sel2[i].src.lastIndexOf("/") + 1) + "]</span>";
+//	}
+//	window.console.log("Now showing " + sel2.length + " image names...");
+//}
+
 // -------------------------------------------------------------------------------------------
 // Shows the name of each image on the page. (This is for debug and thus executed manually).
 // -------------------------------------------------------------------------------------------
 function showImageNames() {
-	if ($("span").hasClass("imns"))
+	if ($("div").hasClass("centered"))
 		return;
-	var sel1 = $("li.li2 > a");
-	var sel2 = $("[src$='.png']");
-	for (var i = 0; i < sel1.length; i++) {
-		sel1[i].innerHTML += "<span class='imns'> [" + sel2[i].src.substring(sel2[i].src.lastIndexOf("/") + 1) + "]</span>";
+	const sel1 = $("img");
+	const sel2 = $("[src$='.png']");
+	for (let i = 0; i < sel1.length; i++) {
+		sel1[i].outerHTML += `<div class='centered'> [${sel2[i].src.substring(sel2[i].src.lastIndexOf("/") + 1)}]</div>`;
 	}
-	window.console.log("Now showing " + sel2.length + " image names...");
+	window.console.log(`Now showing ${sel2.length} image names...`);
 }
