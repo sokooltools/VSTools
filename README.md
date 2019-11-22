@@ -3,7 +3,7 @@ Development Tools
 
 This solution creates an VSIX extension for use with Visual Studio 2019 providing many new easy to use features items to aid in development.
 
-For more in-depth information, be sure to consult the [Help](Help/help.htm "VSToolsHelp") documentation.
+<p>For more in-depth information, be sure to consult the <a href="https://sokooltools.github.io/VSTools/Help/help.htm" target="_blank" title="VSTools Help" rel="nofollow">Help</a> documentation.</p>
 
 ![File01](Images/image01.png)
 
