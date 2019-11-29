@@ -5,6 +5,11 @@ This solution creates an VSIX extension for use with Visual Studio 2019 providin
 
 <p>For more in-depth information, be sure to consult the <a href="https://sokooltools.github.io/VSTools/Help/help.htm" target="_blank" title="VSTools Help" rel="nofollow">Help</a> documentation.</p>
 
+<p><a href="https://sokooltools.github.io/PathToClip/" target="_blank" title="PathToClip" rel="nofollow">PathToClip</a></p>
+<p><a href="https://sokooltools.github.io/PdfPageSaver/" target="_blank" title="PDFPagesaver" rel="nofollow">PDFPagesaver</a></p>
+
+
+
 ![File01](Images/image01.png)
 
 <hr>
