@@ -57,10 +57,10 @@ $(document).ready(function() {
 	});
 
 	// Add a tooltip to the 'Go to Top' button.
-	$("#help_btnScrollToTop").attr('title', "Click to go to the top of this page...");
+	$("#help_btnScrollToTop").attr('title', "Click to go to the 'Table of Contents'.");
 
 	// Add a tooltip to the 'Close' button.
-	$("#help_btnClose").attr('title', "Click to close this online help...");
+	$("#help_btnClose").attr('title', "Click to close this online help.");
 
 	// Add event to close the window when the 'Close' button is clicked.
 	$("#help_btnClose").click(function() {
@@ -78,7 +78,7 @@ $(document).ready(function() {
 		if  ($(window).height() + $(window).scrollTop() !== $(document).height())
 		{
 			$('html, body').animate({
-				scrollTop: "-=40"
+				scrollTop: "-=56"
 			}, "fast");
 		}
 	};

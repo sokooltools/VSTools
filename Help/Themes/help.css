@@ -96,7 +96,7 @@ li.li2>a:hover {
 	font-size: 16pt;
 	font-weight: 700;
 	width: 95%;
-	padding: 0 10px 5px 10px;
+	padding: 10px 10px 5px 10px;
 }
 
 #help_toc_table {
@@ -137,8 +137,8 @@ li.li2>a:hover {
 }
 
 #help_btnScrollToTop {
-	width: 81px;
-	font-size: 7pt;
+	width: 100px;
+	font-size: .75rem;
 	margin: 2px 10px 0 0;
 }
 
