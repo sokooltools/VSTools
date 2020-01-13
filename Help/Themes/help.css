@@ -133,7 +133,7 @@ li.li2>a:hover {
 #help_Frame {
 	max-width: 800px;
 	position: relative;
-	top: 50px;
+	top: 10px;
 }
 
 #help_btnScrollToTop {
