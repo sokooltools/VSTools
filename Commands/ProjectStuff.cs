@@ -61,7 +61,7 @@ namespace SokoolTools.VsTools
 				projList.Sort(
 					(x, y) => {
                         Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-                        return string.Compare(x.UniqueName.Replace("\\", "."), y.UniqueName.Replace("\\", "."), StringComparison.Ordinal);
+                        return String.Compare(x.UniqueName.Replace("\\", "."), y.UniqueName.Replace("\\", "."), StringComparison.Ordinal);
                     });
 
 				const int MAX_LINES = 60; // 6pt = 85; 7pt = 73; 8pt = 60; 9pt = 54; 10pt = 50; // TODO: read from registry
@@ -188,7 +188,7 @@ namespace SokoolTools.VsTools
 		//------------------------------------------------------------------------------------------------------------------------
 		private static string CollapseEnvironmentVariables(string fullPath)
 		{
-			var variables = new[] { "%ProgramFiles(x86)%", "%SystemRoot%", "%UserProfile%", "%Public%", "%AppData%", "%ProgramData%", "%Temp%" };
+			string[] variables = { "%ProgramFiles(x86)%", "%SystemRoot%", "%UserProfile%", "%Public%", "%AppData%", "%ProgramData%", "%Temp%" };
 			fullPath = variables.Aggregate(fullPath, (current, v) 
 				=> Regex.Replace(current, Regex.Escape(Environment.ExpandEnvironmentVariables(v)), v, RegexOptions.IgnoreCase));
 			fullPath = Regex.Replace(fullPath, Regex.Escape(@"C:\Program Files\"), @"%ProgramFiles%\", RegexOptions.IgnoreCase);
@@ -206,15 +206,14 @@ namespace SokoolTools.VsTools
 		private static string GetOutputBuildPath(Project prj)
 		{
             Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-            string outputFullName = string.Empty;
+            string outputFullName = String.Empty;
 			string absoluteOutputPath = GetOutputBuildFolder(prj);
 
-			if (string.IsNullOrEmpty(absoluteOutputPath))
+			if (String.IsNullOrEmpty(absoluteOutputPath))
 				return outputFullName;
 			try
 			{
 				Property prop = prj.Properties.Item("OutputFileName");
-
 				if (prop != null)
 				{
 					string outputFileName = prop.Value.ToString();
@@ -239,7 +238,7 @@ namespace SokoolTools.VsTools
 		private static string GetOutputBuildFolder(Project prj)
 		{
             Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-            string absoluteOutputPath = string.Empty;
+            string absoluteOutputPath = String.Empty;
             try
 			{
 				// Get the configuration manager of the project.

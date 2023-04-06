@@ -1,3 +1,4 @@
+using System;
 using System.Windows.Forms;
 
 namespace SokoolTools.VsTools
@@ -21,10 +22,10 @@ namespace SokoolTools.VsTools
 
 			var assm = new AssemblyInfo();
 
-			base.Text = string.Format(Resources.About_Text, assm.Title);
+			base.Text = String.Format(Resources.About_Text, assm.Title);
 			lblProductName.Text = assm.Product;
-			lblVersion.Text = string.Format(Resources.About_Version, assm.Version);
-			lblModDate.Text = string.Format(Resources.About_ModDate, assm.Modified);
+			lblVersion.Text = String.Format(Resources.About_Version, assm.Version);
+			lblModDate.Text = String.Format(Resources.About_ModDate, assm.Modified);
 			lblCopyright.Text = assm.Copyright;
 			lblCompanyName.Text = assm.Company;
 			txtFilePath.Text = assm.FilePath;

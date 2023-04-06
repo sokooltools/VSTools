@@ -26,13 +26,13 @@ namespace SokoolTools.VsTools
             if (windowFrame == null)
 				throw new ArgumentException(nameof(windowFrame));
 
-			ErrorHandler.ThrowOnFailure(windowFrame.GetProperty((int)__VSFPROPID.VSFPROPID_DocView, out object pvar));
+			ErrorHandler.ThrowOnFailure(windowFrame.GetProperty((int)__VSFPROPID.VSFPROPID_DocView, out object pVar));
 
-			var textView = pvar as IVsTextView;
+			var textView = pVar as IVsTextView;
 			if (textView != null)
 				return textView;
 
-			if (pvar is IVsCodeWindow codeWin)
+			if (pVar is IVsCodeWindow codeWin)
 				ErrorHandler.ThrowOnFailure(codeWin.GetLastActiveView(out textView));
 			return textView;
 		}
@@ -141,13 +141,16 @@ namespace SokoolTools.VsTools
 		/// <returns>The column number. May be negative to indicate the column number is unavailable.</returns>  
 		/// <exception cref="ArgumentException">The column number parsed from event args was not a valid integer.</exception>
 		//------------------------------------------------------------------------------------------------------------------------
+#pragma warning disable IDE0051
+		// ReSharper disable once UnusedMember.Local
 		private static int GetApplicableColumn(EventArgs e)
+#pragma warning restore IDE0051
 		{
             ThreadHelper.ThrowIfNotOnUIThread();
             string inValue = ((OleMenuCmdEventArgs)e).InValue as string;
-			if (string.IsNullOrEmpty(inValue))
+			if (String.IsNullOrEmpty(inValue))
 				return GetCurrentEditorColumn();
-			if (!int.TryParse(inValue, out int column) || column < 0)
+			if (!Int32.TryParse(inValue, out int column) || column < 0)
 				throw new ArgumentException("Invalid column");
 			return column;
 		}

@@ -87,7 +87,7 @@ namespace SokoolTools.VsTools
 		private static void TxtExternalToolPath_Validating(object sender, CancelEventArgs e)
 		{
 			var tbx = (EllipsisTextBox)sender;
-			if (string.IsNullOrEmpty(tbx.Text) || File.Exists(Utilities.GetExpandedPath(tbx.Text)))
+			if (String.IsNullOrEmpty(tbx.Text) || File.Exists(Utilities.GetExpandedPath(tbx.Text)))
 				return;
 			MessageBox.Show(Resources.OptionsDialog_FileDoesNotExist);
 			e.Cancel = true;
@@ -99,7 +99,7 @@ namespace SokoolTools.VsTools
 			using (var dlg = new SaveFileDialog())
 			{
 				dlg.Title = @"Log File";
-				if (!string.IsNullOrEmpty(tbx.Text))
+				if (!String.IsNullOrEmpty(tbx.Text))
 				{
 					dlg.FileName = Path.GetFileName(tbx.Text);
 					dlg.InitialDirectory = Path.GetDirectoryName(Utilities.GetExpandedPath(tbx.Text));
@@ -122,7 +122,7 @@ namespace SokoolTools.VsTools
 			using (var dlg = new OpenFileDialog())
 			{
 				dlg.Title = Resources.OptionsDialog_SelectFile;
-				if (!string.IsNullOrEmpty(tbx.Text))
+				if (!String.IsNullOrEmpty(tbx.Text))
 				{
 					dlg.FileName = Path.GetFileName(tbx.Text);
 					dlg.InitialDirectory = Path.GetDirectoryName(Utilities.GetExpandedPath(tbx.Text));

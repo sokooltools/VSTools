@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Specialized;
 using EnvDTE;
 using SokoolTools.VsTools.FindAndReplace.Common;
@@ -13,7 +14,7 @@ namespace SokoolTools.VsTools.FindAndReplace
 	public class OpenFilesSearcher : Searcher
 	{
 		private readonly StringCollection _unhandledOpenFileList = new StringCollection();
-		private string _activeOpenFullFilename = string.Empty;
+		private string _activeOpenFullFilename = String.Empty;
 		private WindowSearcher _windowSearcher;
 
 		//------------------------------------------------------------------------------------------------------------------------

@@ -32,7 +32,7 @@ namespace SokoolTools.VsTools
 		//------------------------------------------------------------------------------------------------------------------------
 		public override string Text
 		{
-			get => string.Format(Resources.DynamicTextFormat, base.Text, _clickCount);
+			get => String.Format(Resources.DynamicTextFormat, base.Text, _clickCount);
 			set => base.Text = value;
 		}
 

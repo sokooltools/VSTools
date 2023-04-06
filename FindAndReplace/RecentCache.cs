@@ -85,7 +85,7 @@ namespace SokoolTools.VsTools.FindAndReplace
 				for (int i = 1; i <= Info.MAX_CACHE_COUNT; i++)
 				{
 					string cache = registryKey.GetValue(cacheType.ToString() + i) as string;
-					if (!string.IsNullOrEmpty(cache))
+					if (!String.IsNullOrEmpty(cache))
 						cacheList.Add(cache);
 				}
 			}

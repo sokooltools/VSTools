@@ -45,7 +45,7 @@ namespace SokoolTools.VsTools
 			//sel.Delete(1);
 
 			// Get the text off the clipboard.
-			string sClipTxt = string.Empty;
+			string sClipTxt = String.Empty;
 			IDataObject clip = Clipboard.GetDataObject();
 			if (clip != null && clip.GetDataPresent(DataFormats.Text))
 				sClipTxt = clip.GetData(DataFormats.Text).ToString();
@@ -54,7 +54,7 @@ namespace SokoolTools.VsTools
 			sClipTxt = sClipTxt.Replace("\r\n", "\n");
 
 			// Word-wrap the text based on the maximum length allowed for a line.
-			string sNewtxt = string.Empty;
+			string sNewtxt = String.Empty;
 			int currLineLength = 0;
 			foreach (Match m in Regex.Matches(sClipTxt, @"\S+\s*"))
 			{

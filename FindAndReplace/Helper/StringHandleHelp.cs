@@ -1,3 +1,4 @@
+using System;
 using System.Text.RegularExpressions;
 
 namespace SokoolTools.VsTools.FindAndReplace.Helper
@@ -32,7 +33,7 @@ namespace SokoolTools.VsTools.FindAndReplace.Helper
 		//------------------------------------------------------------------------------------------------------------------------
 		public static int GetLineCount(ref string source, int endIndex)
 		{
-			if (string.IsNullOrEmpty(source))
+			if (String.IsNullOrEmpty(source))
 				return 1;
 			return Regex.Matches(source.Substring(0, endIndex), "\n").Count + 1;
 		}

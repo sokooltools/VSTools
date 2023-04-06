@@ -57,7 +57,7 @@ namespace SokoolTools.VsTools
             if (Connect.ApplicationObject == null || Connect.ApplicationObject.ActiveWindow.Document == null)
 				return false;
 			return
-				string.Compare(Path.GetExtension(Connect.ApplicationObject.ActiveWindow.Document.FullName),
+				String.Compare(Path.GetExtension(Connect.ApplicationObject.ActiveWindow.Document.FullName),
 					extension, StringComparison.InvariantCultureIgnoreCase) == 0;
 		}
 

@@ -1,4 +1,5 @@
-﻿using EnvDTE;
+﻿using System;
+using EnvDTE;
 
 namespace SokoolTools.VsTools
 {
@@ -64,8 +65,8 @@ namespace SokoolTools.VsTools
 		internal static string RemoveCommentDividerLines(string text)
 		{
 			const string DESC = "Remove existing comment divider lines.";
-			string findWhat = string.Format(@"^[ \t]*//\{0}[\{0}]+[ \t\r]*\n", OptionsHelper.CommentDividerLineChar);
-			string replWith = string.Empty;
+			string findWhat = String.Format(@"^[ \t]*//\{0}[\{0}]+[ \t\r]*\n", OptionsHelper.CommentDividerLineChar);
+			string replWith = String.Empty;
 			return MyRegex.Replace(text, findWhat, replWith, MyRegex.OPTIONS, DESC);
 		}
 
@@ -79,7 +80,7 @@ namespace SokoolTools.VsTools
 		internal static string ReplaceDoubleCommentDividerLines(string text)
 		{
 			const string DESC = "Replace double comment divider lines.";
-			string findWhat = string.Format(@"^([ \t]*//\{0}[\{0}]+[ \t\r]*\n)[ \t]*//\{0}[\{0}]+[ \t\r]*\n", OptionsHelper.CommentDividerLineChar);
+			string findWhat = String.Format(@"^([ \t]*//\{0}[\{0}]+[ \t\r]*\n)[ \t]*//\{0}[\{0}]+[ \t\r]*\n", OptionsHelper.CommentDividerLineChar);
 			string replWith = "$1";
 			return MyRegex.Replace(text, findWhat, replWith, MyRegex.OPTIONS, DESC);
 		}
@@ -93,7 +94,7 @@ namespace SokoolTools.VsTools
 		internal static string RemoveRegionDividerLines(string text)
 		{
 			const string DESC = "Remove existing region divider lines.";
-			string findWhat = string.Format(@"[\n]+[\s]*//\{0}[\{0}]+[\s]*[\n]+([\s]*\#region)", OptionsHelper.RegionDividerLineChar);
+			string findWhat = String.Format(@"[\n]+[\s]*//\{0}[\{0}]+[\s]*[\n]+([\s]*\#region)", OptionsHelper.RegionDividerLineChar);
 			const string REPL_WITH = "\n$1";
 			return MyRegex.Replace(text, findWhat, REPL_WITH, MyRegex.OPTIONS, DESC);
 		}

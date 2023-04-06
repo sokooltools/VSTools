@@ -149,7 +149,7 @@ namespace SokoolTools.VsTools.FindAndReplace
 
 			ThreadHelper.ThrowIfNotOnUIThread();
 			string text = _windowSearcher.GetSelectionText();
-			if (!string.IsNullOrEmpty(text))
+			if (!String.IsNullOrEmpty(text))
 				txtSearchPattern.Text = text;
 
 			cboFileTypes.Select(0, 0);
@@ -204,8 +204,8 @@ namespace SokoolTools.VsTools.FindAndReplace
 		//------------------------------------------------------------------------------------------------------------------------
 		private static string Trunc(string text)
 		{
-			if (string.IsNullOrEmpty(text))
-				return string.Empty;
+			if (String.IsNullOrEmpty(text))
+				return String.Empty;
 			return text.Substring(0, Math.Min(text.Length, 40)) + (text.Length > 40 ? "..." : "");
 		}
 
@@ -697,8 +697,8 @@ namespace SokoolTools.VsTools.FindAndReplace
 			cboReplacePattern.Visible = false;
 			txtReplacePattern.Visible = false;
 			txtSearchPattern.Height += ReplacePartHeight;
-			txtReplacePattern.Text = string.Empty;
-			txtSearchPattern.Text = string.Empty;
+			txtReplacePattern.Text = String.Empty;
+			txtSearchPattern.Text = String.Empty;
 
 			chkECMAScript.Checked = false;
 			chkIgnoreCase.Checked = false;

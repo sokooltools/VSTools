@@ -49,7 +49,7 @@ namespace SokoolTools.VsTools
             var sel = (TextSelection) Connect.ApplicationObject.ActiveWindow.Document.Selection;
 
 			// Check that the selection is not empty.
-			if (sel != null && sel.Text == string.Empty)
+			if (sel != null && sel.Text == String.Empty)
 			{
 				// Select all the text in the window as long as it is all Javascript (ie., document has a .js extension).
 				if (Utilities.GetIsValidExtension(".js"))
@@ -60,7 +60,7 @@ namespace SokoolTools.VsTools
 			}
 
 			// Make sure selection is not empty.
-			if (sel == null || sel.Text == string.Empty)
+			if (sel == null || sel.Text == String.Empty)
 				throw new ApplicationException("No text was selected.");
 
 			string sTxt = sel.Text;

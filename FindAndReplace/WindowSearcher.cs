@@ -324,11 +324,12 @@ namespace SokoolTools.VsTools.FindAndReplace
             TextDocument activeDocument = null;
 			try
 			{
-				activeDocument = Dte.ActiveDocument.Object(string.Empty) as TextDocument;
+				activeDocument = Dte.ActiveDocument.Object(String.Empty) as TextDocument;
 				Dte.ActiveDocument.Activate();
 			}
 			catch
 			{
+				// Suppress Exception.
 			}
 
 			if (activeDocument == null)
@@ -437,7 +438,7 @@ namespace SokoolTools.VsTools.FindAndReplace
 		public string GetSelectionText()
 		{
             Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-            string selectionText = string.Empty;
+            string selectionText = String.Empty;
 			try
 			{
 				TextSelection textSelection = GetTextSelection();
@@ -463,7 +464,7 @@ namespace SokoolTools.VsTools.FindAndReplace
 			var rgx = new Regex(Pattern, GetRegexOptions());
 			Match match = rgx.Match(replacingSource);
 			if (!match.Success)
-				return string.Empty;
+				return String.Empty;
 			string changedSource = rgx.Replace(replacingSource, replacePattern, 1);
 			int replaceTextStartPos = match.Index; //position in changedSource
 			int replaceTextEndPos = changedSource.Length - (replacingSource.Length - match.Index - match.Length);

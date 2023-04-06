@@ -131,7 +131,7 @@ namespace SokoolTools.VsTools
 
 					List<SolutionContext> scList = solutionConfiguration2.SolutionContexts.Cast<SolutionContext>().ToList();
 					scList.Sort((x, y) => { Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread(); 
-						return string.Compare(x.ProjectName, y.ProjectName, StringComparison.Ordinal); });
+						return String.Compare(x.ProjectName, y.ProjectName, StringComparison.Ordinal); });
 
 					Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
 					foreach (SolutionContext solutionContext in scList)

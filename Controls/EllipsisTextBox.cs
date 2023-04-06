@@ -85,8 +85,8 @@ namespace SokoolTools.VsTools
 		//------------------------------------------------------------------------------------------------------------------------
 		public EllipsisTextBox()
 		{
-			_fullText = string.Empty;
-			base.Text = string.Empty;
+			_fullText = String.Empty;
+			base.Text = String.Empty;
 			if (_mf == null)
 			{
 				_mf = new MyFilter();
@@ -528,7 +528,7 @@ namespace SokoolTools.VsTools
 		//------------------------------------------------------------------------------------------------------------------------
 		private void CreateExpTextBox(Control frm)
 		{
-			string s = string.Concat(Enumerable.Repeat("Q\n", ExpansionLineCount)).Trim('\n');
+			string s = String.Concat(Enumerable.Repeat("Q\n", ExpansionLineCount)).Trim('\n');
 			int panelHeight = TextRenderer.MeasureText(s, Font).Height + 4; // Assures the lines are all shown at once.
 
 			_txtExpText = new RichTextBox

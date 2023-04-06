@@ -6,7 +6,7 @@
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <AutoGenerateBindingRedirects>false</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -20,7 +20,7 @@
     <RootNamespace>SokoolTools.VsTools</RootNamespace>
     <AssemblyName>SokoolTools.VsTools</AssemblyName>
     <AssemblyOriginatorKeyFile>Key.snk</AssemblyOriginatorKeyFile>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8.1</TargetFrameworkVersion>
     <GeneratePkgDefFile>true</GeneratePkgDefFile>
     <UseCodebase>true</UseCodebase>
     <IncludeAssemblyInVSIXContainer>true</IncludeAssemblyInVSIXContainer>
@@ -76,50 +76,40 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="Microsoft.VisualStudio.Shell.Interop, Version=7.1.40304.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-      <EmbedInteropTypes>False</EmbedInteropTypes>
+      <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
     <Reference Include="Microsoft.VisualStudio.Shell.Interop.10.0, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <EmbedInteropTypes>False</EmbedInteropTypes>
+      <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
     <Reference Include="Microsoft.VisualStudio.Shell.Interop.14.0.DesignTime, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <EmbedInteropTypes>False</EmbedInteropTypes>
-      <Private>False</Private>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="Microsoft.VisualStudio.Shell.Interop.14.3.DesignTime, Version=14.2.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <EmbedInteropTypes>False</EmbedInteropTypes>
-      <Private>False</Private>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="Microsoft.VisualStudio.Shell.Interop.15.3.DesignTime, Version=15.3.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <EmbedInteropTypes>False</EmbedInteropTypes>
-      <Private>False</Private>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="Microsoft.VisualStudio.Shell.Interop.15.6.DesignTime, Version=15.6.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <EmbedInteropTypes>False</EmbedInteropTypes>
-      <Private>False</Private>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="Microsoft.VisualStudio.Shell.Interop.15.8.DesignTime, Version=15.8.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <EmbedInteropTypes>False</EmbedInteropTypes>
-      <Private>False</Private>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="Microsoft.VisualStudio.Shell.Interop.16.0.DesignTime, Version=16.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <EmbedInteropTypes>False</EmbedInteropTypes>
-      <Private>False</Private>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="Microsoft.VisualStudio.Shell.Interop.16.1.DesignTime, Version=16.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <EmbedInteropTypes>False</EmbedInteropTypes>
-      <Private>False</Private>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="Microsoft.VisualStudio.Shell.Interop.16.2.DesignTime, Version=16.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <EmbedInteropTypes>False</EmbedInteropTypes>
-      <Private>False</Private>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
-    <Reference Include="Microsoft.VisualStudio.Shell.Interop.8.0, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-      <Private>False</Private>
-    </Reference>
+    <Reference Include="Microsoft.VisualStudio.Shell.Interop.8.0, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
     <Reference Include="Microsoft.VisualStudio.Shell.Interop.9.0, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-      <Private>False</Private>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Microsoft.VisualStudio.Text.UI, Version=16.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <Private>False</Private>
@@ -130,7 +120,10 @@
     <Reference Include="Microsoft.VisualStudio.TextManager.Interop, Version=7.1.40304.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <Private>False</Private>
     </Reference>
-    <Reference Include="Microsoft.VisualStudio.Threading, Version=16.3.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.VisualStudio.Threading, Version=16.3.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
@@ -214,35 +207,35 @@
     <Compile Include="FindAndReplace\SearchHelp.Designer.cs">
       <DependentUpon>SearchHelp.cs</DependentUpon>
     </Compile>
-    <Compile Include="FindAndReplace\StaticFilesSearcher.cs" />
-    <Compile Include="FindAndReplace\WindowSearcher.cs" />
     <Compile Include="Commands\Bookmarks.cs" />
     <Compile Include="Commands\Comments.cs" />
-    <Compile Include="Connect.cs" />
-    <Compile Include="DynamicTextCommand.cs" />
-    <Compile Include="PkgIds.cs" />
-    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Commands\Docs.cs" />
     <Compile Include="Commands\ExternalTools.cs" />
     <Compile Include="Commands\Javascript.cs" />
-    <Compile Include="Helpers\JSFormatter.cs" />
     <Compile Include="Commands\MSTestToNUnit.cs" />
     <Compile Include="Commands\NUnitToMSTest.cs" />
     <Compile Include="Commands\Optimize.cs" />
-    <Compile Include="Helpers\OutputPane.cs" />
     <Compile Include="Commands\ProjectStuff.cs" />
     <Compile Include="Commands\PropertyBlock.cs" />
     <Compile Include="Commands\Regions.cs" />
-    <Compile Include="Helpers\OptionsHelper.cs" />
     <Compile Include="Commands\SolutionExplorer.cs" />
     <Compile Include="Commands\SolutionStuff.cs" />
-    <Compile Include="Helpers\TextSelection.cs" />
     <Compile Include="Commands\Translation.cs" />
     <Compile Include="Commands\UrlCode.cs" />
+    <Compile Include="Connect.cs" />
+    <Compile Include="DynamicTextCommand.cs" />
+    <Compile Include="FindAndReplace\StaticFilesSearcher.cs" />
+    <Compile Include="FindAndReplace\WindowSearcher.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="Helpers\JSFormatter.cs" />
+    <Compile Include="Helpers\NativeMethods.cs" />
+    <Compile Include="Helpers\OptionsHelper.cs" />
+    <Compile Include="Helpers\OutputPane.cs" />
+    <Compile Include="Helpers\TextSelection.cs" />
     <Compile Include="Helpers\Utilities.cs" />
     <Compile Include="Helpers\VsProperties.cs" />
     <Compile Include="Helpers\VsStatusBar.cs" />
-    <Compile Include="Helpers\NativeMethods.cs" />
+    <Compile Include="PkgIds.cs" />
     <Compile Include="Test\TestClass.cs" />
     <Compile Include="Test\TestForm.cs">
       <SubType>Form</SubType>
@@ -290,14 +283,17 @@
     </Content>
     <Content Include="Help\help.htm" />
     <Content Include="Help\Images\About.png" />
+    <Content Include="Help\Images\Bookmarks.png" />
     <Content Include="Help\Images\Bookmarks01.png" />
     <Content Include="Help\Images\Bookmarks02.png" />
+    <Content Include="Help\Images\CodeBlock.png" />
     <Content Include="Help\Images\CodeBlockCollapse01.png" />
     <Content Include="Help\Images\CodeBlockCollapse02.png" />
     <Content Include="Help\Images\CollapseAllRegions01.png" />
     <Content Include="Help\Images\CollapseAllRegions02.png" />
     <Content Include="Help\Images\CollapseSolutionExplorer01.png" />
     <Content Include="Help\Images\CollapseSolutionExplorer02.png" />
+    <Content Include="Help\Images\ConvertUnitTests.png" />
     <Content Include="Help\Images\ConvertUnitTests01.png" />
     <Content Include="Help\Images\ConvertUnitTests02.png" />
     <Content Include="Help\Images\ExpandAllRegions01.png" />
@@ -311,6 +307,7 @@
     <Content Include="Help\Images\FormatComments02.png" />
     <Content Include="Help\Images\FormatComments03.png" />
     <Content Include="Help\Images\GenerateTranslationREport.png" />
+    <Content Include="Help\Images\Javascript.png" />
     <Content Include="Help\Images\LineupVariableDeclaration01.png" />
     <Content Include="Help\Images\LineupVariableDeclaration02.png" />
     <Content Include="Help\Images\Options.png" />
@@ -320,29 +317,25 @@
     <Content Include="Help\Images\PasteAsComments02.png" />
     <Content Include="Help\Images\Regex.png" />
     <Content Include="Help\Images\Regex01.png" />
+    <Content Include="Help\Images\Regions01.png" />
+    <Content Include="Help\Images\Regions02.png" />
     <Content Include="Help\Images\ShowProjectReferences.png" />
     <Content Include="Help\Images\ShowSolutionBuildConfig.png" />
     <Content Include="Help\Images\SortSelectedLines01.png" />
     <Content Include="Help\Images\SortSelectedLines02.png" />
+    <Content Include="Help\Images\Summaries.png" />
     <Content Include="Help\Images\Summaries01.png" />
     <Content Include="Help\Images\Summaries02.png" />
-    <Content Include="Help\Images\TogglePublish01.png" />
-    <Content Include="Help\Images\TogglePublish02.png" />
-    <Content Include="Help\Images\VSTools.png" />
-    <Content Include="Help\Images\Bookmarks.png" />
-    <Content Include="Help\Images\Summaries.png" />
-    <Content Include="Help\Images\CodeBlock.png" />
-    <Content Include="Help\Images\ConvertUnitTests.png" />
-    <Content Include="Help\Images\Url.png" />
-    <Content Include="Help\Images\Javascript.png" />
-    <Content Include="Help\Images\javascript01.png" />
-    <Content Include="Help\Images\javascript02.png" />
-    <Content Include="Help\Images\Regions01.png" />
-    <Content Include="Help\Images\Regions02.png" />
     <Content Include="Help\Images\ToggleCurrentRegion01.png" />
     <Content Include="Help\Images\ToggleCurrentRegion02.png" />
+    <Content Include="Help\Images\TogglePublish01.png" />
+    <Content Include="Help\Images\TogglePublish02.png" />
+    <Content Include="Help\Images\Url.png" />
     <Content Include="Help\Images\Url01.png" />
     <Content Include="Help\Images\Url02.png" />
+    <Content Include="Help\Images\VSTools.png" />
+    <Content Include="Help\Images\javascript01.png" />
+    <Content Include="Help\Images\javascript02.png" />
     <Content Include="Help\Scripts\help.js" />
     <Content Include="Help\Scripts\jquery.js" />
     <Content Include="Help\Themes\help.css" />

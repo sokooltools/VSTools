@@ -40,7 +40,7 @@ namespace IncrementVersionNumber
 				string solutionFolder = Environment.ExpandEnvironmentVariables(args[0]);
 				if (Directory.Exists(solutionFolder))
 				{
-					int increment = args.Length > 1 ? int.Parse(args[1]) : 1;
+					int increment = args.Length > 1 ? Int32.Parse(args[1]) : 1;
 					IncrementVersionNumbers(solutionFolder, increment);
 				}
 				else
@@ -72,12 +72,12 @@ namespace IncrementVersionNumber
 			if (!m.Success)
 				throw new Exception($"Could not find 'AssemblyVersion' in file: \"{filePath1}\"");
 
-			string version1A = m.Groups[1].Value + (int.Parse(m.Groups[2].Value) + increment);
+			string version1A = m.Groups[1].Value + (Int32.Parse(m.Groups[2].Value) + increment);
 			text1 = text1.Substring(0, m.Index) + "AssemblyVersion(\"" + version1A + "\")" + text1.Substring(m.Index + m.Length);
 			m = Regex.Match(text1, "AssemblyFileVersion" + pattern1);
 			if (!m.Success)
 				throw new Exception($"Could not find 'AssemblyFileVersion' in file: \"{filePath1}\"");
-			string version1B = m.Groups[1].Value + (int.Parse(m.Groups[2].Value) + increment);
+			string version1B = m.Groups[1].Value + (Int32.Parse(m.Groups[2].Value) + increment);
 			text1 = text1.Substring(0, m.Index) + "AssemblyFileVersion(\"" + version1B + "\")" + text1.Substring(m.Index + m.Length);
 
 			string filePath2 = Path.Combine(solutionFolder, @"VsToolsPackage.cs");
@@ -86,7 +86,7 @@ namespace IncrementVersionNumber
 			m = Regex.Match(text2, pattern2);
 			if (!m.Success)
 				throw new Exception($"Could not find 'InstalledProductRegistration' in file: \"{filePath2}\"");
-			string version2 = m.Groups[2].Value + (int.Parse(m.Groups[3].Value) + increment);
+			string version2 = m.Groups[2].Value + (Int32.Parse(m.Groups[3].Value) + increment);
 			text2 = text2.Substring(0, m.Index) + m.Groups[1].Value + version2 + "\"" + text2.Substring(m.Index + m.Length);
 
 			string filePath3 = Path.Combine(solutionFolder, @"source.extension.vsixmanifest");
@@ -95,7 +95,7 @@ namespace IncrementVersionNumber
 			m = Regex.Match(text3, pattern3);
 			if (!m.Success)
 				throw new Exception($"Could not find 'Identity' in file: \"{filePath3}\"");
-			string version3 = m.Groups[2].Value + (int.Parse(m.Groups[3].Value) + increment);
+			string version3 = m.Groups[2].Value + (Int32.Parse(m.Groups[3].Value) + increment);
 			text3 = text3.Substring(0, m.Index) + m.Groups[1].Value + version3 + "\"" + text3.Substring(m.Index + m.Length);
 
 			string filePath4 = Path.Combine(solutionFolder, @"source.extension.cs");
@@ -104,7 +104,7 @@ namespace IncrementVersionNumber
 			m = Regex.Match(text4, pattern4);
 			if (!m.Success)
 				throw new Exception($"Could not find 'Version' in file: \"{filePath4}\"");
-			string version4 = m.Groups[2].Value + (int.Parse(m.Groups[3].Value) + increment);
+			string version4 = m.Groups[2].Value + (Int32.Parse(m.Groups[3].Value) + increment);
 			text4 = text4.Substring(0, m.Index) + m.Groups[1].Value + version4 + "\"" + text4.Substring(m.Index + m.Length);
 
 			File.WriteAllText(filePath1, text1, Encoding.UTF8);

@@ -6,7 +6,7 @@ To get this solution to work on Windows 10 you may have to run Visual Studio as 
 
 	IncrementVersionNumber:
 		Start Project:  true
-		Commmand line arguments: "%DOCUMENTS%\Visual Studio 2019\DevTools\VSTools"
+		Commmand line arguments: "%DOCUMENTS%\Visual Studio 2019\DevTools\VSTools"  or "%DEVTOOLS%\VSTools"
 
 	VSTools:
 		Start External Program: C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\IDE\devenv.exe

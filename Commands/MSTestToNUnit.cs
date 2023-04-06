@@ -30,7 +30,7 @@ namespace SokoolTools.VsTools
 			sel?.SelectAll();
 
 			// Make sure selection is not empty.
-			if (sel == null || sel.Text == string.Empty)
+			if (sel == null || sel.Text == String.Empty)
 				throw new ApplicationException("There is no text to select.");
 
 			string sTxt = sel.Text;

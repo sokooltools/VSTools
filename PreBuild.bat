@@ -5,7 +5,7 @@ if "%5" NEQ "" (goto:SKIP)
 title SokoolTools: Pre-Build
 
 @echo ===============================================================================================================
-@echo = (c) 2012-2019 SokoolTools.
+@echo = (c) 2012-2023 SokoolTools.
 @echo =
 @echo = This batch file is used for pre-build configuration and should be called directly from the Visual Studio 
 @echo = project's [Pre-Build] event command-line using the following syntax:

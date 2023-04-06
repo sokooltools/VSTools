@@ -69,7 +69,7 @@ namespace SokoolTools.VsTools
 			Array.Sort(aTxt);
 
 			// Convert the array back into a string adding CRLFs.
-			sTxt = string.Empty;
+			sTxt = String.Empty;
 			foreach (string line in aTxt)
 				sTxt += line.Replace("\r", "") + "\r\n";
 			// Remove the last CRLF

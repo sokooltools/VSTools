@@ -48,7 +48,7 @@ namespace SokoolTools.VsTools
 				object[] attributes = _assembly.GetCustomAttributes(typeof(AssemblyTitleAttribute), false);
 				if (attributes.Length == 0) return defaultTitle;
 				var titleAttribute = (AssemblyTitleAttribute)attributes[0];
-				return titleAttribute.Title != string.Empty ? titleAttribute.Title : defaultTitle;
+				return titleAttribute.Title != String.Empty ? titleAttribute.Title : defaultTitle;
 			}
 		}
 
@@ -69,7 +69,7 @@ namespace SokoolTools.VsTools
 			get
 			{
 				object[] attributes = _assembly.GetCustomAttributes(typeof(AssemblyDescriptionAttribute), false);
-				return attributes.Length == 0 ? string.Empty : ((AssemblyDescriptionAttribute)attributes[0]).Description;
+				return attributes.Length == 0 ? String.Empty : ((AssemblyDescriptionAttribute)attributes[0]).Description;
 			}
 		}
 
@@ -83,7 +83,7 @@ namespace SokoolTools.VsTools
 			get
 			{
 				object[] attributes = _assembly.GetCustomAttributes(typeof(AssemblyProductAttribute), false);
-				return attributes.Length == 0 ? string.Empty : ((AssemblyProductAttribute)attributes[0]).Product;
+				return attributes.Length == 0 ? String.Empty : ((AssemblyProductAttribute)attributes[0]).Product;
 			}
 		}
 
@@ -97,7 +97,7 @@ namespace SokoolTools.VsTools
 			get
 			{
 				object[] attributes = _assembly.GetCustomAttributes(typeof(AssemblyCopyrightAttribute), false);
-				return attributes.Length == 0 ? string.Empty : ((AssemblyCopyrightAttribute)attributes[0]).Copyright;
+				return attributes.Length == 0 ? String.Empty : ((AssemblyCopyrightAttribute)attributes[0]).Copyright;
 			}
 		}
 
@@ -111,7 +111,7 @@ namespace SokoolTools.VsTools
 			get
 			{
 				object[] attributes = _assembly.GetCustomAttributes(typeof(AssemblyCompanyAttribute), false);
-				return attributes.Length == 0 ? string.Empty : ((AssemblyCompanyAttribute)attributes[0]).Company;
+				return attributes.Length == 0 ? String.Empty : ((AssemblyCompanyAttribute)attributes[0]).Company;
 			}
 		}
 

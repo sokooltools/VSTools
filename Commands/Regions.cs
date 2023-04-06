@@ -1,3 +1,4 @@
+using System;
 using System.Text.RegularExpressions;
 using EnvDTE;
 // ReSharper disable EmptyGeneralCatchClause
@@ -27,7 +28,8 @@ namespace SokoolTools.VsTools
 			Logging.Log();
 
 			// Make sure the current document can be processed.
-			if (!(Utilities.IsCsDocument || Utilities.IsVbDocument)) return;
+			if (!(Utilities.IsCsDocument || Utilities.IsVbDocument))
+				return;
 
 			StartAutomaticOutlining();
 
@@ -40,7 +42,7 @@ namespace SokoolTools.VsTools
 				if (line.StartsWith("#region"))
 				{
 					sel.MoveToLineAndOffset(active.Line, 1);
-					Connect.ApplicationObject.ExecuteCommand("Edit.ToggleOutliningExpansion", string.Empty);
+					Connect.ApplicationObject.ExecuteCommand("Edit.ToggleOutliningExpansion", String.Empty);
 					return;
 				}
 				active.LineUp();
@@ -75,7 +77,7 @@ namespace SokoolTools.VsTools
 				{
 					int iLine = Regex.Matches(sTxt.Substring(0, mc[i].Index + 5), @"\n", RegexOptions.Multiline).Count + 1;
 					sel.MoveToLineAndOffset(iLine, 1);
-					Connect.ApplicationObject.ExecuteCommand("Edit.ToggleOutliningExpansion", string.Empty);
+					Connect.ApplicationObject.ExecuteCommand("Edit.ToggleOutliningExpansion", String.Empty);
 				}
 			}
 			sel.StartOfDocument();
@@ -134,7 +136,7 @@ namespace SokoolTools.VsTools
 			//StartAutomaticOutlining();
             try
             {
-                Connect.ApplicationObject.ExecuteCommand("Edit.StartAutomaticOutlining", string.Empty);
+                Connect.ApplicationObject.ExecuteCommand("Edit.StartAutomaticOutlining", String.Empty);
             }
             catch
             {
@@ -153,7 +155,7 @@ namespace SokoolTools.VsTools
 				{
 					int iLine = Regex.Matches(sTxt.Substring(0, mc[i].Index + 5), @"\n", RegexOptions.Multiline).Count + 1;
 					sel.MoveToLineAndOffset(iLine, 1);
-					Connect.ApplicationObject.ExecuteCommand("Edit.ToggleOutliningExpansion", string.Empty);
+					Connect.ApplicationObject.ExecuteCommand("Edit.ToggleOutliningExpansion", String.Empty);
 				}
 			}
 			sel.StartOfDocument();
@@ -207,7 +209,7 @@ namespace SokoolTools.VsTools
 			{
                 //Connect.ApplicationObject.ExecuteCommand("Edit.ToggleAllOutlining", string.Empty);
                 //Connect.ApplicationObject.ExecuteCommand("Edit.ToggleOutliningExpansion", string.Empty);
-                Connect.ApplicationObject.ExecuteCommand("Edit.StartAutomaticOutlining", string.Empty);
+                Connect.ApplicationObject.ExecuteCommand("Edit.StartAutomaticOutlining", String.Empty);
 			}
             catch
             {
@@ -224,7 +226,7 @@ namespace SokoolTools.VsTools
 		{
 			try
 			{
-				Connect.ApplicationObject.ExecuteCommand("Edit.StopOutlining", string.Empty);
+				Connect.ApplicationObject.ExecuteCommand("Edit.StopOutlining", String.Empty);
 			}
 			catch
 			{

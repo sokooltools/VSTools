@@ -1,4 +1,7 @@
 // ReSharper disable AutoPropertyCanBeMadeGetOnly.Local
+
+using System;
+
 namespace SokoolTools.VsTools.FindAndReplace
 {
 	//----------------------------------------------------------------------------------------------------------------------------
@@ -51,7 +54,7 @@ namespace SokoolTools.VsTools.FindAndReplace
 		//------------------------------------------------------------------------------------------------------------------------
 		public MatchInfo(int startLine, int endLine, string matchContent, int startLineOffset, int matchIndex, int matchLength,
 						 int endLineOffset)
-			: this(string.Empty, startLine, endLine, matchContent, string.Empty, startLineOffset, matchIndex, matchLength,
+			: this(String.Empty, startLine, endLine, matchContent, String.Empty, startLineOffset, matchIndex, matchLength,
 				endLineOffset)
 		{
 		}

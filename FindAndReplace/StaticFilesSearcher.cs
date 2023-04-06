@@ -21,10 +21,10 @@ namespace SokoolTools.VsTools.FindAndReplace
 	{
 		//private readonly OutputWindowPaneWrapper _oWp;
 		private readonly StringCollection _replacedFileList = new StringCollection();
-		private string _fileTypes = string.Empty;
+		private string _fileTypes = String.Empty;
 		private bool _isReplaceNext;
 		private int _searchFileCount;
-		private string _searchScopePath = string.Empty;
+		private string _searchScopePath = String.Empty;
 		private WindowSearcher _windowSearcher;
 
 		//------------------------------------------------------------------------------------------------------------------------
@@ -121,7 +121,7 @@ namespace SokoolTools.VsTools.FindAndReplace
 					_windowSearcher.Pattern = Pattern;
 					_windowSearcher.RegexOptions = RegexOptions;
 					if (!_windowSearcher.FindNextInSearchInFiles())
-						ReplaceNextInFiles(_searchScopePath, _fileTypes, string.Empty, true);
+						ReplaceNextInFiles(_searchScopePath, _fileTypes, String.Empty, true);
 				}
 				IsFindInWindow = false;
 			}
@@ -208,7 +208,7 @@ namespace SokoolTools.VsTools.FindAndReplace
 					Console.WriteLine(ex.Message);
 				}
 
-				if (string.IsNullOrEmpty(fileName))
+				if (String.IsNullOrEmpty(fileName))
 					continue;
 
 				if (fileTypes == "*.*" || (fileTypes + ";").Contains(Path.GetExtension(fileName) + ";"))
@@ -505,14 +505,14 @@ namespace SokoolTools.VsTools.FindAndReplace
 
 			int matchingFileCount = 0;
 			int matchingLineCount = MatchInfoList.Count;
-			string prevFullFileName = string.Empty;
+			string prevFullFileName = String.Empty;
 			int prevStartLine = 0;
 			foreach (MatchInfo matchInfo in MatchInfoList)
 			{
 				if (matchInfo.FullFilename + matchInfo.StartLine != prevFullFileName + prevStartLine)
 				{
 					string showInfo = StringHelper.IsMultipleLine(matchInfo.MatchContext)
-						? string.Format("{4}{3}{0}({1}):{3}{5}{3}{2}{3}", matchInfo.FullFilename, matchInfo.StartLine,
+						? String.Format("{4}{3}{0}({1}):{3}{5}{3}{2}{3}", matchInfo.FullFilename, matchInfo.StartLine,
 							matchInfo.MatchContext, Environment.NewLine, new string('_', 132),
 							new string('¯', 132))
 						: $"{matchInfo.FullFilename}({matchInfo.StartLine}):   {matchInfo.MatchContext.TrimStart('\t', ' ')}";
@@ -566,7 +566,7 @@ namespace SokoolTools.VsTools.FindAndReplace
 			if (Directory.Exists(SearchScope))
 				_searchScopePath = SearchScope;
 			else
-				throw new ApplicationException(string.Format("The path does not exist, {0}", SearchScope));
+				throw new ApplicationException(String.Format("The path does not exist, {0}", SearchScope));
 		}
 
 		//------------------------------------------------------------------------------------------------------------------------

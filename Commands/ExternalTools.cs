@@ -23,9 +23,7 @@ namespace SokoolTools.VsTools
 
 			try
 			{
-				var activeProjects = Connect.ApplicationObject.ActiveSolutionProjects as Array;
-
-				if (activeProjects == null || activeProjects.Length == 0)
+				if (!(Connect.ApplicationObject.ActiveSolutionProjects is Array activeProjects) || activeProjects.Length == 0)
 				{
 					MessageBox.Show(Resources.ProjectMustBeSelected, @"Copy Target Files", MessageBoxButtons.OK,
 						MessageBoxIcon.Exclamation);
@@ -99,7 +97,7 @@ namespace SokoolTools.VsTools
             Logging.Log();
 			try
 			{
-				string args = string.Empty;
+				string args = String.Empty;
 
 				Project project = ProjectStuff.GetSelectedProject();
 				if (project != null)

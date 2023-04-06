@@ -1,3 +1,4 @@
+using System;
 using System.Text.RegularExpressions;
 using EnvDTE;
 
@@ -26,7 +27,7 @@ namespace SokoolTools.VsTools.FindAndReplace
 		protected Searcher(_DTE dte)
 		{
 			Dte = dte;
-			SearchScope = string.Empty;
+			SearchScope = String.Empty;
 			//Pattern = string.Empty;
 			RegexOptions = RegexOptions.None;
 		}
@@ -126,7 +127,7 @@ namespace SokoolTools.VsTools.FindAndReplace
 		{
 			var rgx = new Regex(Pattern, GetRegexOptions());
 			repeatCount = rgx.Matches(source).Count;
-			return repeatCount > 0 ? rgx.Replace(source, replacement) : string.Empty;
+			return repeatCount > 0 ? rgx.Replace(source, replacement) : String.Empty;
 		}
 
 		//----------------------------------------------------------------------------------------------------

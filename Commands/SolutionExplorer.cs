@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Windows.Forms;
 using EnvDTE;
 
@@ -50,8 +51,8 @@ namespace SokoolTools.VsTools
 			if (solutionRootNode.DTE.ActiveDocument == null)
 				return;
 
-			solutionRootNode.DTE.ExecuteCommand("View.TrackActivityInSolutionExplorer", string.Empty);
-			solutionRootNode.DTE.ExecuteCommand("View.TrackActivityInSolutionExplorer", string.Empty);
+			solutionRootNode.DTE.ExecuteCommand("View.TrackActivityInSolutionExplorer", String.Empty);
+			solutionRootNode.DTE.ExecuteCommand("View.TrackActivityInSolutionExplorer", String.Empty);
 		}
 
 		//------------------------------------------------------------------------------------------------------------------------

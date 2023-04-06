@@ -183,7 +183,7 @@ namespace SokoolTools.VsTools
 
 							try
 							{
-								projectItem.Document.DTE.ExecuteCommand("Edit.RemoveAndSort", string.Empty);
+								projectItem.Document.DTE.ExecuteCommand("Edit.RemoveAndSort", String.Empty);
 								Write("Finished 'Optimize Usings' on document: " + projectItem.Document.Name);
 							}
 							catch (COMException)

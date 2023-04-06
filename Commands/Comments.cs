@@ -67,7 +67,7 @@ namespace SokoolTools.VsTools
 			_isNamespaced = Regex.IsMatch(text, @"^[\s]*namespace ", RegexOptions.Multiline | RegexOptions.IgnoreCase);
 
 			// Remove carriage-returns leaving just linefeeds.
-			text = text.Replace("\r", string.Empty);
+			text = text.Replace("\r", String.Empty);
 
 			text = GetWrappedInternalText(text);
 
@@ -169,7 +169,7 @@ namespace SokoolTools.VsTools
 			// -, one or more repetitions
 			// New line, zero or one repetitions
 			//--------------------------------------------------------------------------------------------------------------------
-			string sPattern = string.Format(@"^[\s]*//\{0}[\{0}]+[\n]?(([\s]*)//[^/\{0}][^\n]*)+[\s]*//\{0}[\{0}]+[\n]?",
+			string sPattern = String.Format(@"^[\s]*//\{0}[\{0}]+[\n]?(([\s]*)//[^/\{0}][^\n]*)+[\s]*//\{0}[\{0}]+[\n]?",
 				_commentDividerLineChar);
 
 			MatchCollection mc = Regex.Matches(text, sPattern, RegexOptions.Multiline | RegexOptions.Singleline);
@@ -192,13 +192,13 @@ namespace SokoolTools.VsTools
 				sMidTxt = MyRegex.Replace(sMidTxt, @"^[ \t]*//[/ \t]*", "", RegexOptions.Multiline | RegexOptions.Singleline, desc);
 
 				desc = "Remove the comment divider line off the end.";
-				sMidTxt = MyRegex.Replace(sMidTxt, string.Format(@"\{0}[\{0}]+$", _commentDividerLineChar), "", RegexOptions.Multiline, desc);
+				sMidTxt = MyRegex.Replace(sMidTxt, String.Format(@"\{0}[\{0}]+$", _commentDividerLineChar), "", RegexOptions.Multiline, desc);
 
 				desc = "Concatenate the internal text by replacing 'one or more spaces followed by a linefeed' with a 'single space'.";
 				sMidTxt = MyRegex.Replace(sMidTxt, @"[ ]+[\n]", " ", RegexOptions.Multiline, desc);
 
 				desc = "Remove the comment divider line off the beginning.";
-				sMidTxt = MyRegex.Replace(sMidTxt, string.Format(@"^\{0}[\{0}]+", _commentDividerLineChar), "", RegexOptions.Multiline, desc);
+				sMidTxt = MyRegex.Replace(sMidTxt, String.Format(@"^\{0}[\{0}]+", _commentDividerLineChar), "", RegexOptions.Multiline, desc);
 
 				// Get the wrapped comment text.
 				int iAdjLineLength = GetAdjLineLength(sLinBeg, false);
@@ -215,7 +215,7 @@ namespace SokoolTools.VsTools
 				sRetTxt = sRetTxt.Remove(iIdx, iLen);
 
 				// Concatenate the wrapped text in between the two comment lines meta characters.
-				sWrappedTxt = string.Format("\n{0}//{2}\n{1}\n{0}//{2}\n", sLinBeg, sWrappedTxt, "¤¤"); //<--10/31/06
+				sWrappedTxt = String.Format("\n{0}//{2}\n{1}\n{0}//{2}\n", sLinBeg, sWrappedTxt, "¤¤"); //<--10/31/06
 
 				// Insert the new text.
 				sRetTxt = sRetTxt.Insert(iIdx, sWrappedTxt);
@@ -240,7 +240,7 @@ namespace SokoolTools.VsTools
 			{
 				string sPattern = t == "example"
 					? @"(^[ \t]*//[/]*[ \t]*)(<example>)(.*?)(</example>|<code>)" // TODO: example or code
-					: string.Format(@"(^[ \t]*//[/]*[ \t]*)(<{0}[^/>]*>)(.*?)(</{0}>)", t);
+					: String.Format(@"(^[ \t]*//[/]*[ \t]*)(<{0}[^/>]*>)(.*?)(</{0}>)", t);
 
 				MatchCollection mc = Regex.Matches(text, sPattern,
 					RegexOptions.Multiline | RegexOptions.Singleline | RegexOptions.IgnoreCase);
@@ -309,7 +309,7 @@ namespace SokoolTools.VsTools
 			string[] tagNames = { "param", "returns", "value", "exception" };
 			foreach (string tagName in tagNames)
 			{
-				string sPattern = string.Format(@"(^[ \t]*//[/]*[ \t]*)(<{0}[^/>]*>)(.*?)(</{0}>)", tagName);
+				string sPattern = String.Format(@"(^[ \t]*//[/]*[ \t]*)(<{0}[^/>]*>)(.*?)(</{0}>)", tagName);
 
 				MatchCollection mc = Regex.Matches(text, sPattern, RegexOptions.Multiline | RegexOptions.Singleline | RegexOptions.IgnoreCase);
 				if (mc.Count == 0)
@@ -399,13 +399,13 @@ namespace SokoolTools.VsTools
 			Logging.Log(3);
 
 			int currLineLength = 0;
-			string sWrappedTxt = string.Empty;
+			string sWrappedTxt = String.Empty;
 			// Split the text according to the specified max length.
 			foreach (Match m in Regex.Matches(text, @"\S+\s*"))
 			{
 				if (currLineLength + m.Length > iMaxLineLength)
 				{
-					if (sWrappedTxt != string.Empty && !Regex.IsMatch(sWrappedTxt, @"[\n]+[\s]*$"))
+					if (sWrappedTxt != String.Empty && !Regex.IsMatch(sWrappedTxt, @"[\n]+[\s]*$"))
 						sWrappedTxt += "\n";
 					currLineLength = 0;
 				}
@@ -576,7 +576,7 @@ namespace SokoolTools.VsTools
 		private static string RemoveExtraBlankLinesPrecedingCommentLines(string text)
 		{
 			const string desc = "Remove extra blank lines preceding comment lines.";
-			string findWhat = string.Format(@"[\n]{{3,}}([ \t]*//\{0}\{0})", _commentDividerLineChar);
+			string findWhat = String.Format(@"[\n]{{3,}}([ \t]*//\{0}\{0})", _commentDividerLineChar);
 			const string replWith = "\n\n$1";
 			return MyRegex.Replace(text, findWhat, replWith, MyRegex.OPTIONS, desc);
 		}
@@ -591,7 +591,7 @@ namespace SokoolTools.VsTools
 		internal static string RemoveErrantSummaryTagDividerLines(string text)
 		{
 			const string desc = "Remove all errant summary tag divider lines.";
-			string findWhat = string.Format(@"(\<summary\>[ \t\r]*\n)[ \t]*//\{0}[\{0}]+[ \t\r]*\n", OptionsHelper.CommentDividerLineChar);
+			string findWhat = String.Format(@"(\<summary\>[ \t\r]*\n)[ \t]*//\{0}[\{0}]+[ \t\r]*\n", OptionsHelper.CommentDividerLineChar);
 			const string replWith = "$1";
 			return MyRegex.Replace(text, findWhat, replWith, MyRegex.OPTIONS, desc);
 		}

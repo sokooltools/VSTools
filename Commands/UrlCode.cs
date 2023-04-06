@@ -40,7 +40,7 @@ namespace SokoolTools.VsTools
 			string sTxt = sel.Text;
 
 			// Make sure some text is selected.
-			if (sel == null || sTxt == string.Empty)
+			if (sel == null || sTxt == String.Empty)
 				throw new ApplicationException("No text was selected!");
 
 			if (eCode == UrlEncodeOrDecodeEnum.Decode)
@@ -48,8 +48,8 @@ namespace SokoolTools.VsTools
 			else
 			{
 				// Hold onto the beg-of-line and end-of-line characters.
-				string sBeg = string.Empty;
-				string sEnd = string.Empty;
+				string sBeg = String.Empty;
+				string sEnd = String.Empty;
 				Match oMatch = Regex.Match(sTxt, @"^(\s*)");
 				if (oMatch.Length > 0)
 					sBeg = oMatch.Value;

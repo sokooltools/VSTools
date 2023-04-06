@@ -116,8 +116,7 @@ namespace SokoolTools.VsTools
 			for (int i = 0; i < System.Windows.Media.VisualTreeHelper.GetChildrenCount(parent); ++i)
 			{
 				var child = System.Windows.Media.VisualTreeHelper.GetChild(parent, i) as System.Windows.Media.Visual;
-				var fe = child as FrameworkElement;
-				if (fe != null && fe.Name == name)
+				if (child is FrameworkElement fe && fe.Name == name)
 					return fe;
 				fe = FindElement(child, name);
 				if (fe != null)
