@@ -20,6 +20,10 @@ using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
+// ReSharper disable UnusedMember.Global
+// ReSharper disable UnusedMember.Local
+// ReSharper disable UnusedAutoPropertyAccessor.Global
+
 namespace SokoolTools.VsTools
 {
 	//----------------------------------------------------------------------------------------------------------------------------
@@ -87,6 +91,7 @@ namespace SokoolTools.VsTools
 		{
 			_fullText = String.Empty;
 			base.Text = String.Empty;
+
 			if (_mf == null)
 			{
 				_mf = new MyFilter();
@@ -163,7 +168,6 @@ namespace SokoolTools.VsTools
 			+ " a single line ('' indicates newline). [Default=';']")]
 		public char LineDelimiter
 		{
-			//--------------------------------------------------------------------------------------------------------------------
 			// ReSharper disable once MemberCanBePrivate.Global
 			get => _lineDelimiter;
 			set => _lineDelimiter = value == '\0' ? '\n' : value;
@@ -218,8 +222,10 @@ namespace SokoolTools.VsTools
 				// string truncText = (new StringBuilder(value)).ToString();
 				// but drop the below to see the .Trim() anomaly!
 				_fullText = (value + " ").Trim(); // We want a new copy, not a reference to value!
+
 				if (!Focused && !_isTextChangedIgnored)
 					_initialText = (value + " ").Trim();
+
 				SetEllipsisText();
 				base.Text = HideSelection && (!Focused || _isTabKeyPressed) ? _ellipsisText : _fullText;
 				_isTabKeyPressed = false;
@@ -604,8 +610,6 @@ namespace SokoolTools.VsTools
 			//private const int WM_LBUTTONUP = 0x202;
 
 			public delegate void KeyPressUp(IntPtr target);
-
-			//--------------------------------------------------------------------------------------------------------------------
 			// ReSharper disable once EventNeverSubscribedTo.Local
 			public event KeyPressUp KeyUp;
 

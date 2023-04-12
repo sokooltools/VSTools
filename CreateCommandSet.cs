@@ -310,7 +310,7 @@ namespace SokoolTools.VsTools
 						frm.ShowDialog();
 					break;
 				case PkgIds.About:
-					using (var frm = new AboutDialog())
+					using (var frm = new AboutBox())
 						frm.ShowDialog();
 					break;
 				case PkgIds.MyGraph:
