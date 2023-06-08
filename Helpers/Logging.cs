@@ -58,7 +58,7 @@ namespace SokoolTools.VsTools
 		/// or equal to the logging level specified in the options dialog.
 		/// </summary>
 		/// <param name="message">Text of the message to write.</param>
-		/// <param name="logLevel">The log level.</param>
+		/// <param name="logLevel">The log level. [Default is 3]</param>
 		//----------------------------------------------------------------------------------------------------
 		public static void Log(string message, int logLevel = 3)
 		{

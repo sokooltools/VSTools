@@ -1,18 +1,19 @@
 namespace SokoolTools.VsTools
 {
-	//----------------------------------------------------------------------------------------------------------------------------
+	//------------------------------------------------------------------------------------------------------------------
 	/// <summary>
 	/// This class is used to expose the list of the IDs of all the commands implemented by this package.
 	/// </summary>
 	/// <remarks>
 	/// This list of 'IDs' must match the set of IDs defined inside the 'Buttons' section of the VSCT file.
 	/// </remarks>
-	//----------------------------------------------------------------------------------------------------------------------------
+	//------------------------------------------------------------------------------------------------------------------
 	internal static class PkgIds
 	{
 		public const int VSToolsMenu = 8100;
 		// 1 -----------------------------------------------------
 		public const int FormatComments = 8210;
+		public const int FormatCommentsInAllFiles = 8215;
 		public const int RemoveAllDividerLines = 8220;
 		// 2 -----------------------------------------------------
 		public const int SolutionExplorerCollapse = 8230;
@@ -78,11 +79,11 @@ namespace SokoolTools.VsTools
 		public const int MyZoom = 8530;
 	}
 
-	//----------------------------------------------------------------------------------------------------------------------------
+	//------------------------------------------------------------------------------------------------------------------
 	/// <summary>
 	/// Contains the Dynamic Package Ids.
 	/// </summary>
-	//----------------------------------------------------------------------------------------------------------------------------
+	//------------------------------------------------------------------------------------------------------------------
 	internal static class DynPkgIds
 	{
 		public const int DynamicTxt = 8784;

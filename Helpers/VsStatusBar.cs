@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.Shell;
+﻿using Microsoft.VisualStudio;
+using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 // ReSharper disable SuspiciousTypeConversion.Global
 // ReSharper disable UnusedMember.Global
@@ -36,7 +37,7 @@ namespace SokoolTools.VsTools
 		static VsStatusBar()
 		{
 			ThreadHelper.ThrowIfNotOnUIThread();
-			var oleServiceProvider = Connect.ApplicationObject as Microsoft.VisualStudio.OLE.Interop.IServiceProvider;
+			var oleServiceProvider = Connect.objDte2 as Microsoft.VisualStudio.OLE.Interop.IServiceProvider;
 			var svc = new ServiceProvider(oleServiceProvider);
 			StatusBar = svc.GetService(typeof(SVsStatusbar)) as IVsStatusbar;
 		}
@@ -109,7 +110,7 @@ namespace SokoolTools.VsTools
 			{
 				ThreadHelper.ThrowIfNotOnUIThread();
 				StatusBar.IsFrozen(out int isFrozen);
-				return isFrozen != 0;
+				return isFrozen != VSConstants.S_OK;
 			}
 		}
 

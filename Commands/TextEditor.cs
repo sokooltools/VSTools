@@ -28,7 +28,7 @@ namespace SokoolTools.VsTools
 			bool bIsJavascript = Utilities.GetIsValidExtension(".js");
 
 			string sComment;
-			string docLanguage = Connect.ApplicationObject.ActiveDocument.Language;
+			string docLanguage = Connect.objDte2.ActiveDocument.Language;
 
 			// Determine comment character to use based on the language.
 			if (docLanguage.Equals("CSharp") || bIsJavascript)
@@ -82,7 +82,7 @@ namespace SokoolTools.VsTools
 			sNewtxt = MyRegex.Replace(sIndent + sNewtxt.TrimEnd(), "^", sComment, RegexOptions.Multiline, desc, 2);
 
 			// Get the current selection in the active window.
-			var sel = (TextSelection)Connect.ApplicationObject.ActiveWindow.Document.Selection;
+			var sel = (TextSelection)Connect.objDte2.ActiveWindow.Document.Selection;
 
 			// Move the cursor to the beginning of the line.
 			sel.StartOfLine();

@@ -25,7 +25,7 @@ namespace SokoolTools.VsTools
             Logging.Log();
 
 			// Get the selection.
-			var sel = (TextSelection)Connect.ApplicationObject.ActiveWindow.Document.Selection;
+			var sel = (TextSelection)Connect.objDte2.ActiveWindow.Document.Selection;
 
 			// Make sure full lines are selected.
 			sel.StartOfLine(vsStartOfLineOptions.vsStartOfLineOptionsFirstColumn, true);
@@ -83,7 +83,7 @@ namespace SokoolTools.VsTools
 			}
 
 			// Get the selection.
-			var sel = (TextSelection)Connect.ApplicationObject.ActiveWindow.Document.Selection;
+			var sel = (TextSelection)Connect.objDte2.ActiveWindow.Document.Selection;
 
 			// This should never really happen.
 			if (sel == null)
@@ -125,12 +125,12 @@ namespace SokoolTools.VsTools
 			// Get the selection.
 
 			// This should never really happen.
-			if (!(Connect.ApplicationObject.ActiveWindow.Document.Selection is TextSelection sel))
+			if (!(Connect.objDte2.ActiveWindow.Document.Selection is TextSelection sel))
 				throw new ApplicationException("No text was selected!");
 
 			// NOTE for this to work requires the document to be part of a loaded project.
 			CodeElement codeProperty =
-				Connect.ApplicationObject.ActiveDocument.ProjectItem.FileCodeModel.CodeElementFromPoint(sel.ActivePoint, vsCMElement.vsCMElementProperty);
+				Connect.objDte2.ActiveDocument.ProjectItem.FileCodeModel.CodeElementFromPoint(sel.ActivePoint, vsCMElement.vsCMElementProperty);
 
 			//CodeElement codeProperty = sel.ActivePoint.CodeElement[vsCMElement.vsCMElementProperty];// as CodeProperty;
 			if (codeProperty == null)
@@ -184,7 +184,7 @@ namespace SokoolTools.VsTools
 		{
             Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
             // Get the selection.
-            var sel = (TextSelection)Connect.ApplicationObject.ActiveWindow.Document.Selection;
+            var sel = (TextSelection)Connect.objDte2.ActiveWindow.Document.Selection;
 
 			// Should never happen.
 			if (sel == null)
@@ -291,7 +291,7 @@ namespace SokoolTools.VsTools
             // and the insertion point placed anywhere inside the source code.
             try
 			{
-				var sel = (TextSelection)Connect.ApplicationObject.ActiveDocument.Selection;
+				var sel = (TextSelection)Connect.objDte2.ActiveDocument.Selection;
 				TextPoint pnt = sel.ActivePoint;
 
 				// Discover every code element containing the insertion point.

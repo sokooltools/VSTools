@@ -24,7 +24,7 @@ namespace SokoolTools.VsTools
 
 			// Get the the Solution Explorer tree
 			var solutionExplorer =
-				(UIHierarchy) Connect.ApplicationObject.Windows.Item(Constants.vsWindowKindSolutionExplorer).Object;
+				(UIHierarchy) Connect.objDte2.Windows.Item(Constants.vsWindowKindSolutionExplorer).Object;
 
 			// Check if there is an open solution.
 			if (solutionExplorer.UIHierarchyItems.Count == 0)

@@ -23,7 +23,6 @@ namespace SokoolTools.VsTools
 		public OptionsDialog()
 		{
 			InitializeComponent();
-			AttachMiscEvents();
 		}
 
 		//------------------------------------------------------------------------------------------------------------------------
@@ -33,7 +32,6 @@ namespace SokoolTools.VsTools
 		//------------------------------------------------------------------------------------------------------------------------
 		private void FrmOptions_Load(object sender, EventArgs e)
 		{
-			AddToolTips();
 			ReadRegistry();
 			_isLoaded = true;
 		}
@@ -84,7 +82,7 @@ namespace SokoolTools.VsTools
 			btnOK.Enabled = _isLoaded;
 		}
 
-		private static void TxtExternalToolPath_Validating(object sender, CancelEventArgs e)
+		private void TxtExternalToolPath_Validating(object sender, CancelEventArgs e)
 		{
 			var tbx = (EllipsisTextBox)sender;
 			if (String.IsNullOrEmpty(tbx.Text) || File.Exists(Utilities.GetExpandedPath(tbx.Text)))
@@ -132,38 +130,6 @@ namespace SokoolTools.VsTools
 				if (dlg.ShowDialog(this) == DialogResult.OK)
 					tbx.Text = Path.GetFullPath(dlg.FileName);
 			}
-		}
-
-		//------------------------------------------------------------------------------------------------------------------------
-		/// <summary>
-		/// Attaches the misc events.
-		/// </summary>
-		//------------------------------------------------------------------------------------------------------------------------
-		private void AttachMiscEvents()
-		{
-			Load += FrmOptions_Load;
-			btnBrowseExternalTool1.Click += BtnBrowseExternalTool_Click;
-			btnBrowseExternalTool2.Click += BtnBrowseExternalTool_Click;
-			btnBrowseLogFile.Click += BtnBrowseLogFile_Click;
-			btnCancel.Click += BtnCancel_Click;
-			btnOK.Click += BtnOK_Click;
-			chkCommentDividerLineIndentText.CheckedChanged += Checkbox_CheckedChanged;
-			chkCommentDividerLineRightAligned.CheckedChanged += Checkbox_CheckedChanged;
-			chkJavascriptStripComments.CheckedChanged += Checkbox_CheckedChanged;
-			chkRegionDividerLinesInsert.CheckedChanged += ChkRegionDividerLinesInsert_CheckedChanged;
-			txtCommentDividerLineChar.TextChanged += TextBox_TextChanged;
-			txtExternalToolPath1.TextChanged += TextBox_TextChanged;
-			txtExternalToolPath2.TextChanged += TextBox_TextChanged;
-			chkIsLoggingEnabled.CheckedChanged += Checkbox_CheckedChanged;
-			txtLogFile.TextChanged += TextBox_TextChanged;
-			txtExternalToolPath1.Validating += TxtExternalToolPath_Validating;
-			txtExternalToolPath2.Validating += TxtExternalToolPath_Validating;
-			updAutoCloseSeconds.ValueChanged += NumericUpDown_ValueChanged;
-			updCommentDividerLineRepeat.ValueChanged += NumericUpDown_ValueChanged;
-			updPasteCommentsMaxLineLength.ValueChanged += NumericUpDown_ValueChanged;
-			updRegionDividerLineRepeat.ValueChanged += NumericUpDown_ValueChanged;
-			updVariableAlignment.ValueChanged += NumericUpDown_ValueChanged;
-			updLogLevel.ValueChanged += NumericUpDown_ValueChanged;
 		}
 
 		//------------------------------------------------------------------------------------------------------------------------
@@ -216,51 +182,6 @@ namespace SokoolTools.VsTools
 			OptionsHelper.ExternalToolPath1 = txtExternalToolPath1.Text;
 			OptionsHelper.ExternalToolPath2 = txtExternalToolPath2.Text;
 			OptionsHelper.AutoCloseSeconds = (int)updAutoCloseSeconds.Value;
-		}
-
-		//------------------------------------------------------------------------------------------------------------------------
-		/// <summary>
-		/// Adds tootips to some of the controls.
-		/// </summary>
-		//------------------------------------------------------------------------------------------------------------------------
-		private void AddToolTips()
-		{
-			toolTip1 = new ToolTip();
-			toolTip1.SetToolTip(chkJavascriptStripComments,
-				"When checked, indicates that comments should be removed from javascript code when it gets formatted.");
-			toolTip1.SetToolTip(chkRegionDividerLinesInsert,
-				"When checked, indicates that region divider lines should be inserted into the code window during a format operation.");
-			toolTip1.SetToolTip(lblPasteCommentsMaxLineLength,
-				"Maximum length of each line of a pasted text before it word-wraps to the next line.");
-			toolTip1.SetToolTip(lblRegionDividerLineChar,
-				"Character to repeat in the creation of a region divider line.");
-			toolTip1.SetToolTip(lblRegionDividerLineRepeat,
-				"Number of times the character should be repeated to create a region divider line.");
-			toolTip1.SetToolTip(lblCommentDividerLineChar,
-				"Character to repeat for creation of a comment divider line.");
-			toolTip1.SetToolTip(lblCommentDividerLineRepeat,
-				"Number of times the character should be repeated to create a comment divider line.");
-			toolTip1.SetToolTip(chkCommentDividerLineIndentText,
-				"When checked, indicates that each word-wrapped line of commented text should be indented.");
-			toolTip1.SetToolTip(chkCommentDividerLineRightAligned,
-				"When checked, indicates that comment divider lines should be aligned on the right side.");
-			toolTip1.SetToolTip(lblMaximumIndent,
-				"The maximum indentation to be used when aligning variables.");
-			toolTip1.SetToolTip(chkIsLoggingEnabled,
-				"When checked, indicates that logging is enabled and all messages will be written to the log file defined below.");
-
-			toolTip1.SetToolTip(lblLogFile,
-				"Full path to the log file.");
-			toolTip1.SetToolTip(lblLogLevel,
-				"Log Level (1=Terse; 2=Normal; 3=Verbose.");
-			toolTip1.SetToolTip(btnBrowseLogFile,
-				"Click to select path to the log file.");
-			toolTip1.SetToolTip(lblExternalTool1,
-				"Full path to the external tool 1's executable file.");
-			toolTip1.SetToolTip(lblExternalTool2,
-				"Full path to the external tool 2's executable file.");
-			toolTip1.SetToolTip(lblConsoleWindowTimeoutSeconds,
-				"The number of seconds to wait before automatically closing the console window following a copy operation.");
 		}
 	}
 }

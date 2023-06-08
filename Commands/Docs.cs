@@ -3,12 +3,10 @@ using EnvDTE;
 
 namespace SokoolTools.VsTools
 {
-	//----------------------------------------------------------------------------------------------------------------------------
 	/// <summary>
 	/// Provides methods for processing the current 'document' inside Visual Studio such as sorting selected lines or lining up 
 	/// variables.
 	/// </summary>
-	//----------------------------------------------------------------------------------------------------------------------------
 	internal static class Docs
 	{
 		//..................................................................................................................................
@@ -26,7 +24,7 @@ namespace SokoolTools.VsTools
             Logging.Log();
 
 			// Get the current selection.
-			var sel = (TextSelection)Connect.ApplicationObject.ActiveWindow.Document.Selection;
+			var sel = (TextSelection)Connect.objDte2.ActiveWindow.Document.Selection;
 
 			// This should never happen but just make sure some text is selected.
 			if (sel == null)
@@ -105,7 +103,7 @@ namespace SokoolTools.VsTools
 			string sLine;
 			int iPos;
 			int iMaxLength = 0;
-			var sel = (TextSelection)Connect.ApplicationObject.ActiveWindow.Document.Selection;
+			var sel = (TextSelection)Connect.objDte2.ActiveWindow.Document.Selection;
 			EditPoint botEditPt = sel.BottomPoint.CreateEditPoint();
 			EditPoint topEditPt = sel.TopPoint.CreateEditPoint();
 

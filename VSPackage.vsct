@@ -304,6 +304,13 @@
         </Strings>
       </Button>
 
+      <Button guid="guidVsToolsCmdSet" id="FormatAllFilesComments" priority="1" type="Button">
+        <Parent guid="guidVsToolsCmdSet" id="VsToolsGroup1"/>
+        <Strings>
+          <ButtonText>&amp;Format All Files Comments</ButtonText>
+        </Strings>
+      </Button>
+
       <Button guid="guidVsToolsCmdSet" id="RemoveAllDividerLines" priority="2" type="Button">
         <Parent guid="guidVsToolsCmdSet" id="VsToolsGroup1"/>
         <Icon guid="VSToolsImages" id="Blank"/>
@@ -596,11 +603,23 @@
           <ButtonText>Format Comments</ButtonText>
         </Strings>
       </Button>
+      <Button guid="guidVsToolsCmdSet" id="FormatAllFilesComments" priority="0x100" type="Button">
+        <Parent guid="guidVsToolsCmdSet" id="MyMainToolbarGroup"/>
+        <Strings>
+          <ButtonText>Format All Files Comments</ButtonText>
+        </Strings>
+      </Button>
       <Button guid="guidVsToolsCmdSet" id="FormatComments" priority="0x100" type="Button">
         <Parent guid="guidVsToolsCmdSet" id="MyToolbarGroup"/>
         <Icon guid="VSToolsImages" id="FormatComments"/>
         <Strings>
           <ButtonText>Format Comments</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidVsToolsCmdSet" id="FormatAllFilesComments" priority="0x100" type="Button">
+        <Parent guid="guidVsToolsCmdSet" id="MyToolbarGroup"/>
+        <Strings>
+          <ButtonText>Format All Files Comments</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidVsToolsCmdSet" id="MyGraph" priority="0x200" type="Button">
@@ -748,6 +767,7 @@
     ============================================================================================================= -->
 
     <KeyBinding guid="guidVsToolsCmdSet" id="FormatComments" editor="guidVSStd97" mod1="ALT" key1="L" mod2="ALT" key2="F"  />
+    <KeyBinding guid="guidVsToolsCmdSet" id="FormatAllFilesComments" editor="guidVSStd97" mod1="ALT" key1="L" mod2="ALT" key2="G"  />
     <KeyBinding guid="guidVsToolsCmdSet" id="RemoveAllDividerLines" editor="guidVSStd97" mod1="ALT" key1="L" mod2="ALT" key2="9"  />
 
     <KeyBinding guid="guidVsToolsCmdSet" id="SolutionExplorerCollapse" editor="guidVSStd97" mod1="ALT" key1="L" mod2="ALT" key2="C"  />
@@ -844,6 +864,7 @@
 
       <!-- 1 ======================================================= -->
       <IDSymbol name="FormatComments" value="8210" />
+      <IDSymbol name="FormatAllFilesComments" value="8215" />
       <IDSymbol name="RemoveAllDividerLines" value="8220" />
       <!-- 2 ======================================================= -->
       <IDSymbol name="SolutionExplorerCollapse" value="8230" />

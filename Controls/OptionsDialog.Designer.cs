@@ -35,6 +35,7 @@ namespace SokoolTools.VsTools
 		//----------------------------------------------------------------------------------------------------
 		private void InitializeComponent()
 		{
+			this.components = new System.ComponentModel.Container();
 			this.btnOK = new System.Windows.Forms.Button();
 			this.btnCancel = new System.Windows.Forms.Button();
 			this.chkJavascriptStripComments = new System.Windows.Forms.CheckBox();
@@ -72,12 +73,13 @@ namespace SokoolTools.VsTools
 			this.lblConsoleWindowTimeoutNote = new System.Windows.Forms.Label();
 			this.updAutoCloseSeconds = new System.Windows.Forms.NumericUpDown();
 			this.tabPageLogFile = new System.Windows.Forms.TabPage();
+			this.updLogLevel = new System.Windows.Forms.NumericUpDown();
+			this.lblLogLevel = new System.Windows.Forms.Label();
 			this.chkIsLoggingEnabled = new System.Windows.Forms.CheckBox();
 			this.txtLogFile = new SokoolTools.VsTools.EllipsisTextBox();
 			this.lblLogFile = new System.Windows.Forms.Label();
 			this.btnBrowseLogFile = new System.Windows.Forms.Button();
-			this.updLogLevel = new System.Windows.Forms.NumericUpDown();
-			this.lblLogLevel = new System.Windows.Forms.Label();
+			this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
 			this.grpFormatComments.SuspendLayout();
 			this.grpInsertRegionDividerLines.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.updRegionDividerLineRepeat)).BeginInit();
@@ -104,6 +106,7 @@ namespace SokoolTools.VsTools
 			this.btnOK.Size = new System.Drawing.Size(75, 23);
 			this.btnOK.TabIndex = 1;
 			this.btnOK.Text = "OK";
+			this.btnOK.Click += new System.EventHandler(this.BtnOK_Click);
 			// 
 			// btnCancel
 			// 
@@ -114,6 +117,7 @@ namespace SokoolTools.VsTools
 			this.btnCancel.Size = new System.Drawing.Size(75, 23);
 			this.btnCancel.TabIndex = 2;
 			this.btnCancel.Text = "Cancel";
+			this.btnCancel.Click += new System.EventHandler(this.BtnCancel_Click);
 			// 
 			// chkJavascriptStripComments
 			// 
@@ -123,6 +127,9 @@ namespace SokoolTools.VsTools
 			this.chkJavascriptStripComments.Size = new System.Drawing.Size(160, 24);
 			this.chkJavascriptStripComments.TabIndex = 0;
 			this.chkJavascriptStripComments.Text = "Strip Javascript Comments";
+			this.toolTip1.SetToolTip(this.chkJavascriptStripComments, "When checked, indicates that comments should be removed from javascript code when" +
+        " it gets formatted.");
+			this.chkJavascriptStripComments.CheckedChanged += new System.EventHandler(this.Checkbox_CheckedChanged);
 			// 
 			// lblCommentDividerLineChar
 			// 
@@ -132,6 +139,7 @@ namespace SokoolTools.VsTools
 			this.lblCommentDividerLineChar.Size = new System.Drawing.Size(174, 13);
 			this.lblCommentDividerLineChar.TabIndex = 0;
 			this.lblCommentDividerLineChar.Text = "Comment Divider Line Character:";
+			this.toolTip1.SetToolTip(this.lblCommentDividerLineChar, "Character to repeat for creation of a comment divider line.");
 			// 
 			// grpFormatComments
 			// 
@@ -157,6 +165,9 @@ namespace SokoolTools.VsTools
 			this.chkCommentDividerLineRightAligned.Size = new System.Drawing.Size(201, 18);
 			this.chkCommentDividerLineRightAligned.TabIndex = 5;
 			this.chkCommentDividerLineRightAligned.Text = "Right Align Comment Divider Lines";
+			this.toolTip1.SetToolTip(this.chkCommentDividerLineRightAligned, "When checked, indicates that comment divider lines should be aligned on the right" +
+        " side.");
+			this.chkCommentDividerLineRightAligned.CheckedChanged += new System.EventHandler(this.Checkbox_CheckedChanged);
 			// 
 			// chkCommentDividerLineIndentText
 			// 
@@ -166,6 +177,9 @@ namespace SokoolTools.VsTools
 			this.chkCommentDividerLineIndentText.Size = new System.Drawing.Size(158, 18);
 			this.chkCommentDividerLineIndentText.TabIndex = 4;
 			this.chkCommentDividerLineIndentText.Text = "Indent Commented Text";
+			this.toolTip1.SetToolTip(this.chkCommentDividerLineIndentText, "When checked, indicates that each word-wrapped line of commented text should be i" +
+        "ndented.");
+			this.chkCommentDividerLineIndentText.CheckedChanged += new System.EventHandler(this.Checkbox_CheckedChanged);
 			// 
 			// grpInsertRegionDividerLines
 			// 
@@ -193,6 +207,7 @@ namespace SokoolTools.VsTools
 			this.txtRegionDividerLineChar.Text = ".";
 			this.txtRegionDividerLineChar.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
 			this.txtRegionDividerLineChar.WordWrap = false;
+			this.txtRegionDividerLineChar.TextChanged += new System.EventHandler(this.TextBox_TextChanged);
 			// 
 			// updRegionDividerLineRepeat
 			// 
@@ -219,6 +234,7 @@ namespace SokoolTools.VsTools
             0,
             0,
             0});
+			this.updRegionDividerLineRepeat.ValueChanged += new System.EventHandler(this.NumericUpDown_ValueChanged);
 			// 
 			// lblRegionDividerLineChar
 			// 
@@ -228,6 +244,7 @@ namespace SokoolTools.VsTools
 			this.lblRegionDividerLineChar.Size = new System.Drawing.Size(162, 13);
 			this.lblRegionDividerLineChar.TabIndex = 1;
 			this.lblRegionDividerLineChar.Text = "Region Divider Line Character:";
+			this.toolTip1.SetToolTip(this.lblRegionDividerLineChar, "Character to repeat in the creation of a region divider line.");
 			// 
 			// lblRegionDividerLineRepeat
 			// 
@@ -237,6 +254,8 @@ namespace SokoolTools.VsTools
 			this.lblRegionDividerLineRepeat.Size = new System.Drawing.Size(46, 13);
 			this.lblRegionDividerLineRepeat.TabIndex = 3;
 			this.lblRegionDividerLineRepeat.Text = "Repeat:";
+			this.toolTip1.SetToolTip(this.lblRegionDividerLineRepeat, "Number of times the character should be repeated to create a region divider line." +
+        "");
 			// 
 			// chkRegionDividerLinesInsert
 			// 
@@ -246,6 +265,9 @@ namespace SokoolTools.VsTools
 			this.chkRegionDividerLinesInsert.Size = new System.Drawing.Size(160, 18);
 			this.chkRegionDividerLinesInsert.TabIndex = 0;
 			this.chkRegionDividerLinesInsert.Text = "Insert Region Divider Lines";
+			this.toolTip1.SetToolTip(this.chkRegionDividerLinesInsert, "When checked, indicates that region divider lines should be inserted into the cod" +
+        "e window during a format operation.");
+			this.chkRegionDividerLinesInsert.CheckedChanged += new System.EventHandler(this.ChkRegionDividerLinesInsert_CheckedChanged);
 			// 
 			// txtCommentDividerLineChar
 			// 
@@ -284,6 +306,7 @@ namespace SokoolTools.VsTools
             0,
             0,
             0});
+			this.updCommentDividerLineRepeat.ValueChanged += new System.EventHandler(this.NumericUpDown_ValueChanged);
 			// 
 			// lblCommentDividerLineRepeat
 			// 
@@ -293,6 +316,8 @@ namespace SokoolTools.VsTools
 			this.lblCommentDividerLineRepeat.Size = new System.Drawing.Size(46, 13);
 			this.lblCommentDividerLineRepeat.TabIndex = 2;
 			this.lblCommentDividerLineRepeat.Text = "Repeat:";
+			this.toolTip1.SetToolTip(this.lblCommentDividerLineRepeat, "Number of times the character should be repeated to create a comment divider line" +
+        ".");
 			// 
 			// grpFormatOrCompactJavascript
 			// 
@@ -329,6 +354,7 @@ namespace SokoolTools.VsTools
 			this.updPasteCommentsMaxLineLength.Size = new System.Drawing.Size(42, 20);
 			this.updPasteCommentsMaxLineLength.TabIndex = 1;
 			this.updPasteCommentsMaxLineLength.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			this.updPasteCommentsMaxLineLength.ValueChanged += new System.EventHandler(this.NumericUpDown_ValueChanged);
 			// 
 			// lblPasteCommentsMaxLineLength
 			// 
@@ -338,6 +364,8 @@ namespace SokoolTools.VsTools
 			this.lblPasteCommentsMaxLineLength.Size = new System.Drawing.Size(122, 13);
 			this.lblPasteCommentsMaxLineLength.TabIndex = 0;
 			this.lblPasteCommentsMaxLineLength.Text = "Maximum Line Length:";
+			this.toolTip1.SetToolTip(this.lblPasteCommentsMaxLineLength, "Maximum length of each line of a pasted text before it word-wraps to the next lin" +
+        "e.");
 			// 
 			// grpVariableAlignment
 			// 
@@ -364,6 +392,7 @@ namespace SokoolTools.VsTools
 			this.updVariableAlignment.Size = new System.Drawing.Size(42, 20);
 			this.updVariableAlignment.TabIndex = 1;
 			this.updVariableAlignment.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			this.updVariableAlignment.ValueChanged += new System.EventHandler(this.NumericUpDown_ValueChanged);
 			// 
 			// lblMaximumIndent
 			// 
@@ -373,6 +402,7 @@ namespace SokoolTools.VsTools
 			this.lblMaximumIndent.Size = new System.Drawing.Size(96, 13);
 			this.lblMaximumIndent.TabIndex = 0;
 			this.lblMaximumIndent.Text = "Maximum Indent:";
+			this.toolTip1.SetToolTip(this.lblMaximumIndent, "The maximum indentation to be used when aligning variables.");
 			// 
 			// tabControl1
 			// 
@@ -421,13 +451,14 @@ namespace SokoolTools.VsTools
 			// 
 			// txtExternalToolPath2
 			// 
-			this.txtExternalToolPath2.AllowDrop = false;
 			this.txtExternalToolPath2.EllipsisType = SokoolTools.VsTools.EllipsisTextBox.EllipsisLocation.Path;
 			this.txtExternalToolPath2.ExpansionLineCount = 0;
 			this.txtExternalToolPath2.Location = new System.Drawing.Point(10, 86);
 			this.txtExternalToolPath2.Name = "txtExternalToolPath2";
 			this.txtExternalToolPath2.Size = new System.Drawing.Size(310, 22);
 			this.txtExternalToolPath2.TabIndex = 4;
+			this.txtExternalToolPath2.TextChanged += new System.EventHandler(this.TextBox_TextChanged);
+			this.txtExternalToolPath2.Validating += new System.ComponentModel.CancelEventHandler(this.TxtExternalToolPath_Validating);
 			// 
 			// lblExternalTool2
 			// 
@@ -437,16 +468,18 @@ namespace SokoolTools.VsTools
 			this.lblExternalTool2.Size = new System.Drawing.Size(85, 13);
 			this.lblExternalTool2.TabIndex = 3;
 			this.lblExternalTool2.Text = "External Tool 2:";
+			this.toolTip1.SetToolTip(this.lblExternalTool2, "Full path to the external tool 2\'s executable file.");
 			// 
 			// txtExternalToolPath1
 			// 
-			this.txtExternalToolPath1.AllowDrop = false;
 			this.txtExternalToolPath1.EllipsisType = SokoolTools.VsTools.EllipsisTextBox.EllipsisLocation.Path;
 			this.txtExternalToolPath1.ExpansionLineCount = 0;
 			this.txtExternalToolPath1.Location = new System.Drawing.Point(10, 44);
 			this.txtExternalToolPath1.Name = "txtExternalToolPath1";
 			this.txtExternalToolPath1.Size = new System.Drawing.Size(310, 22);
 			this.txtExternalToolPath1.TabIndex = 4;
+			this.txtExternalToolPath1.TextChanged += new System.EventHandler(this.TextBox_TextChanged);
+			this.txtExternalToolPath1.Validating += new System.ComponentModel.CancelEventHandler(this.TxtExternalToolPath_Validating);
 			// 
 			// btnBrowseExternalTool2
 			// 
@@ -457,6 +490,7 @@ namespace SokoolTools.VsTools
 			this.btnBrowseExternalTool2.TabIndex = 5;
 			this.btnBrowseExternalTool2.Text = "Browse...";
 			this.btnBrowseExternalTool2.UseVisualStyleBackColor = true;
+			this.btnBrowseExternalTool2.Click += new System.EventHandler(this.BtnBrowseExternalTool_Click);
 			// 
 			// lblExternalTool1
 			// 
@@ -466,6 +500,7 @@ namespace SokoolTools.VsTools
 			this.lblExternalTool1.Size = new System.Drawing.Size(85, 13);
 			this.lblExternalTool1.TabIndex = 3;
 			this.lblExternalTool1.Text = "External Tool 1:";
+			this.toolTip1.SetToolTip(this.lblExternalTool1, "Full path to the external tool 1\'s executable file.");
 			// 
 			// btnBrowseExternalTool1
 			// 
@@ -476,6 +511,7 @@ namespace SokoolTools.VsTools
 			this.btnBrowseExternalTool1.TabIndex = 5;
 			this.btnBrowseExternalTool1.Text = "Browse...";
 			this.btnBrowseExternalTool1.UseVisualStyleBackColor = true;
+			this.btnBrowseExternalTool1.Click += new System.EventHandler(this.BtnBrowseExternalTool_Click);
 			// 
 			// lblConsoleWindowTimeoutSeconds
 			// 
@@ -485,6 +521,8 @@ namespace SokoolTools.VsTools
 			this.lblConsoleWindowTimeoutSeconds.Size = new System.Drawing.Size(271, 13);
 			this.lblConsoleWindowTimeoutSeconds.TabIndex = 0;
 			this.lblConsoleWindowTimeoutSeconds.Text = "Close console windows automatically after waiting:";
+			this.toolTip1.SetToolTip(this.lblConsoleWindowTimeoutSeconds, "The number of seconds to wait before automatically closing the console window fol" +
+        "lowing a copy operation.");
 			// 
 			// label1
 			// 
@@ -518,6 +556,7 @@ namespace SokoolTools.VsTools
 			this.updAutoCloseSeconds.Size = new System.Drawing.Size(42, 20);
 			this.updAutoCloseSeconds.TabIndex = 1;
 			this.updAutoCloseSeconds.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+			this.updAutoCloseSeconds.ValueChanged += new System.EventHandler(this.NumericUpDown_ValueChanged);
 			// 
 			// tabPageLogFile
 			// 
@@ -533,46 +572,6 @@ namespace SokoolTools.VsTools
 			this.tabPageLogFile.TabIndex = 2;
 			this.tabPageLogFile.Text = "LogFile";
 			this.tabPageLogFile.UseVisualStyleBackColor = true;
-			// 
-			// chkIsLoggingEnabled
-			// 
-			this.chkIsLoggingEnabled.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.chkIsLoggingEnabled.Location = new System.Drawing.Point(17, 22);
-			this.chkIsLoggingEnabled.Name = "chkIsLoggingEnabled";
-			this.chkIsLoggingEnabled.Size = new System.Drawing.Size(107, 18);
-			this.chkIsLoggingEnabled.TabIndex = 9;
-			this.chkIsLoggingEnabled.Text = "Enable Logging";
-			// 
-			// txtLogFile
-			// 
-			this.txtLogFile.AllowDrop = false;
-			this.txtLogFile.EllipsisType = SokoolTools.VsTools.EllipsisTextBox.EllipsisLocation.Path;
-			this.txtLogFile.Enabled = false;
-			this.txtLogFile.ExpansionLineCount = 0;
-			this.txtLogFile.Location = new System.Drawing.Point(15, 69);
-			this.txtLogFile.Name = "txtLogFile";
-			this.txtLogFile.Size = new System.Drawing.Size(313, 22);
-			this.txtLogFile.TabIndex = 7;
-			// 
-			// lblLogFile
-			// 
-			this.lblLogFile.AutoSize = true;
-			this.lblLogFile.Location = new System.Drawing.Point(15, 52);
-			this.lblLogFile.Name = "lblLogFile";
-			this.lblLogFile.Size = new System.Drawing.Size(50, 13);
-			this.lblLogFile.TabIndex = 6;
-			this.lblLogFile.Text = "Log File:";
-			// 
-			// btnBrowseLogFile
-			// 
-			this.btnBrowseLogFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnBrowseLogFile.Enabled = false;
-			this.btnBrowseLogFile.Location = new System.Drawing.Point(334, 68);
-			this.btnBrowseLogFile.Name = "btnBrowseLogFile";
-			this.btnBrowseLogFile.Size = new System.Drawing.Size(62, 23);
-			this.btnBrowseLogFile.TabIndex = 8;
-			this.btnBrowseLogFile.Text = "Browse...";
-			this.btnBrowseLogFile.UseVisualStyleBackColor = true;
 			// 
 			// updLogLevel
 			// 
@@ -598,6 +597,7 @@ namespace SokoolTools.VsTools
             0,
             0,
             0});
+			this.updLogLevel.ValueChanged += new System.EventHandler(this.NumericUpDown_ValueChanged);
 			// 
 			// lblLogLevel
 			// 
@@ -607,6 +607,58 @@ namespace SokoolTools.VsTools
 			this.lblLogLevel.Size = new System.Drawing.Size(35, 13);
 			this.lblLogLevel.TabIndex = 10;
 			this.lblLogLevel.Text = "Level:";
+			this.toolTip1.SetToolTip(this.lblLogLevel, "Log Level (1=Terse; 2=Normal; 3=Verbose.");
+			// 
+			// chkIsLoggingEnabled
+			// 
+			this.chkIsLoggingEnabled.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.chkIsLoggingEnabled.Location = new System.Drawing.Point(17, 22);
+			this.chkIsLoggingEnabled.Name = "chkIsLoggingEnabled";
+			this.chkIsLoggingEnabled.Size = new System.Drawing.Size(107, 18);
+			this.chkIsLoggingEnabled.TabIndex = 9;
+			this.chkIsLoggingEnabled.Text = "Enable Logging";
+			this.toolTip1.SetToolTip(this.chkIsLoggingEnabled, "When checked, indicates that logging is enabled and all messages will be written " +
+        "to the log file defined below.");
+			this.chkIsLoggingEnabled.CheckedChanged += new System.EventHandler(this.Checkbox_CheckedChanged);
+			// 
+			// txtLogFile
+			// 
+			this.txtLogFile.EllipsisType = SokoolTools.VsTools.EllipsisTextBox.EllipsisLocation.Path;
+			this.txtLogFile.Enabled = false;
+			this.txtLogFile.ExpansionLineCount = 0;
+			this.txtLogFile.Location = new System.Drawing.Point(15, 69);
+			this.txtLogFile.Name = "txtLogFile";
+			this.txtLogFile.Size = new System.Drawing.Size(313, 22);
+			this.txtLogFile.TabIndex = 7;
+			this.txtLogFile.TextChanged += new System.EventHandler(this.TextBox_TextChanged);
+			// 
+			// lblLogFile
+			// 
+			this.lblLogFile.AutoSize = true;
+			this.lblLogFile.Location = new System.Drawing.Point(15, 52);
+			this.lblLogFile.Name = "lblLogFile";
+			this.lblLogFile.Size = new System.Drawing.Size(50, 13);
+			this.lblLogFile.TabIndex = 6;
+			this.lblLogFile.Text = "Log File:";
+			this.toolTip1.SetToolTip(this.lblLogFile, "Full path to the log file.");
+			// 
+			// btnBrowseLogFile
+			// 
+			this.btnBrowseLogFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.btnBrowseLogFile.Enabled = false;
+			this.btnBrowseLogFile.Location = new System.Drawing.Point(334, 68);
+			this.btnBrowseLogFile.Name = "btnBrowseLogFile";
+			this.btnBrowseLogFile.Size = new System.Drawing.Size(62, 23);
+			this.btnBrowseLogFile.TabIndex = 8;
+			this.btnBrowseLogFile.Text = "Browse...";
+			this.toolTip1.SetToolTip(this.btnBrowseLogFile, "Click to select path to the log file.");
+			this.btnBrowseLogFile.UseVisualStyleBackColor = true;
+			this.btnBrowseLogFile.Click += new System.EventHandler(this.BtnBrowseLogFile_Click);
+			// 
+			// toolTip2
+			// 
+			this.toolTip1.ToolTipTitle = "When checked, indicates that comments should be removed from javascript code when" +
+    " it gets formatted.";
 			// 
 			// OptionsDialog
 			// 
@@ -626,6 +678,7 @@ namespace SokoolTools.VsTools
 			this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "VsTools Options";
+			this.Load += new System.EventHandler(this.FrmOptions_Load);
 			this.grpFormatComments.ResumeLayout(false);
 			this.grpFormatComments.PerformLayout();
 			this.grpInsertRegionDividerLines.ResumeLayout(false);
@@ -652,49 +705,50 @@ namespace SokoolTools.VsTools
 		}
 
 		#endregion
+		
+		private Button btnBrowseExternalTool1;
+		private Button btnBrowseExternalTool2;
+		private Button btnBrowseLogFile;
 		private Button btnCancel;
 		private Button btnOK;
 		private CheckBox chkCommentDividerLineIndentText;
 		private CheckBox chkCommentDividerLineRightAligned;
+		private CheckBox chkIsLoggingEnabled;
 		private CheckBox chkJavascriptStripComments;
 		private CheckBox chkRegionDividerLinesInsert;
+		private EllipsisTextBox txtExternalToolPath1;
+		private EllipsisTextBox txtExternalToolPath2;
+		private EllipsisTextBox txtLogFile;
 		private GroupBox grpFormatComments;
 		private GroupBox grpFormatOrCompactJavascript;
 		private GroupBox grpInsertRegionDividerLines;
 		private GroupBox grpPasteAsComments;
 		private GroupBox grpVariableAlignment;
-		private Label lblConsoleWindowTimeoutSeconds;
+		private Label label1;
 		private Label lblCommentDividerLineChar;
 		private Label lblCommentDividerLineRepeat;
 		private Label lblConsoleWindowTimeoutNote;
+		private Label lblConsoleWindowTimeoutSeconds;
+		private Label lblExternalTool1;
+		private Label lblExternalTool2;
+		private Label lblLogFile;
+		private Label lblLogLevel;
 		private Label lblMaximumIndent;
 		private Label lblPasteCommentsMaxLineLength;
 		private Label lblRegionDividerLineChar;
 		private Label lblRegionDividerLineRepeat;
+		private NumericUpDown updAutoCloseSeconds;
 		private NumericUpDown updCommentDividerLineRepeat;
+		private NumericUpDown updLogLevel;
 		private NumericUpDown updPasteCommentsMaxLineLength;
 		private NumericUpDown updRegionDividerLineRepeat;
-		private Button btnBrowseExternalTool1;
-		private Button btnBrowseExternalTool2;
-		private EllipsisTextBox txtExternalToolPath1;
-		private EllipsisTextBox txtExternalToolPath2;
-		private Label lblExternalTool1;
-		private Label lblExternalTool2;
-		private NumericUpDown updAutoCloseSeconds;
 		private NumericUpDown updVariableAlignment;
 		private TabControl tabControl1;
 		private TabPage tabPageExternalTool;
 		private TabPage tabPageGeneral;
+		private TabPage tabPageLogFile;
 		private TextBox txtCommentDividerLineChar;
 		private TextBox txtRegionDividerLineChar;
 		private ToolTip toolTip1;
-		private Label label1;
-		private TabPage tabPageLogFile;
-		private EllipsisTextBox txtLogFile;
-		private Label lblLogFile;
-		private Button btnBrowseLogFile;
-		private CheckBox chkIsLoggingEnabled;
-		private NumericUpDown updLogLevel;
-		private Label lblLogLevel;
 	}
 }

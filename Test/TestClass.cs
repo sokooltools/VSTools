@@ -5,11 +5,9 @@ using System.Text.RegularExpressions;
 
 namespace VsToolsTest
 {
-	//----------------------------------------------------------------------------------------------------------------------------
 	/// <summary>
 	/// Summary description for TestClass.
 	/// </summary>
-	//----------------------------------------------------------------------------------------------------------------------------
 	[System.ComponentModel.Description(@"code")]
 	[System.ComponentModel.DesignerCategory(@"code")]
 	public class TestClass

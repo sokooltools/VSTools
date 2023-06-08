@@ -34,9 +34,8 @@ namespace SokoolTools.VsTools
 			Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
 			Logging.Log();
 
-			SelectedItems selectedItems = Connect.ApplicationObject.SelectedItems;
+			SelectedItems selectedItems = Connect.objDte2.SelectedItems;
 			Project project = selectedItems.Item(1).Project;
-			OutputPane.Activate();
 			OutputPane.Clear();
 			int hWnd = NativeMethods.GetTextWindowHandle();
 			NativeMethods.LockWindowUpdate(hWnd);
@@ -61,11 +60,11 @@ namespace SokoolTools.VsTools
 						// Solution Level
 						//--------------------------------------------------------------------------------------------------------
 						Write("Starting 'Optimize Usings' on entire solution...");
-						int totalProjects = Connect.ApplicationObject.Solution.Projects.Count;
+						int totalProjects = Connect.objDte2.Solution.Projects.Count;
 						for (int i = 1; i <= totalProjects; i++)
 						{
 							//VsStatusBar.Progress(true, "Optimizing Solution...", i, totalProjects - 1);
-							RemoveAndSort(Connect.ApplicationObject.Solution.Projects.Item(i));
+							RemoveAndSort(Connect.objDte2.Solution.Projects.Item(i));
 						}
 						Write("Finished 'Optimize Usings' on entire solution...");
 					}
@@ -172,7 +171,7 @@ namespace SokoolTools.VsTools
 						bool fileIsOpen = projectItem.IsOpen[Constants.vsViewKindCode];
 
 						//Window window = projectItem.Open(Constants.vsViewKindCode)
-						Window window = Connect.ApplicationObject.OpenFile(Constants.vsViewKindTextView, projectItem.FileNames[0]);
+						Window window = Connect.objDte2.OpenFile(Constants.vsViewKindTextView, projectItem.FileNames[0]);
 						try
 						{
 							//DTE.Windows.Item(projectItem.Document.Name).Activate()

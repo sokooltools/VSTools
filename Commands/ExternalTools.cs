@@ -9,13 +9,11 @@ namespace SokoolTools.VsTools
 {
 	internal static class ExternalTools
 	{
-		//------------------------------------------------------------------------------------------------------------------------
 		/// <summary>
 		/// Launches an external application used for copying target files to a 'Special' assemblies folder and then to 
 		/// optionally check them into TFS.
 		/// </summary>
 		/// <param name="isCheckin">if set to <c>true</c> the files are automatically checked into TFS.</param>
-		//------------------------------------------------------------------------------------------------------------------------
 		public static void CopyTargetFiles(bool isCheckin)
 		{
             Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
@@ -23,7 +21,7 @@ namespace SokoolTools.VsTools
 
 			try
 			{
-				if (!(Connect.ApplicationObject.ActiveSolutionProjects is Array activeProjects) || activeProjects.Length == 0)
+				if (!(Connect.objDte2.ActiveSolutionProjects is Array activeProjects) || activeProjects.Length == 0)
 				{
 					MessageBox.Show(Resources.ProjectMustBeSelected, @"Copy Target Files", MessageBoxButtons.OK,
 						MessageBoxIcon.Exclamation);

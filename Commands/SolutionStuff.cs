@@ -22,7 +22,7 @@ namespace SokoolTools.VsTools
 			Logging.Log();
 			try  
 			{   // Open a solution before running this example  
-				Properties props = Connect.ApplicationObject.Solution.Properties;
+				Properties props = Connect.objDte2.Solution.Properties;
 				var sb = new StringBuilder();
 				sb.AppendLine( "Number of properties in the current solution: " + props.Count);  
 				sb.AppendLine( "The application containing this Properties collection is " + props.DTE.Name);  
@@ -37,10 +37,9 @@ namespace SokoolTools.VsTools
 					}
 					catch
 					{
-						sb.AppendLine(", Value: Error!");
+						sb.AppendLine(", Value: Could not retrieve!");
 					}
 				}
-				OutputPane.Activate();
 				OutputPane.Clear();
 				OutputPane.Write(sb.ToString());
 			}  
@@ -59,7 +58,6 @@ namespace SokoolTools.VsTools
 		{
             Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
             Logging.Log();
-			OutputPane.Activate();
 			OutputPane.Clear();
 			try
 			{
@@ -80,7 +78,7 @@ namespace SokoolTools.VsTools
 
 				var usedNames = new List<string>();
 
-				Solution solution2 = Connect.ApplicationObject.Solution;
+				Solution solution2 = Connect.objDte2.Solution;
 				var solutionBuild2 = (SolutionBuild2)solution2.SolutionBuild;
 
 				var activeSolutionConfiguration2 = (SolutionConfiguration2)solutionBuild2.ActiveConfiguration;
@@ -94,8 +92,7 @@ namespace SokoolTools.VsTools
 																		   .Select(solutionConfiguration2 => solutionConfiguration2.Name)
 																		   .Where(solutionConfigurationName => !usedNames.Contains(solutionConfigurationName)))
 				{
-					sb.AppendLine(
-						$"   - {solutionConfigurationName} {(solutionConfigurationName == activeSolutionConfiguration2.Name ? "***" : "")}");
+					sb.AppendLine($"   - {solutionConfigurationName} {(solutionConfigurationName == activeSolutionConfiguration2.Name ? "***" : "")}");
 					usedNames.Add(solutionConfigurationName);
 				}
 
@@ -130,8 +127,10 @@ namespace SokoolTools.VsTools
 					sb.AppendLine(divLine3);
 
 					List<SolutionContext> scList = solutionConfiguration2.SolutionContexts.Cast<SolutionContext>().ToList();
-					scList.Sort((x, y) => { Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread(); 
-						return String.Compare(x.ProjectName, y.ProjectName, StringComparison.Ordinal); });
+					scList.Sort((x, y) => { 
+						Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread(); 
+						return String.Compare(x.ProjectName, y.ProjectName, StringComparison.Ordinal);
+					});
 
 					Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
 					foreach (SolutionContext solutionContext in scList)

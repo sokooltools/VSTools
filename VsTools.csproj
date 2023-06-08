@@ -40,6 +40,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CopyVsixExtensionFiles>True</CopyVsixExtensionFiles>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -72,6 +73,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands\Dividers.cs" />
+    <Compile Include="Commands\FormatAllFiles.cs" />
     <Compile Include="Commands\MyRegex.cs" />
     <Compile Include="Commands\TextEditor.cs" />
     <Compile Include="Controls\AboutBox.cs">
@@ -82,6 +84,10 @@
     </Compile>
     <Compile Include="CreateCommandSet.cs" />
     <Compile Include="Commands\Framework.cs" />
+    <Compile Include="FormatAllFiles\GeneralOption.cs" />
+    <Compile Include="FormatAllFiles\WildCard.cs" />
+    <Compile Include="FormatAllFiles\WildCardOptions.cs" />
+    <Compile Include="Helpers\EnumerableExtensions.cs" />
     <Compile Include="Helpers\Logging.cs" />
     <Compile Include="Helpers\TextView.cs" />
     <Compile Include="MySolutionEventsHandler.cs" />
@@ -180,6 +186,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\OptionsDialog.resx">
       <DependentUpon>OptionsDialog.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\TranslationDialog.resx">
       <DependentUpon>TranslationDialog.cs</DependentUpon>
@@ -288,12 +295,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
     <Content Include="Images\image01.png" />
-    <Content Include="Images\image02.png" />
-    <Content Include="Images\image03.png" />
-    <Content Include="Images\image04.png" />
-    <Content Include="Images\image05.png" />
-    <Content Include="Images\image06.png" />
-    <Content Include="Images\image07.png" />
     <Content Include="license.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>

@@ -9,11 +9,11 @@ using SokoolTools.VsTools.FindAndReplace;
 
 namespace SokoolTools.VsTools
 {
-	//----------------------------------------------------------------------------------------------------------------------------
+	//------------------------------------------------------------------------------------------------------------------
 	/// <summary>
 	/// Command handler
 	/// </summary>
-	//----------------------------------------------------------------------------------------------------------------------------
+	//------------------------------------------------------------------------------------------------------------------
 	internal sealed class CreateCommandSet : IDisposable
 	{
 		//..................................................................................................................................
@@ -21,7 +21,8 @@ namespace SokoolTools.VsTools
 		#region Private Fields
 
 		private static readonly Guid VsToolsCmdSetGuid = new Guid("19492bcb-32b3-4ec3-8826-d67cd5526653");
-		private readonly OleMenuCommandService _mcs;
+
+		private readonly OleMenuCommandService _omcs;
 
 		private static MySolutionEventsHandler MySolutionEventsHandler { get; set; }
 
@@ -30,28 +31,29 @@ namespace SokoolTools.VsTools
 
 		#endregion
 
-		//------------------------------------------------------------------------------------------------------------------------
+		//--------------------------------------------------------------------------------------------------------------
 		/// <summary>
 		/// VS Package that provides this command, not null.
 		/// </summary>
-		//------------------------------------------------------------------------------------------------------------------------
+		//--------------------------------------------------------------------------------------------------------------
 		private readonly AsyncPackage _package;
 
-		//------------------------------------------------------------------------------------------------------------------------
+		//--------------------------------------------------------------------------------------------------------------
 		/// <summary>
 		/// Gets the service provider from the owner package.
 		/// </summary>
-		//------------------------------------------------------------------------------------------------------------------------
+		//--------------------------------------------------------------------------------------------------------------
 		private IServiceProvider ServiceProvider => _package;
 
-		//------------------------------------------------------------------------------------------------------------------------
+		//--------------------------------------------------------------------------------------------------------------
 		/// <summary>
 		/// Gets the instance of this object.
 		/// </summary>
-		//------------------------------------------------------------------------------------------------------------------------
+		//--------------------------------------------------------------------------------------------------------------
+		// ReSharper disable once UnusedAutoPropertyAccessor.Global
 		public static CreateCommandSet Instance { get; private set; }
 
-		//------------------------------------------------------------------------------------------------------------------------
+		//--------------------------------------------------------------------------------------------------------------
 		/// <summary>
 		/// Initializes the singleton instance of the command.
 		/// </summary>
@@ -60,7 +62,7 @@ namespace SokoolTools.VsTools
 		/// collection of commands implemented by the package.
 		/// </remarks>
 		/// <param name="package">Owner package, not null.</param>
-		//------------------------------------------------------------------------------------------------------------------------
+		//--------------------------------------------------------------------------------------------------------------
 		public static async System.Threading.Tasks.Task InitializeAsync(AsyncPackage package)
 		{
 			// Switch to the main thread - the call to AddCommand in the constructor requires the UI thread.
@@ -70,28 +72,28 @@ namespace SokoolTools.VsTools
 			Instance = new CreateCommandSet(package, menuCommandService);
 		}
 
-		//------------------------------------------------------------------------------------------------------------------------
+		//--------------------------------------------------------------------------------------------------------------
 		/// <summary>
 		/// Initializes a new instance of the <see cref="CreateCommandSet" /> class.
 		/// Adds our command handlers for menu (commands must exist in the command table file)
 		/// </summary>
 		/// <param name="package">Owner package, not null.</param>
-		/// <param name="menuCommandService">The menu command service.</param>
+		/// <param name="oleMenuCommandService">The OLE Menu Command Service.</param>
 		/// <exception cref="ArgumentNullException">package or commandService</exception>
-		//------------------------------------------------------------------------------------------------------------------------
-		private CreateCommandSet(AsyncPackage package, OleMenuCommandService menuCommandService)
+		//--------------------------------------------------------------------------------------------------------------
+		private CreateCommandSet(AsyncPackage package, OleMenuCommandService oleMenuCommandService)
 		{
 			_package = package ?? throw new ArgumentNullException(nameof(package));
 
-			_mcs = menuCommandService ?? throw new ArgumentNullException(nameof(menuCommandService));
+			_omcs = oleMenuCommandService ?? throw new ArgumentNullException(nameof(oleMenuCommandService));
 
-			//--------------------------------------------------------------------------------------------------------------------
-			// Create one object derived from OleMenuCommand for each command defined in the VSCT file and add it to the menu 
-			// command service.
+			//----------------------------------------------------------------------------------------------------------
+			// Create one object derived from OleMenuCommand for each command defined in the VSCT file and add it to the 
+			// menu command service.
 			// For each command define an id that is a unique menu group guid along with a command integer.
-			// Now create the OleMenuCommand object for this command. The EventHandler object is the function that will be called 
-			// when the user selects the command.
-			//--------------------------------------------------------------------------------------------------------------------
+			// Now create the OleMenuCommand object for this command. The EventHandler object is the function that will 
+			// be called when the user selects the command.
+			//----------------------------------------------------------------------------------------------------------
 			const BindingFlags flags = BindingFlags.Static | BindingFlags.Public;
 			Type type = typeof(PkgIds);
 			IEnumerable<FieldInfo> fields = type.GetFields(flags).Where(f => f.IsLiteral && !f.IsInitOnly);
@@ -99,13 +101,13 @@ namespace SokoolTools.VsTools
 			{
 				var mnuCmdId = new CommandID(VsToolsCmdSetGuid, (int)f.GetValue(null));
 				var menuItem = new OleMenuCommand(MenuCommandCallback, null, MenuItem_BeforeQueryStatus, mnuCmdId);
-				_mcs.AddCommand(menuItem);
+				_omcs.AddCommand(menuItem);
 			}
-			
-			ThreadHelper.ThrowIfNotOnUIThread();
 
+			ThreadHelper.ThrowIfNotOnUIThread();
 			AddDynamicCommand();
 
+			ThreadHelper.ThrowIfNotOnUIThread();
 			SetupSolutionEvents();
 		}
 
@@ -113,24 +115,24 @@ namespace SokoolTools.VsTools
 
 		#region Private Helper Methods
 
-		//------------------------------------------------------------------------------------------------------------------------
+		//--------------------------------------------------------------------------------------------------------------
 		/// <summary>
 		/// Sets up the solution events.
 		/// </summary>
-		//------------------------------------------------------------------------------------------------------------------------
+		//--------------------------------------------------------------------------------------------------------------
 		private void SetupSolutionEvents()
 		{
-			ThreadHelper.ThrowIfNotOnUIThread();
 			// Create the handler used to receive the solution events.
+			ThreadHelper.ThrowIfNotOnUIThread();
 			if (ServiceProvider.GetService(typeof(SVsSolution)) is IVsSolution solution)
 				MySolutionEventsHandler = new MySolutionEventsHandler(solution);
 		}
 
-		//------------------------------------------------------------------------------------------------------------------------
+		//--------------------------------------------------------------------------------------------------------------
 		/// <summary>
 		/// Handles the BeforeQueryStatus event of the MenuItem control.
 		/// </summary>
-		//------------------------------------------------------------------------------------------------------------------------
+		//--------------------------------------------------------------------------------------------------------------
 		private static void MenuItem_BeforeQueryStatus(object sender, EventArgs e)
 		{
 			ThreadHelper.ThrowIfNotOnUIThread();
@@ -141,6 +143,7 @@ namespace SokoolTools.VsTools
 			{
 				case PkgIds.VSToolsMenu:
 					break;
+				case PkgIds.FormatCommentsInAllFiles:
 				case PkgIds.TogglePublish:
 				case PkgIds.SolutionExplorerCollapse:
 				case PkgIds.ShowProjectReferences:
@@ -179,11 +182,11 @@ namespace SokoolTools.VsTools
 			}
 		}
 
-		//------------------------------------------------------------------------------------------------------------------------
+		//--------------------------------------------------------------------------------------------------------------
 		/// <summary>
 		/// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
 		/// </summary>
-		//------------------------------------------------------------------------------------------------------------------------
+		//--------------------------------------------------------------------------------------------------------------
 		void IDisposable.Dispose()
 		{
 			ThreadHelper.ThrowIfNotOnUIThread();
@@ -196,15 +199,15 @@ namespace SokoolTools.VsTools
 
 		#region Menu Callbacks
 
-		//------------------------------------------------------------------------------------------------------------------------
+		//--------------------------------------------------------------------------------------------------------------
 		/// <summary>
 		/// Event handler called when the user selects a command.
 		/// </summary>
-		//------------------------------------------------------------------------------------------------------------------------
+		//--------------------------------------------------------------------------------------------------------------
 		private static void MenuCommandCallback(object sender, EventArgs args)
 		{
 			ThreadHelper.ThrowIfNotOnUIThread();
-			
+
 			// Check that the type of caller is expected.
 			if (!(sender is OleMenuCommand command))
 				return;
@@ -217,6 +220,9 @@ namespace SokoolTools.VsTools
 			{
 				case PkgIds.FormatComments:
 					Comments.FormatComments();
+					break;
+				case PkgIds.FormatCommentsInAllFiles:
+					Comments.FormatCommentsInAllFiles();
 					break;
 				case PkgIds.RemoveAllDividerLines:
 					Dividers.RemoveAllDividerLines();
@@ -297,7 +303,7 @@ namespace SokoolTools.VsTools
 					Docs.SortSelectedLines();
 					break;
 				case PkgIds.RegexFindAndReplace:
-					new SearchForm(Connect.ApplicationObject).Show();
+					new SearchForm(Connect.objDte2).Show();
 					break;
 				case PkgIds.ExternalTools1:
 					ExternalTools.Run(1);
@@ -338,37 +344,37 @@ namespace SokoolTools.VsTools
 
 		#region Dynamic Command Menu
 
-		//------------------------------------------------------------------------------------------------------------------------
+		//--------------------------------------------------------------------------------------------------------------
 		/// <summary>
 		/// Adds a dynamic command to the VSTools menu.
 		/// </summary>
-		//------------------------------------------------------------------------------------------------------------------------
+		//--------------------------------------------------------------------------------------------------------------
 		private void AddDynamicCommand()
 		{
 			// Create the DynamicMenuCommand object for the command defined with the TextChanges flag.
 			var mnuCmdId = new CommandID(VsToolsCmdSetGuid, DynPkgIds.DynamicTxt);
 			OleMenuCommand menuItem = new DynamicTextCommand(mnuCmdId, Resources.DynamicTextBaseText);
 			menuItem.BeforeQueryStatus += MenuItem_BeforeQueryStatus;
-			_mcs.AddCommand(menuItem);
+			_omcs.AddCommand(menuItem);
 
 			// Now create two OleMenuCommand objects for the two commands with dynamic visibility.
 			mnuCmdId = new CommandID(VsToolsCmdSetGuid, DynPkgIds.DynVisibility1);
 			_dynamicVisibilityCommand1 = new OleMenuCommand(MenuCommandCallback, mnuCmdId);
-			_mcs.AddCommand(_dynamicVisibilityCommand1);
+			_omcs.AddCommand(_dynamicVisibilityCommand1);
 
 			// This command is the one that is invisible by default, so its visble property must be set to false   
 			// because the default value of this property for every object which is derived from MenuCommand is true.
 			mnuCmdId = new CommandID(VsToolsCmdSetGuid, DynPkgIds.DynVisibility2);
 			_dynamicVisibilityCommand2 = new OleMenuCommand(MenuCommandCallback, mnuCmdId) { Visible = false };
-			_mcs.AddCommand(_dynamicVisibilityCommand2);
+			_omcs.AddCommand(_dynamicVisibilityCommand2);
 		}
 
-		//------------------------------------------------------------------------------------------------------------------------
+		//--------------------------------------------------------------------------------------------------------------
 		/// <summary>
 		/// This function prints text on the debug output and on the generic pane of the Output window.
 		/// </summary>
 		/// <param name="text"></param>
-		//------------------------------------------------------------------------------------------------------------------------
+		//--------------------------------------------------------------------------------------------------------------
 		private static void OutputString(string text)
 		{
 			ThreadHelper.ThrowIfNotOnUIThread();

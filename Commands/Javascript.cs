@@ -46,7 +46,7 @@ namespace SokoolTools.VsTools
 		{
             Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
             // Get the selection.
-            var sel = (TextSelection) Connect.ApplicationObject.ActiveWindow.Document.Selection;
+            var sel = (TextSelection) Connect.objDte2.ActiveWindow.Document.Selection;
 
 			// Check that the selection is not empty.
 			if (sel != null && sel.Text == String.Empty)

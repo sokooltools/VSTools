@@ -159,9 +159,9 @@ namespace SokoolTools.VsTools.FindAndReplace
 		private void SearchEntireSolution(string fileTypes)
 		{
 			Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-			foreach (Project project in Connect.ApplicationObject.Solution.Projects)
+			foreach (Project project in Connect.objDte2.Solution.Projects)
 			{
-				if (project.Kind != "{66A26720-8FB5-11D2-AA7E-00C04F688DDE}") //  ProjectKinds.vsProjectKindSolutionFolder)
+				if (project.Kind != EnvDTE80.ProjectKinds.vsProjectKindSolutionFolder)
 					SearchProjectFiles(project.ProjectItems, fileTypes);
 			}
 		}
@@ -265,7 +265,7 @@ namespace SokoolTools.VsTools.FindAndReplace
 		{
 			Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
 			_ = fileTypes.Split(';');
-			foreach (Document document in Connect.ApplicationObject.Documents)
+			foreach (Document document in Connect.objDte2.Documents)
 			{
 				// TODO: Detect cancel here
 				SearchInOneFile(document.FullName);
@@ -485,7 +485,6 @@ namespace SokoolTools.VsTools.FindAndReplace
 
 			string title1;
 			string title2;
-			OutputPane.Activate();
 			OutputPane.Clear();
 
 			if (isReplace)

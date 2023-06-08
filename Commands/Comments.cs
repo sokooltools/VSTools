@@ -19,6 +19,17 @@ namespace SokoolTools.VsTools
 		private static char _commentDividerLineChar;
 		private static int _commentDividerLineRepeat;
 
+		public static void FormatCommentsInAllFiles()
+		{
+			Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+
+			Logging.Log();
+
+			// TODO: Add body here 
+			FormatAllFiles.Execute();
+			//SolutionStuff.ShowSolutionProperties(); // <-- Just for testing!
+		}
+
 		//------------------------------------------------------------------------------------------------------------------------
 		/// <summary>
 		/// Formats the Comments.
@@ -30,7 +41,7 @@ namespace SokoolTools.VsTools
 			
 			Logging.Log();
 
-			Document doc = Connect.ApplicationObject.ActiveWindow.Document;
+			Document doc = Connect.objDte2.ActiveWindow.Document;
 
 			if (!(doc?.Selection is TextSelection sel))
 				return;
@@ -43,10 +54,10 @@ namespace SokoolTools.VsTools
 
 			// Need to change to insert tabs before doing smart formatting.
 			bool bInsertTabs =
-				Convert.ToBoolean(Connect.ApplicationObject.DTE.Properties["TextEditor", "CSharp"].Item("InsertTabs").Value);
+				Convert.ToBoolean(Connect.objDte2.DTE.Properties["TextEditor", "CSharp"].Item("InsertTabs").Value);
 
 			if (!bInsertTabs)
-				Connect.ApplicationObject.DTE.Properties["TextEditor", "CSharp"].Item("InsertTabs").Value = true;
+				Connect.objDte2.DTE.Properties["TextEditor", "CSharp"].Item("InsertTabs").Value = true;
 
 			// Always start out by formatting the entire text.
 			sel.SmartFormat();
@@ -61,7 +72,7 @@ namespace SokoolTools.VsTools
 			_isRightAligned = OptionsHelper.IsCommentDividerLineRightAligned;
 
 			// Get the actual tab size used for this document type.
-			_tabSize = Convert.ToInt32(Connect.ApplicationObject.DTE.Properties["TextEditor", "CSharp"].Item("TabSize").Value);
+			_tabSize = Convert.ToInt32(Connect.objDte2.DTE.Properties["TextEditor", "CSharp"].Item("TabSize").Value);
 
 			// Determine if code is surrounded by a namespace.
 			_isNamespaced = Regex.IsMatch(text, @"^[\s]*namespace ", RegexOptions.Multiline | RegexOptions.IgnoreCase);
@@ -607,7 +618,7 @@ namespace SokoolTools.VsTools
 		{
             Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
             const string desc = "Replace tabs with spaces";
-			Connect.ApplicationObject.DTE.Properties["TextEditor", "CSharp"].Item("InsertTabs").Value = false;
+			Connect.objDte2.DTE.Properties["TextEditor", "CSharp"].Item("InsertTabs").Value = false;
 			return MyRegex.Replace(text, @"\t", new string(' ', _tabSize), RegexOptions.Multiline, desc);
 		}
 

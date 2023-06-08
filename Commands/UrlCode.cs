@@ -35,7 +35,7 @@ namespace SokoolTools.VsTools
 			Logging.Log();
 
 			// Get the selection.
-			var sel = (TextSelection)Connect.ApplicationObject.ActiveWindow.Document.Selection;
+			var sel = (TextSelection)Connect.objDte2.ActiveWindow.Document.Selection;
 
 			string sTxt = sel.Text;
 

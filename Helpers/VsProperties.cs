@@ -20,7 +20,7 @@ namespace SokoolTools.VsTools
 			{
 				string msg = null;
 
-				Project project = Connect.ApplicationObject.Solution.Projects.Item(1);
+				Project project = Connect.objDte2.Solution.Projects.Item(1);
 				Configuration config = project.ConfigurationManager.ActiveConfiguration;
 
 				//string fullPath = project.Properties.Item("FullPath").Value.ToString();
@@ -94,7 +94,7 @@ namespace SokoolTools.VsTools
 			{
 				string msg = null;
 
-				Project project = Connect.ApplicationObject.Solution.Projects.Item(1);
+				Project project = Connect.objDte2.Solution.Projects.Item(1);
 
 				// Add a new folder to the project.
 				//msg += (@"Adding a new folder to the project.");
@@ -128,7 +128,7 @@ namespace SokoolTools.VsTools
             try
 			{
 				string msg = null;
-				Project project = Connect.ApplicationObject.Solution.Projects.Item(1);
+				Project project = Connect.objDte2.Solution.Projects.Item(1);
 				ProjectItems projItems = project.ProjectItems;
 				for (int i = 1; i <= projItems.Count; i++)
 				{

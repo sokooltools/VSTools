@@ -111,8 +111,10 @@ namespace SokoolTools.VsTools
 		/// <c>true</c> if the current user is a Windows administrator; otherwise, <c>false</c>.
 		/// </returns>
 		//----------------------------------------------------------------------------------------------------
+#pragma warning disable IDE0051
 		// ReSharper disable once UnusedMember.Local
 		private static bool IsWindowsAdministrator()
+#pragma warning restore IDE0051
 		{
 			return new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator);
 		}
