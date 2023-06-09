@@ -34,7 +34,7 @@ namespace SokoolTools.VsTools
 		public static void ProcessBookmarks(ProcessBookmarksEnum eAction)
 		{
 			Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-			Logging.Log();
+			Logging.Log(2);
 
 			// Get the current selection in the active window.
 			TextSelection sel = MyTextSelection.Current();

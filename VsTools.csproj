@@ -41,6 +41,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CopyVsixExtensionFiles>True</CopyVsixExtensionFiles>
+    <LangVersion>8</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -49,6 +50,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>8</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.VisualStudio.SDK" Version="16.0.208" ExcludeAssets="runtime" />
@@ -266,6 +268,10 @@
     <Content Include="Help\Scripts\help.js" />
     <Content Include="Help\Scripts\jquery.js" />
     <Content Include="Help\Themes\help.css" />
+    <Content Include="Resources\About1.htm" />
+    <Content Include="Resources\About2.htm" />
+    <Content Include="Resources\license.txt" />
+    <Content Include="Resources\RegexHelp.png" />
     <Content Include="Test\TestHtml.htm" />
     <Content Include="Test\TestScripts.js" />
     <Content Include="Test\TestURLs.txt" />

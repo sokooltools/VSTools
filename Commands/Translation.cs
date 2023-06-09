@@ -33,7 +33,7 @@ namespace SokoolTools.VsTools
 		{
 			Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
 
-			Logging.Log();
+			Logging.Log(2);
 
 			try
 			{

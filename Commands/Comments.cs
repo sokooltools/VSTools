@@ -23,7 +23,7 @@ namespace SokoolTools.VsTools
 		{
 			Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
 
-			Logging.Log();
+			Logging.Log(2);
 
 			// TODO: Add body here 
 			FormatAllFiles.Execute();
@@ -39,7 +39,7 @@ namespace SokoolTools.VsTools
 		{
 			Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
 			
-			Logging.Log();
+			Logging.Log(2);
 
 			Document doc = Connect.objDte2.ActiveWindow.Document;
 
@@ -151,7 +151,7 @@ namespace SokoolTools.VsTools
 		//------------------------------------------------------------------------------------------------------------------------
 		private static string GetWrappedInternalText(string text)
 		{
-			Logging.Log(2);
+			Logging.Log(3);
 
 			string sIndent = " ";
 
@@ -243,7 +243,7 @@ namespace SokoolTools.VsTools
 		//------------------------------------------------------------------------------------------------------------------------
 		private static string GetWrappedCommentText(string text)
 		{
-			Logging.Log(2);
+			Logging.Log(3);
 
 			// Process text between each tag independently.
 			string[] aTags = { "summary", "param", "remarks", "exception", "returns", "example" };
@@ -314,7 +314,7 @@ namespace SokoolTools.VsTools
 		//------------------------------------------------------------------------------------------------------------------------
 		private static string GetWrappedCommentTextForTags(string text)
 		{
-			Logging.Log(2);
+			Logging.Log(3);
 
 			// Process text between each tag independently.
 			string[] tagNames = { "param", "returns", "value", "exception" };
@@ -453,7 +453,7 @@ namespace SokoolTools.VsTools
 		//------------------------------------------------------------------------------------------------------------------------
 		private static string AddTopMiniDividerLines(string text)
 		{
-			const string desc = "Add top mini divider lines.";
+			const string desc = @"Add top mini divider lines.";
 			const string findWhat = @"(?![ \t]*//[=\-]+\n[ \t]*)^([ \t]*)(///[ \t]*\<summary\>)";
 			const string replWith = "$1//--\n$1$2";
 			return MyRegex.Replace(text, findWhat, replWith, MyRegex.OPTIONS, desc);
@@ -468,7 +468,7 @@ namespace SokoolTools.VsTools
 		//------------------------------------------------------------------------------------------------------------------------
 		private static string AddAttributeDividerLines(string text)
 		{
-			const string desc = "Add attribute mini divider lines1.";
+			const string desc = @"Add attribute mini divider lines1.";
 			const string findWhat = @"(\>)([\r\n]*)([ \t]*)([/]*[\s]*\[)";
 
 			// 
@@ -485,7 +485,7 @@ namespace SokoolTools.VsTools
 		//------------------------------------------------------------------------------------------------------------------------
 		private static string AddResharperDividerLines(string text)
 		{
-			const string desc = "Add resharper mini divider lines2.";
+			const string desc = @"Add resharper mini divider lines2.";
 			const string findWhat = @"([\r\n]*)([ \t]*)(//[ \t]*ReSharper disable[^\n]*[\s\r\n]*)(public|private|protected|internal|static|void)";
 			const string replWith = "$1$2//--\n$2$3$4";
 			return MyRegex.Replace(text, findWhat, replWith, MyRegex.OPTIONS, desc);
@@ -549,8 +549,8 @@ namespace SokoolTools.VsTools
 		//------------------------------------------------------------------------------------------------------------------------
 		private static string AdjustLengthOfDividerLines(string text)
 		{
-			const string desc = "Adjust length of divider lines.";
-			Logging.Log(desc);
+			//const string desc = "Adjust length of divider lines.";
+			Logging.Log(3);
 			MatchCollection m = Regex.Matches(text, "^([\t]*)(//--[\\-]*)\\s*\n", RegexOptions.Multiline);
 			for (int i = m.Count - 1; i >= 0; i--)
 			{

@@ -1,31 +1,44 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Management;
 using System.Reflection;
 using System.Security.Principal;
 using System.Text.RegularExpressions;
 using System.Text;
 using System.Windows.Forms;
 using Microsoft.Win32;
+using System.Management;
+using System.Net.NetworkInformation;
+
 // ReSharper disable StringLiteralTypo
 
 namespace SokoolTools.VsTools
 {
+	//----------------------------------------------------------------------------------------------------------------------------
+	/// <summary>
+	/// Provides code for displaying an AboutBox dialog as well as publicly available methods
+	/// </summary>
+	/// <seealso cref="System.Windows.Forms.Form" />
+	//----------------------------------------------------------------------------------------------------------------------------
 	internal partial class AboutBox : Form
 	{
-		private static Assembly _assembly;
+		//private static Assembly _assembly;
 
+		//------------------------------------------------------------------------------------------------------------------------
+		/// <summary>
+		/// Initializes a new instance of the <see cref="AboutBox"/> class.
+		/// </summary>
+		//------------------------------------------------------------------------------------------------------------------------
 		public AboutBox()
 		{
 			InitializeComponent();
-			_assembly = Assembly.GetEntryAssembly() ?? Assembly.GetExecutingAssembly();
-			webBrowser1.DocumentText = SystemInfo.GetSummary(true);
+			//_assembly = Assembly.GetEntryAssembly() ?? Assembly.GetExecutingAssembly();
 		}
 
-		//.............................................................................................................
+		//..................................................................................................................................
 
 		#region Assembly Attribute Accessors
 
@@ -51,8 +64,6 @@ namespace SokoolTools.VsTools
 			}
 		}
 
-		//----------------------------------------------------------------------------------------------------
-		// ReSharper disable once UnusedMember.Global
 		private static string AssemblyDescription
 		{
 			get
@@ -64,7 +75,7 @@ namespace SokoolTools.VsTools
 			}
 		}
 
-		private static string AssemblyProduct
+		internal static string AssemblyProduct
 		{
 			get
 			{
@@ -102,29 +113,12 @@ namespace SokoolTools.VsTools
 
 		private static string AssemblyLocation => Assembly.GetExecutingAssembly().Location;
 
-		//----------------------------------------------------------------------------------------------------
-		/// <summary>
-		/// Returns an indication as to whether the current user belongs to the Windows user group with an 
-		/// administrator role.
-		/// </summary>
-		/// <returns>
-		/// <c>true</c> if the current user is a Windows administrator; otherwise, <c>false</c>.
-		/// </returns>
-		//----------------------------------------------------------------------------------------------------
-#pragma warning disable IDE0051
-		// ReSharper disable once UnusedMember.Local
-		private static bool IsWindowsAdministrator()
-#pragma warning restore IDE0051
-		{
-			return new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator);
-		}
-
 		//------------------------------------------------------------------------------------------------------------------------
 		/// <summary>
 		/// Gets the file path of the assembly.
 		/// </summary>
 		//------------------------------------------------------------------------------------------------------------------------
-		private static string FilePath => new Uri(_assembly.GetName().CodeBase).LocalPath;
+		private static string FilePath => new Uri(Assembly.GetExecutingAssembly().GetName().CodeBase).LocalPath;
 
 		//------------------------------------------------------------------------------------------------------------------------
 		/// <summary>
@@ -142,32 +136,53 @@ namespace SokoolTools.VsTools
 
 		#endregion
 
-		//.............................................................................................................
+		//..................................................................................................................................
 
 		#region Form Event Handlers
 
 		private void AboutBox_Load(object sender, EventArgs e)
 		{
-			Text = $@"About {AssemblyTitle}";
+			MinimumSize = Size;
 
-			tabPage1.Text = Text;
+			Debug.WriteLine($@"AssemblyLocation: {AssemblyLocation}");
 
-			var sb = new StringBuilder();
-			sb.AppendLine($@"Product:       {AssemblyProduct}");
-			sb.AppendLine($@"Version:       {AssemblyVersion}");
-			sb.AppendLine($@"Copyright:     {AssemblyCopyright}");
-			sb.AppendLine($@"Company:       {AssemblyCompany}");
-			sb.AppendLine($@"Last Modified: {Modified.ToLongDateString()} {Modified.ToLongTimeString()}");
-			textBoxValues.Text = sb.ToString();
+			Text = $@"About {AssemblyTitle} {(SystemInfo.IsWindowsAdministrator() ? "(Admin)" : String.Empty)}";
 
-			textBoxModified.Text = FilePath;
+			webBrowser1.DocumentText = GetTabPage1Text();
+		}
 
-			string fileName = Path.Combine(Path.GetDirectoryName(AssemblyLocation) ?? "", "ReadMe.txt");
-			textBoxDescription.Text = File.Exists(fileName) ? File.ReadAllText(fileName) : AssemblyDescription;
+		private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			if (tabControl1.SelectedIndex != 1 || webBrowser2.DocumentText != String.Empty)
+				return;
+			Cursor = Cursors.WaitCursor;
+			webBrowser2.DocumentText = SystemInfo.GetTabPage2Text();
+			Cursor = Cursors.Default;
+		}
+
+		#endregion
+
+		//..................................................................................................................................
+
+		#region Helper Methods
+
+		private static string GetTabPage1Text()
+		{
+			string html = Resources.About1;
+			html = html.Replace(@"#Product", AssemblyProduct);
+			html = html.Replace(@"#Description", AssemblyDescription);
+			html = html.Replace(@"#Version", AssemblyVersion);
+			html = html.Replace(@"#Copyright", AssemblyCopyright);
+			html = html.Replace(@"#Company", AssemblyCompany);
+			html = html.Replace(@"#LastModified", $"{ Modified.ToLongDateString() } { Modified.ToLongTimeString() }");
+			html = html.Replace(@"#PluginPath", FilePath);
+			return html;
 		}
 
 		#endregion
 	}
+
+	//..................................................................................................................................
 
 	#region SystemInfo
 
@@ -178,25 +193,6 @@ namespace SokoolTools.VsTools
 	//----------------------------------------------------------------------------------------------------------------------------
 	public static class SystemInfo
 	{
-		//------------------------------------------------------------------------------------------------------------------------
-		/// <summary>
-		/// Gets the latest version number of .NET installed on this computer.
-		/// </summary>
-		//------------------------------------------------------------------------------------------------------------------------
-		public static string DotNetVersion
-		{
-			get
-			{
-				const string REGISTRY_KEY = @"SOFTWARE\Microsoft\.NETFramework\";
-				using (RegistryKey key = Registry.LocalMachine.OpenSubKey(REGISTRY_KEY, false))
-				{
-					return key == null
-						? Environment.Version.ToString()
-						: key.GetSubKeyNames().Where(m => m.StartsWith("v")).OrderByDescending(m => m).FirstOrDefault();
-				}
-			}
-		}
-
 		//------------------------------------------------------------------------------------------------------------------------
 		/// <summary>
 		/// Returns an indication as to whether the current user belongs to the Windows user group with an administrator role.
@@ -212,58 +208,17 @@ namespace SokoolTools.VsTools
 		/// <summary>
 		/// Gets a summary of all pertinent system information in HTML format.
 		/// </summary>
-		/// <param name="showIpConfigData">if set to <c>true</c> IP configuration data is added to the summary.</param>
 		/// <returns></returns>
 		//------------------------------------------------------------------------------------------------------------------------
-		public static string GetSummary(bool showIpConfigData = false)
+		public static string GetTabPage2Text()
 		{
-			// Build a string.
-			var sb = new StringBuilder();
-			sb.AppendLine("<!DOCTYPE html>");
-			sb.AppendLine("<html>");
-			sb.AppendLine("<head>");
-			sb.AppendLine("<style type='text/css'>");
-			sb.AppendLine(".style1 {");
-			sb.AppendLine(" font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; font-size: 0.75em;");
-			sb.AppendLine("}");
-			sb.AppendLine(".style2 {");
-			sb.AppendLine(" font-family: 'Courier New', Courier, monospace;font-size: 0.75em;");
-			sb.AppendLine("}");
-			sb.AppendLine("</style>");
-			sb.AppendLine("</head>");
-			sb.AppendLine("<body class='style1'>");
-			sb.AppendLine("<h3>SYSTEM INFORMATION</h3>");
-			sb.AppendLine("====================================<br/>");
-			sb.AppendLine("<b>Windows Version</b><br/>");
-			sb.AppendLine("====================================<br/>");
-			sb.AppendFormat("{0}<br/><br/>", GetOSInfo());
-			sb.AppendLine("====================================<br/>");
-			sb.AppendLine("<b>.Net Versions Installed</b><br/>");
-			sb.AppendLine("====================================<br/>");
-			sb.AppendFormat("{0}<br/>", GetDotNetData());
-			//sb.AppendLine("<hr>");
-			//sb.AppendLine("====================================<br/>");
-			//sb.AppendLine("<b>CPU-Related Information</b><br/>");
-			//sb.AppendLine("====================================<br/>");
-			//sb.AppendFormat("{0}<br/>", systemInfo.GetCPUData());
-			//sb.AppendLine("<hr>");
-			sb.AppendLine("====================================<br/>");
-			sb.AppendLine("<b>LAN Names</b><br/>");
-			sb.AppendLine("====================================<br/>");
-			sb.AppendFormat("{0}<br/>", GetLanNames());
-			if (showIpConfigData)
-			{
-				sb.AppendLine("====================================<br/>");
-				sb.AppendLine("<b>Extended Network Information</b><br/>");
-				sb.AppendLine("====================================");
-				sb.AppendLine("<div class='style2'>");
-				string data = Regex.Replace(GetIpConfigData(), "^[\r\n]*", "", RegexOptions.Singleline);
-				sb.AppendFormat("{0}", Regex.Replace(Regex.Replace(data, "\r\n", "<br/>"), "[ ]{2}", "&nbsp;&nbsp;"));
-				sb.AppendLine("</div>");
-			}
-			sb.AppendLine("</body>");
-			sb.AppendLine("</html>");
-			return sb.ToString();
+			string html = Resources.About2;
+			html = html.Replace(@"#OSInfo", GetOSInfo());
+			html = html.Replace(@"#DotNetData", GetDotNetData().Replace(Environment.NewLine, "<br />"));
+			html = html.Replace(@"#LanNames", GetLanNames().Replace(Environment.NewLine, "<br />"));
+			html = html.Replace(@"#MacAddresses", GetMacAddresses());
+			html = html.Replace(@"#CpuData", GetCpuData().Replace(Environment.NewLine, "<br />"));
+			return html;
 		}
 
 		//------------------------------------------------------------------------------------------------------------------------
@@ -276,94 +231,92 @@ namespace SokoolTools.VsTools
 		//------------------------------------------------------------------------------------------------------------------------
 		private static string GetOSInfo()
 		{
-			using (var objMOS = new ManagementObjectSearcher("SELECT * FROM  Win32_OperatingSystem"))
+			using var objMOS = new ManagementObjectSearcher("SELECT * FROM  Win32_OperatingSystem");
+			// Variables to hold our return value.
+			string os = String.Empty;
+			int osArch = 0;
+			try
 			{
-				// Variables to hold our return value.
-				string os = String.Empty;
-				int osArch = 0;
-				try
+				foreach (ManagementBaseObject objManagement in objMOS.Get())
 				{
-					foreach (ManagementBaseObject objManagement in objMOS.Get())
+					// Get OS version from WMI - This also gives us the edition
+					object osCaption = objManagement.GetPropertyValue("Caption");
+					if (osCaption == null)
+						continue;
+
+					// Remove all non-alphanumeric characters so that only letters, numbers, and spaces are left.
+					string osC = Regex.Replace(osCaption.ToString(), "[^A-Za-z0-9 ]", "");
+					//string osC = osCaption.ToString();
+
+					// If the OS starts with "Microsoft," remove it.  We know that already.
+					if (osC.StartsWith("Microsoft"))
+						osC = osC.Substring(9);
+
+					// If the OS now starts with "Windows," again... useless.  Remove it.
+					if (osC.Trim().StartsWith("Windows"))
+						osC = osC.Trim().Substring(7);
+
+					// Remove any remaining beginning or ending spaces.
+					os = osC.Trim();
+
+					// Only proceed if we actually have an OS version - service pack is useless without the OS version.
+					if (!String.IsNullOrEmpty(os))
 					{
-						// Get OS version from WMI - This also gives us the edition
-						object osCaption = objManagement.GetPropertyValue("Caption");
-						if (osCaption == null)
-							continue;
-
-						// Remove all non-alphanumeric characters so that only letters, numbers, and spaces are left.
-						string osC = Regex.Replace(osCaption.ToString(), "[^A-Za-z0-9 ]", "");
-						//string osC = osCaption.ToString();
-
-						// If the OS starts with "Microsoft," remove it.  We know that already.
-						if (osC.StartsWith("Microsoft"))
-							osC = osC.Substring(9);
-
-						// If the OS now starts with "Windows," again... useless.  Remove it.
-						if (osC.Trim().StartsWith("Windows"))
-							osC = osC.Trim().Substring(7);
-
-						// Remove any remaining beginning or ending spaces.
-						os = osC.Trim();
-
-						// Only proceed if we actually have an OS version - service pack is useless without the OS version.
-						if (!String.IsNullOrEmpty(os))
-						{
-							try
-							{
-								// Get OS service pack from WMI
-								object osSP = objManagement.GetPropertyValue("ServicePackMajorVersion");
-								if (osSP != null && osSP.ToString() != "0")
-								{
-									os += " Service Pack " + osSP;
-								}
-								else
-								{
-									// Service Pack not found.  Try built-in Environment class.
-									os += GetLegacyOSServicePack();
-								}
-							}
-							catch (Exception)
-							{
-								// There was a problem getting the service pack from WMI.  Try built-in Environment class.
-								os += GetLegacyOSServicePack();
-							}
-						}
 						try
 						{
-							// Get OS architecture from WMI
-							object osA = objManagement.GetPropertyValue("OSArchitecture");
-							if (osA != null)
+							// Get OS service pack from WMI
+							object osSP = objManagement.GetPropertyValue("ServicePackMajorVersion");
+							if (osSP != null && osSP.ToString() != "0")
 							{
-								string osAString = osA.ToString();
-								// If "64" is anywhere in there, it's a 64-bit architectore.
-								osArch = (osAString.Contains("64") ? 64 : 32);
+								os += " Service Pack " + osSP;
+							}
+							else
+							{
+								// Service Pack not found.  Try built-in Environment class.
+								os += GetLegacyOSServicePack();
 							}
 						}
 						catch (Exception)
 						{
-							Console.Write("");
+							// There was a problem getting the service pack from WMI.  Try built-in Environment class.
+							os += GetLegacyOSServicePack();
 						}
 					}
+					try
+					{
+						// Get OS architecture from WMI
+						object osA = objManagement.GetPropertyValue("OSArchitecture");
+						if (osA != null)
+						{
+							string osAString = osA.ToString();
+							// If "64" is anywhere in there, it's a 64-bit architectore.
+							osArch = (osAString.Contains("64") ? 64 : 32);
+						}
+					}
+					catch (Exception)
+					{
+						Console.Write("");
+					}
 				}
-				catch (Exception)
-				{
-					Console.Write("");
-				}
-
-				// If WMI couldn't tell us the OS, use our legacy method.
-				// We won't get the exact OS edition, but something is better than nothing.
-				if (os == String.Empty)
-				{
-					os = GetLegacyOS();
-				}
-
-				// If WMI couldn't tell us the architecture, use our legacy method.
-				if (osArch == 0)
-				{
-					osArch = GetLegacyOSArchitecture();
-				}
-				return os + " " + osArch.ToString(CultureInfo.InvariantCulture) + "-bit";
 			}
+			catch (Exception)
+			{
+				Console.Write("");
+			}
+
+			// If WMI couldn't tell us the OS, use our legacy method.
+			// We won't get the exact OS edition, but something is better than nothing.
+			if (os == String.Empty)
+			{
+				os = GetLegacyOS();
+			}
+
+			// If WMI couldn't tell us the architecture, use our legacy method.
+			if (osArch == 0)
+			{
+				osArch = GetLegacyOSArchitecture();
+			}
+			return os + " " + osArch.ToString(CultureInfo.InvariantCulture) + "-bit";
 		}
 
 		//------------------------------------------------------------------------------------------------------------------------
@@ -372,7 +325,7 @@ namespace SokoolTools.VsTools
 		/// </summary>
 		/// <returns>String containing the name of the operating system followed by its service pack (if any)</returns>
 		//------------------------------------------------------------------------------------------------------------------------
-		public static string GetLegacyOS()
+		private static string GetLegacyOS()
 		{
 			// Get Operating system information.
 			OperatingSystem os = Environment.OSVersion;
@@ -386,38 +339,24 @@ namespace SokoolTools.VsTools
 			switch (os.Platform)
 			{
 				case PlatformID.Win32Windows:
-					switch (vs.Minor)
+					operatingSystem = vs.Minor switch
 					{
-						case 0:
-							operatingSystem = "95";
-							break;
-						case 10:
-							operatingSystem = vs.Revision.ToString(CultureInfo.InvariantCulture) == "2222A" ? "98SE" : "98";
-							break;
-						case 90:
-							operatingSystem = "Me";
-							break;
-					}
+						0 => "95",
+						10 => vs.Revision.ToString(CultureInfo.InvariantCulture) == "2222A" ? "98SE" : "98",
+						90 => "Me",
+						_ => operatingSystem
+					};
 					break;
 				case PlatformID.Win32NT:
-					switch (vs.Major)
+					operatingSystem = vs.Major switch
 					{
-						case 3:
-							operatingSystem = "NT 3.51";
-							break;
-						case 4:
-							operatingSystem = "NT 4.0";
-							break;
-						case 5:
-							operatingSystem = vs.Minor == 0 ? "2000" : "XP";
-							break;
-						case 6:
-							operatingSystem = vs.Minor == 0 ? "Vista" : "7";
-							break;
-						case 10:
-							operatingSystem = "Win10";
-							break;
-					}
+						3 => "NT 3.51",
+						4 => "NT 4.0",
+						5 => vs.Minor == 0 ? "2000" : "XP",
+						6 => vs.Minor == 0 ? "Vista" : "7",
+						10 => "Win10",
+						_ => operatingSystem
+					};
 					break;
 				case PlatformID.Win32S:
 					break;
@@ -429,6 +368,8 @@ namespace SokoolTools.VsTools
 					break;
 				case PlatformID.MacOSX:
 					break;
+				default:
+					throw new ArgumentOutOfRangeException();
 			}
 			// Make sure we actually got something in our OS check that we don't want to just return " Service Pack 2"
 			// That information is useless without the OS version.
@@ -479,28 +420,26 @@ namespace SokoolTools.VsTools
 		/// </summary>
 		/// <returns></returns>
 		//------------------------------------------------------------------------------------------------------------------------
-		public static string GetCpuData()
+		private static string GetCpuData()
 		{
 			var sb = new StringBuilder();
 
-			using (var searcher = new ManagementObjectSearcher("select * from Win32_Processor"))
+			using var searcher = new ManagementObjectSearcher("select * from Win32_Processor");
+			string cpuName = String.Empty;
+			foreach (ManagementBaseObject managementBaseObject in searcher.Get())
 			{
-				string cpuName = String.Empty;
-				foreach (ManagementBaseObject managementBaseObject in searcher.Get())
+				var o = (ManagementObject)managementBaseObject;
+				sb.AppendFormat("{0}{1}{1}", o, Environment.NewLine);
+				foreach (PropertyData prop in o.Properties)
 				{
-					var o = (ManagementObject)managementBaseObject;
-					sb.AppendFormat("<i>{0}</i><p/>", o);
-					foreach (PropertyData prop in o.Properties)
-					{
-						sb.AppendFormat("{0} : {1}<br/>", prop.Name, prop.Value);
+					sb.AppendFormat("{0} : {1}{2}", prop.Name, prop.Value, Environment.NewLine);
 
-						if (prop.Name == "Name")
-							cpuName = (string)prop.Value;
-					}
+					if (prop.Name == "Name")
+						cpuName = (string)prop.Value;
 				}
-				sb.Insert(0, $"<h3>{cpuName}</h3>");
-				return sb.ToString();
 			}
+			sb.Insert(0, $"{cpuName}{Environment.NewLine}{Environment.NewLine}");
+			return sb.ToString();
 		}
 
 		//------------------------------------------------------------------------------------------------------------------------
@@ -514,47 +453,47 @@ namespace SokoolTools.VsTools
 			var sb = new StringBuilder();
 			IEnumerable<string> dotNetVersionList = GetDotNetVersionList();
 			foreach (string s in dotNetVersionList)
-				sb.AppendFormat("{0}<br/>", s);
+				sb.AppendLine(s);
 			return sb.ToString();
 		}
 
 		//------------------------------------------------------------------------------------------------------------------------
 		/// <summary>
-		/// Gets the .Net versions installed on this machine as an enumerable list.
+		/// Gets the .Net framework/versions installed on this machine as an enumerable list.
 		/// </summary>
 		/// <returns></returns>
 		//------------------------------------------------------------------------------------------------------------------------
 		private static IEnumerable<string> GetDotNetVersionList()
 		{
-			var versionList = new List<string>();
-			using (RegistryKey ndpKey = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\NET Framework Setup\NDP"))
+			void ProcessKids(RegistryKey node, Action<RegistryKey, string> action)
 			{
-				RegistryKey rk = ndpKey;
-				void ProcessKids(RegistryKey node, Action<RegistryKey, string> action)
-				{
-					foreach (string childName in node.GetSubKeyNames())
-						using (RegistryKey child = node.OpenSubKey(childName))
-							action(child, childName);
-				}
-				//
+				foreach (string childName in node.GetSubKeyNames())
+					using (RegistryKey child = node.OpenSubKey(childName))
+						action(child, childName);
+			}
+			var versionList = new List<string>();
+			RegistryKey ndpKey = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\NET Framework Setup\NDP");
+			{
 				Action<RegistryKey, Func<RegistryKey, bool>>[] visitDescendants = { null };
 				visitDescendants[0] = (regKey, isDone) =>
 				{
 					if (!isDone(regKey))
-						ProcessKids(regKey, (subKey, subKeyName) => visitDescendants[0](subKey, isDone));
+						ProcessKids(regKey, (subKey, _) => visitDescendants[0](subKey, isDone));
 				};
-				//
-				ProcessKids(rk, (versionKey, versionKeyName) =>
+				ProcessKids(ndpKey, (versionKey, versionKeyName) =>
 				{
 					if (Regex.IsMatch(versionKeyName, @"^v\d"))
 					{
 						visitDescendants[0](versionKey, key =>
 						{
-							bool isInstallationNode = Equals(key.GetValue("Install"), 1) && key.GetValue("Version") != null;
+							bool isInstallationNode =
+								Equals(key.GetValue("Install"), 1) && key.GetValue("Version") != null;
 							if (!isInstallationNode) return false;
-							if (rk != null)
-								versionList.Add(key.Name.Substring(rk.Name.Length + 1)
-												+ (key.GetValue("SP") != null ? ", service pack " + key.GetValue("SP") : "")
+							if (ndpKey != null)
+								versionList.Add(key.Name.Substring(ndpKey.Name.Length + 1)
+												+ (key.GetValue("SP") != null
+													? ", service pack " + key.GetValue("SP")
+													: "")
 												+ " (" + key.GetValue("Version") + ") "
 								);
 							return true;
@@ -567,26 +506,29 @@ namespace SokoolTools.VsTools
 
 		//------------------------------------------------------------------------------------------------------------------------
 		/// <summary>
-		/// Gets the standard ip config data as a string of text.
+		/// Gets the MAC Addresses.
 		/// </summary>
 		/// <returns></returns>
 		//------------------------------------------------------------------------------------------------------------------------
-		private static string GetIpConfigData()
+		private static string GetMacAddresses()
 		{
-			const string MY_COMMAND = "IPCONFIG/ALL";
-			var procStart = new System.Diagnostics.ProcessStartInfo("cmd", "/c " + MY_COMMAND)
+			string macAddress = String.Empty;
+			foreach (NetworkInterface nic in NetworkInterface.GetAllNetworkInterfaces())
 			{
-				CreateNoWindow = true,
-				RedirectStandardOutput = true,
-				UseShellExecute = false
-			};
-			using (var proc = new System.Diagnostics.Process())
-			{
-				proc.StartInfo = procStart;
-				proc.Start();
-				string result = proc.StandardOutput.ReadToEnd();
-				return result;
+				// Only consider Ethernet network interfaces, thereby ignoring any loopback devices etc.
+				if (nic.NetworkInterfaceType != NetworkInterfaceType.Ethernet || nic.OperationalStatus != OperationalStatus.Up)
+					continue;
+				macAddress += nic.GetPhysicalAddress().ToString();
+				break;
 			}
+			var sb = new StringBuilder();
+			int index = 0;
+			foreach (char c in macAddress)
+			{
+				sb.AppendFormat("{0}{1}", c, (index++ & 1) == 0 ? "" : "-");
+			}
+			macAddress = sb.ToString().Trim('-');
+			return macAddress;
 		}
 
 		//------------------------------------------------------------------------------------------------------------------------
@@ -598,23 +540,68 @@ namespace SokoolTools.VsTools
 		private static string GetLanNames()
 		{
 			var sb = new StringBuilder();
-			using (var managementClass = new ManagementClass("Win32_NetworkAdapterConfiguration"))
+			using var managementClass = new ManagementClass("Win32_NetworkAdapterConfiguration");
+			ManagementObjectCollection mgObjCollection = managementClass.GetInstances();
+			foreach (ManagementObject mgObject in mgObjCollection.Cast<ManagementObject>().Where(mgObject => Convert.ToBoolean(mgObject["IPEnabled"])))
 			{
-				ManagementObjectCollection mgObjCollection = managementClass.GetInstances();
-				foreach (ManagementObject mgObject in mgObjCollection.Cast<ManagementObject>().Where(mgObject => Convert.ToBoolean(mgObject["IPEnabled"])))
+				try
 				{
-					try
-					{
-						sb.AppendFormat("{0} : {1}<br/>", ((string[])mgObject["IPAddress"])[0], mgObject["Description"]);
-					}
-					catch (Exception ex)
-					{
-						Console.WriteLine(@"An error occured: " + ex.Message);
-					}
+					sb.AppendFormat("{0} : {1}{2}", ((string[])mgObject["IPAddress"])[0], mgObject["Description"], Environment.NewLine);
 				}
-				return sb.ToString();
+				catch (Exception ex)
+				{
+					Console.WriteLine(@"An error occured: " + ex.Message);
+				}
 			}
+			return sb.ToString();
 		}
+		#endregion
+
+		//..................................................................................................................................
+
+		#region Not Used
+
+		////------------------------------------------------------------------------------------------------------------------------
+		///// <summary>
+		///// Gets the latest version number of .NET installed on this computer.
+		///// </summary>
+		////------------------------------------------------------------------------------------------------------------------------
+		//public static string DotNetVersion
+		//{
+		//	get
+		//	{
+		//		const string REGISTRY_KEY = @"SOFTWARE\Microsoft\.NETFramework\";
+		//		using RegistryKey key = Registry.LocalMachine.OpenSubKey(REGISTRY_KEY, false);
+		//		return key == null
+		//			? Environment.Version.ToString()
+		//			: key.GetSubKeyNames().Where(m => m.StartsWith("v")).OrderByDescending(m => m).FirstOrDefault();
+		//	}
+		//}
+
+		////------------------------------------------------------------------------------------------------------------------------
+		///// <summary>
+		///// Gets the standard ip config data as a string of text.
+		///// </summary>
+		///// <returns></returns>
+		////------------------------------------------------------------------------------------------------------------------------
+		//private static string GetIpConfigData()
+		//{
+		//	const string MY_COMMAND = "IPCONFIG/ALL";
+		//	var procStart = new System.Diagnostics.ProcessStartInfo("cmd", "/c " + MY_COMMAND)
+		//	{
+		//		CreateNoWindow = true,
+		//		RedirectStandardOutput = true,
+		//		UseShellExecute = false
+		//	};
+		//	using (var proc = new System.Diagnostics.Process())
+		//	{
+		//		proc.StartInfo = procStart;
+		//		proc.Start();
+		//		string result = proc.StandardOutput.ReadToEnd();
+		//		return result;
+		//	}
+		//}
+
 	}
 
 	#endregion

@@ -20,7 +20,7 @@ namespace SokoolTools.VsTools
 		public static void Perform()
 		{
             Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-            Logging.Log();
+            Logging.Log(2);
 
 			// Select all the text in the window as long as it is c-sharp code (ie., document has a .cs extension).
 			if (!Utilities.IsCsDocument)

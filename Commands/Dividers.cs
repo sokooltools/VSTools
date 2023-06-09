@@ -18,7 +18,7 @@ namespace SokoolTools.VsTools
 		internal static void RemoveAllDividerLines()
 		{
             Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-            Logging.Log();
+            Logging.Log(2);
 
 			var sel = (TextSelection)Connect.objDte2.ActiveWindow.Document.Selection;
 

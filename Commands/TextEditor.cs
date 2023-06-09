@@ -20,7 +20,7 @@ namespace SokoolTools.VsTools
 		public static void PasteTextAsComments()
 		{
             Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-            Logging.Log();
+            Logging.Log(2);
 
 			// Maximum number of characters to be displayed on a line before automatically word-wrapping it to the next line
 			int pasteCommentMaxLineLength = OptionsHelper.PasteCommentMaxLineLength;

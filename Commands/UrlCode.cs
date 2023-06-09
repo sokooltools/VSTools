@@ -32,7 +32,7 @@ namespace SokoolTools.VsTools
 		{
 			Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
 			
-			Logging.Log();
+			Logging.Log(2);
 
 			// Get the selection.
 			var sel = (TextSelection)Connect.objDte2.ActiveWindow.Document.Selection;

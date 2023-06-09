@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 
 namespace SokoolTools.VsTools
 {
@@ -35,6 +36,16 @@ namespace SokoolTools.VsTools
 		[DefaultValue("")]
 		public  string ExclusionFilePattern { get; set; }
 
+
+		//--------------------------------------------------------------------------------------------------------------
+		/// <summary>
+		/// Gets or sets a value indicating whether [exclude generated t4].
+		/// </summary>
+		/// <value> <c>true</c> if [exclude generated t4]; otherwise, <c>false</c>. </value>
+		//--------------------------------------------------------------------------------------------------------------
+		[DefaultValue(true)]
+		public bool ExcludeGeneratedT4 { get; set; }
+
 		//--------------------------------------------------------------------------------------------------------------
 		/// <summary>
 		/// Gets or sets the command (e.g. 'Edit.FormatDocument', 'VSTools.FormatComments', etc.) which should be
@@ -54,6 +65,7 @@ namespace SokoolTools.VsTools
 		{
 			InclusionFilePattern = "*.cs";
 			ExclusionFilePattern = "*.vb";
+			ExcludeGeneratedT4 = true;
 			Command = "VSTools.FormatComments";
 		}
 
@@ -77,6 +89,10 @@ namespace SokoolTools.VsTools
 				exclusionFilter = new WildCard(ExclusionFilePattern, WildCardOptions.MultiPattern).IsMatch;
 			return name => !exclusionFilter(name) && inclusionFilter(name);
 		}
+
+		public Func<string, bool> CreateHierarchyFilter() => ExcludeGeneratedT4 
+			? path => Path.GetExtension(path) != ".tt" 
+			: (Func<string, bool>)(path => true);
 
 		//--------------------------------------------------------------------------------------------------------------
 		/// <summary>

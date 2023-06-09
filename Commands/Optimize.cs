@@ -32,7 +32,7 @@ namespace SokoolTools.VsTools
 		public static void OptimizeUsings()
 		{
 			Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-			Logging.Log();
+			Logging.Log(2);
 
 			SelectedItems selectedItems = Connect.objDte2.SelectedItems;
 			Project project = selectedItems.Item(1).Project;

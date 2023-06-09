@@ -89,7 +89,7 @@ namespace SokoolTools.VsTools
 
 		//--------------------------------------------------------------------------------------------------------------
 		/// <summary>
-		/// Reports that the project hierarchy, item and/or selection container has changed.
+		/// Notifies listening clients that the project hierarchy, item and/or selection container has changed.
 		/// </summary>
 		/// <returns>
 		/// If the method succeeds, it returns <see cref="F:Microsoft.VisualStudio.VSConstants.S_OK" />. If it fails, 
@@ -145,7 +145,7 @@ namespace SokoolTools.VsTools
 
 		//--------------------------------------------------------------------------------------------------------------
 		/// <summary>
-		/// Reports that an element value has changed.
+		/// Notifies listening clients that an element value has changed.
 		/// </summary>
 		/// <returns>
 		/// If the method succeeds, it returns <see cref="F:Microsoft.VisualStudio.VSConstants.S_OK" />. If it fails, 
@@ -176,7 +176,7 @@ namespace SokoolTools.VsTools
 
 		//--------------------------------------------------------------------------------------------------------------
 		/// <summary>
-		/// Reports that the command UI context has changed.
+		/// Notifies listening clients that the command UI context has changed.
 		/// </summary>
 		/// <returns>
 		/// If the method succeeds, it returns <see cref="F:Microsoft.VisualStudio.VSConstants.S_OK" />. If it fails, 
@@ -244,7 +244,7 @@ namespace SokoolTools.VsTools
 
 		//--------------------------------------------------------------------------------------------------------------
 		/// <summary>
-		/// Queries listening clients as to whether the project can be closed.
+		/// Notifies listening clients as to whether the project can be closed.
 		/// </summary>
 		/// <returns>
 		/// If the method succeeds, it returns <see cref="F:Microsoft.VisualStudio.VSConstants.S_OK" />. If it fails, 
@@ -314,7 +314,7 @@ namespace SokoolTools.VsTools
 
 		//--------------------------------------------------------------------------------------------------------------
 		/// <summary>
-		/// Queries listening clients as to whether the project can be unloaded.
+		/// Notifies listening clients as to whether the project can be unloaded.
 		/// </summary>
 		/// <returns>
 		/// If the method succeeds, it returns <see cref="F:Microsoft.VisualStudio.VSConstants.S_OK" />. If it fails, 
@@ -375,7 +375,7 @@ namespace SokoolTools.VsTools
 
 		//--------------------------------------------------------------------------------------------------------------
 		/// <summary>
-		/// Queries listening clients as to whether the solution can be closed.
+		/// Notifies listening clients as to whether the solution can be closed.
 		/// </summary>
 		/// <returns>
 		/// If the method succeeds, it returns <see cref="F:Microsoft.VisualStudio.VSConstants.S_OK" />. If it fails, 

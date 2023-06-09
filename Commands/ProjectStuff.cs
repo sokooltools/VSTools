@@ -29,7 +29,7 @@ namespace SokoolTools.VsTools
 		public static void ShowProjectReferences()
 		{
             Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-            Logging.Log();
+            Logging.Log(2);
 
 			var projList = new List<Project>();
 			OutputPane.Clear();

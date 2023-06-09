@@ -306,8 +306,9 @@
 
       <Button guid="guidVsToolsCmdSet" id="FormatAllFilesComments" priority="1" type="Button">
         <Parent guid="guidVsToolsCmdSet" id="VsToolsGroup1"/>
+        <Icon guid="VSToolsImages" id="FormatComments"/>
         <Strings>
-          <ButtonText>&amp;Format All Files Comments</ButtonText>
+          <ButtonText>Format Comments [Selected Files]</ButtonText>
         </Strings>
       </Button>
 
@@ -605,8 +606,9 @@
       </Button>
       <Button guid="guidVsToolsCmdSet" id="FormatAllFilesComments" priority="0x100" type="Button">
         <Parent guid="guidVsToolsCmdSet" id="MyMainToolbarGroup"/>
+        <Icon guid="VSToolsImages" id="FormatComments"/>
         <Strings>
-          <ButtonText>Format All Files Comments</ButtonText>
+          <ButtonText>Format Comments [Selected Files]</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidVsToolsCmdSet" id="FormatComments" priority="0x100" type="Button">
@@ -618,8 +620,9 @@
       </Button>
       <Button guid="guidVsToolsCmdSet" id="FormatAllFilesComments" priority="0x100" type="Button">
         <Parent guid="guidVsToolsCmdSet" id="MyToolbarGroup"/>
+        <Icon guid="VSToolsImages" id="FormatComments"/>
         <Strings>
-          <ButtonText>Format All Files Comments</ButtonText>
+          <ButtonText>Format Comments [Selected Files]</ButtonText>
         </Strings>
       </Button>
       <Button guid="guidVsToolsCmdSet" id="MyGraph" priority="0x200" type="Button">

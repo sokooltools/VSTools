@@ -20,7 +20,7 @@ namespace SokoolTools.VsTools
 		public static void CollapseAll()
 		{
 			Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-			Logging.Log();
+			Logging.Log(2);
 
 			// Get the the Solution Explorer tree
 			var solutionExplorer =

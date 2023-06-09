@@ -23,7 +23,7 @@ namespace SokoolTools.VsTools
 		//----------------------------------------------------------------------------------------------------
 		public static void TogglePublish()
 		{
-			Logging.Log();
+			Logging.Log(2);
 			FrameworkElement e = FindElement(Application.Current.MainWindow, "PublishCompartment");
 			if (e != null)
 				e.Visibility = e.Visibility == Visibility.Visible ? Visibility.Collapsed : Visibility.Visible;
@@ -39,7 +39,7 @@ namespace SokoolTools.VsTools
 		//----------------------------------------------------------------------------------------------------
 		public void HidePublish(bool isCollapsed)
 		{
-			Logging.Log();
+			Logging.Log(2);
 			FrameworkElement e = FindElement(Application.Current.MainWindow, "PublishCompartment");
 			if (e != null)
 				e.Visibility = isCollapsed ? Visibility.Collapsed : Visibility.Visible;
@@ -53,7 +53,7 @@ namespace SokoolTools.VsTools
 		//----------------------------------------------------------------------------------------------------
 		public bool HideSignIn()
 		{
-			Logging.Log();
+			Logging.Log(2);
 			FrameworkElement e = FindElement(Application.Current.MainWindow, "PART_MenuBarFrameControlContainer");
 			if (e == null)
 				return false;
@@ -69,7 +69,7 @@ namespace SokoolTools.VsTools
 		//----------------------------------------------------------------------------------------------------
 		public bool HideFeedback()
 		{
-			Logging.Log();
+			Logging.Log(2);
 			FrameworkElement e = FindElement(Application.Current.MainWindow, "PART_TitleBarFrameControlContainer");
 			if (e == null)
 				return false;
@@ -93,7 +93,7 @@ namespace SokoolTools.VsTools
 		//----------------------------------------------------------------------------------------------------
 		public bool HideTitleBar()
 		{
-			Logging.Log();
+			Logging.Log(2);
 			FrameworkElement e = FindElement(Application.Current.MainWindow, "MainWindowTitleBar");
 			if (e == null)
 				return false;

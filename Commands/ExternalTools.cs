@@ -17,7 +17,7 @@ namespace SokoolTools.VsTools
 		public static void CopyTargetFiles(bool isCheckin)
 		{
             Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-            Logging.Log();
+            Logging.Log(2);
 
 			try
 			{
@@ -69,7 +69,7 @@ namespace SokoolTools.VsTools
 		//------------------------------------------------------------------------------------------------------------------------
 		public static void Run(int index)
 		{
-			Logging.Log();
+			Logging.Log(2);
 			try
 			{
 				var process = new Process
@@ -92,7 +92,7 @@ namespace SokoolTools.VsTools
 		public static void UpdatePropertiesFiles()
 		{
             Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-            Logging.Log();
+            Logging.Log(2);
 			try
 			{
 				string args = String.Empty;

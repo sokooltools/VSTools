@@ -19,7 +19,7 @@ namespace SokoolTools.VsTools
 		public static void ShowSolutionProperties()  
 		{    
 			Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-			Logging.Log();
+			Logging.Log(2);
 			try  
 			{   // Open a solution before running this example  
 				Properties props = Connect.objDte2.Solution.Properties;
@@ -57,7 +57,7 @@ namespace SokoolTools.VsTools
 		public static void ShowSolutionBuildConfigurations()
 		{
             Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-            Logging.Log();
+            Logging.Log(2);
 			OutputPane.Clear();
 			try
 			{

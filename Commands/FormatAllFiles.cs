@@ -11,18 +11,20 @@ namespace SokoolTools.VsTools
 {
 	internal static class FormatAllFiles
 	{
+		#region Public Methods
+
 		public static void Execute()
 		{
 			ThreadHelper.ThrowIfNotOnUIThread();
 
 			var generalOption = new GeneralOption();
 
+			IEnumerable<ProjectItem> allItems = GetSelectedProjectItems(Connect.objDte2.ToolWindows.SolutionExplorer, generalOption.CreateHierarchyFilter());
+
 			Func<string, bool> fileFilter = generalOption.CreateFileFilterFunc();
 
-			IEnumerable<ProjectItem> items = GetSelectedProjectItems(Connect.objDte2.ToolWindows.SolutionExplorer, fileFilter);
-			
 			var projectItems = new List<ProjectItem>();
-			foreach (ProjectItem item in items)
+			foreach (ProjectItem item in allItems)
 			{
 				ThreadHelper.ThrowIfNotOnUIThread();
 				if (item.Kind == VSConstants.ItemTypeGuid.PhysicalFile_string && fileFilter(arg: item.Name))
@@ -48,11 +50,15 @@ namespace SokoolTools.VsTools
 			statusBar.Text = $"Format All Files is finished. ({numFiles} files)";
 		}
 
+		#endregion
+
+		#region Private Methods
+
 		private static bool ExecuteCommand(ProjectItem item, IEnumerable<string> commands)
 		{
 			ThreadHelper.ThrowIfNotOnUIThread();
 			bool result = false;
-			bool isOpen = item.IsOpen["{FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFFF}"];
+			bool isOpen = item.IsOpen[ViewKind:"{FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFFF}"];
 			if (!isOpen)
 			{
 				// Try to open the text document.
@@ -151,5 +157,7 @@ namespace SokoolTools.VsTools
 					return Enumerable.Empty<ProjectItem>();
 			}
 		}
+
+		#endregion
 	}
 }

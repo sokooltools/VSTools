@@ -88,6 +88,69 @@ namespace SokoolTools.VsTools {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;!DOCTYPE html&gt;
+        ///&lt;html&gt;
+        ///&lt;head&gt;
+        ///    &lt;title&gt;ABOUT&lt;/title&gt;
+        ///    &lt;style type=&quot;text/css&quot;&gt;
+        ///        body {
+        ///            font-family: &apos;Lucida Sans&apos;, &apos;Lucida Sans Regular&apos;, &apos;Lucida Grande&apos;, &apos;Lucida Sans Unicode&apos;, Geneva, Verdana, sans-serif;
+        ///            font-size: 0.75em;
+        ///            width: 98%;
+        ///        }
+        ///
+        ///        h3 {
+        ///            margin-top: .25em;
+        ///        }
+        ///
+        ///        hr {
+        ///            margin-right: 1em;
+        ///        }
+        ///
+        ///        table {
+        ///            width: 98%
+        ///        }
+        ///
+        ///        tr {
+        ///            display [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string About1 {
+            get {
+                return ResourceManager.GetString("About1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;!DOCTYPE html&gt;
+        ///&lt;html&gt;
+        ///&lt;head&gt;
+        ///    &lt;title&gt;SYSTEM INFO&lt;/title&gt;
+        ///    &lt;style type=&quot;text/css&quot;&gt;
+        ///        body {
+        ///            font-family: &apos;Lucida Sans&apos;, &apos;Lucida Sans Regular&apos;, &apos;Lucida Grande&apos;, &apos;Lucida Sans Unicode&apos;, &apos;Geneva&apos;, &apos;Verdana&apos;, sans-serif;
+        ///            font-size: 0.75em;
+        ///        }
+        ///
+        ///        h3 {
+        ///            margin-top: 0.25em;
+        ///        }
+        ///
+        ///        hr {
+        ///            margin-right: 1em;
+        ///        }
+        ///
+        ///        .p1 {
+        ///            font-weight: 800;
+        ///            background-color: lightgray;
+        ///            m [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string About2 {
+            get {
+                return ResourceManager.GetString("About2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This command only works on an active solution... 
         ///Please load or create a solution then try again..
         /// </summary>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ABOUT</title>
+    <style type="text/css">
+        body {
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            font-size: 0.75em;
+            width: 98%;
+        }
+
+        h3 {
+            margin-top: .25em;
+        }
+
+        hr {
+            margin-right: 1em;
+        }
+
+        table {
+            width: 98%
+        }
+
+        tr {
+            display: table-row;
+            border-style: solid;
+            border-bottom-width: 1px;
+            border-bottom-color: lightgray;
+        }
+
+        td {
+            padding: 0.25em 0.5em 0.25em 0.25em;
+        }
+
+        .td1 {
+            font-weight: 800;
+            width: 8em;
+            background-color: lightgray;
+            padding-left: 0.5em;
+            border: 1px solid darkgray;
+        }
+		
+		textarea {
+			border: none;
+			width: 99%;
+			wrap:false;
+			box-sizing: border-box; /* Chrome, IE8, Opera, Safari 5.1 */
+			-webkit-box-sizing: border-box; /* <=iOS4, <= Android  2.3 */
+			-moz-box-sizing: border-box; /* FF1+ */
+			font-family: inherit;
+		}
+    </style>
+</head>
+<body>
+    <h3>ABOUT</h3>
+    <hr />
+    <table>
+        <tr><td class="td1">Company:</td><td>#Company</td></tr>
+        <tr><td class="td1">Copyright:</td><td>#Copyright</td></tr>
+        <tr><td class="td1">Product:</td><td>#Product</td></tr>
+        <tr><td class="td1">Description:</td><td>#Description</td></tr>
+        <tr><td class="td1">Version:</td><td>#Version</td></tr>
+        <tr><td class="td1">Last Modified:</td><td>#LastModified</td></tr>
+        <tr>
+            <td class="td1" style="vertical-align:top;">Plugin Path:</td>
+            <td style="padding-right:0;">
+                <textarea id="pluginpath" name="pluginpath" rows="3" spellcheck="false" style="padding-right:0;">
+#PluginPath
+			    </textarea>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

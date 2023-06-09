@@ -22,7 +22,7 @@ namespace SokoolTools.VsTools
 		public static void Collapse() //CollapseToSingleLine()
 		{
             Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-            Logging.Log();
+            Logging.Log(2);
 
 			// Get the selection.
 			var sel = (TextSelection)Connect.objDte2.ActiveWindow.Document.Selection;
@@ -71,15 +71,14 @@ namespace SokoolTools.VsTools
 		public static void Collapse2()
 		{
             Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-            Logging.Log();
+            Logging.Log(2);
 
 			//CodeElementExample();
 
 			MyCodeElement myCodeElement = GetCodeElementAtCursor();
 			if (myCodeElement.Path != null)
 			{
-				Logging.Log(
-					$"StartPoint={myCodeElement.StartPoint.AbsoluteCharOffset}, EndPoint={myCodeElement.EndPoint.AbsoluteCharOffset}, Message={myCodeElement.Path}");
+				Logging.Log($"StartPoint={myCodeElement.StartPoint.AbsoluteCharOffset}, EndPoint={myCodeElement.EndPoint.AbsoluteCharOffset}, Message={myCodeElement.Path}",3);
 			}
 
 			// Get the selection.
@@ -120,7 +119,7 @@ namespace SokoolTools.VsTools
 		public static void Expand()
 		{
             Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-            Logging.Log();
+            Logging.Log(2);
 
 			// Get the selection.
 
@@ -306,7 +305,7 @@ namespace SokoolTools.VsTools
 						elems += elem.Name + " (" + scope + ")\n";
 				}
 
-				Logging.Log("The following elements contain the insertion point:\n\n" + elems);
+				Logging.Log("The following elements contain the insertion point:\n\n" + elems,3);
 			}
 			catch (Exception ex)
 			{

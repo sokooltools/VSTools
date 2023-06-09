@@ -25,7 +25,7 @@ namespace SokoolTools.VsTools
 		{
 			Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
 			
-			Logging.Log();
+			Logging.Log(2);
 
 			// Make sure the current document can be processed.
 			if (!(Utilities.IsCsDocument || Utilities.IsVbDocument))
@@ -57,7 +57,7 @@ namespace SokoolTools.VsTools
 		public static void RegionsCollapseAll()
 		{
             Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-            Logging.Log();
+            Logging.Log(2);
 
 			// Make sure the current document can be processed.
 			if (!(Utilities.IsCsDocument || Utilities.IsVbDocument)) return;
@@ -91,7 +91,7 @@ namespace SokoolTools.VsTools
 		public static void RegionsExpandAll()
 		{
             Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-            Logging.Log();
+            Logging.Log(2);
 
 			// Set the search pattern depending on the document type.
 			string sPattern;
@@ -127,7 +127,7 @@ namespace SokoolTools.VsTools
 		public static void CollapseAllSummaries()
 		{
             Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-            Logging.Log();
+            Logging.Log(2);
 
 			// Make sure the current document can be processed.
 			if (!(Utilities.IsCsDocument || Utilities.IsVbDocument)) return;
@@ -169,7 +169,7 @@ namespace SokoolTools.VsTools
 		public static void ExpandAllSummaries()
 		{
             Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-            Logging.Log();
+            Logging.Log(2);
 
 			// Set the search pattern depending on the document type.
 			string sPattern;

@@ -21,7 +21,7 @@ namespace SokoolTools.VsTools
 		public static void SortSelectedLines()
 		{
             Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-            Logging.Log();
+            Logging.Log(2);
 
 			// Get the current selection.
 			var sel = (TextSelection)Connect.objDte2.ActiveWindow.Document.Selection;
@@ -96,7 +96,7 @@ namespace SokoolTools.VsTools
 		public static void LineUpVariableDeclarations()
 		{
             Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-            Logging.Log();
+            Logging.Log(2);
 
 			const string COMPARE = "=!><";
 			const string ASSIGN = "+-|";
