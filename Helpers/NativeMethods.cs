@@ -56,7 +56,7 @@ namespace SokoolTools.VsTools
 		//------------------------------------------------------------------------------------------------------------------------
 		public static int GetTextWindowHandle()
 		{
-			int hwd = FindWindow("wndclass_desked_gsk", null);
+			int hwd = FindWindow(@"wndclass_desked_gsk", null);
 			hwd = FindWindowEx(hwd, 0, "MDIClient", null);
 			return hwd;
 		}

@@ -737,6 +737,9 @@
 			<Parent guid="guidSHLMainMenu" id="IDM_VS_TOOL_PROJWIN"/>
 		</CommandPlacement>
 		-->
+	<CommandPlacement guid="guidVsToolsCmdSet" id="FormatAllFilesComments" priority="0x600">
+		<Parent guid="guidSHLMainMenu" id="IDM_VS_TOOL_PROJWIN"/>
+	</CommandPlacement>
 
   </CommandPlacements>
 

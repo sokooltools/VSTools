@@ -145,17 +145,13 @@ namespace SokoolTools.VsTools
 		private static IEnumerable<ProjectItem> GetSelectedProjectItems(UIHierarchyItem hierarchyItem, Func<string, bool> filter)
 		{
 			ThreadHelper.ThrowIfNotOnUIThread();
-			switch (hierarchyItem.Object)
+			return hierarchyItem.Object switch
 			{
-				case Solution solution:
-					return solution.Projects.OfType<Project>().SelectMany(x => GetProjectItems(x, filter));
-				case Project project:
-					return GetProjectItems(project, filter);
-				case ProjectItem projectItem:
-					return GetProjectItems(projectItem, filter);
-				default:
-					return Enumerable.Empty<ProjectItem>();
-			}
+				Solution solution => solution.Projects.OfType<Project>().SelectMany(x => GetProjectItems(x, filter)),
+				Project project => GetProjectItems(project, filter),
+				ProjectItem projectItem => GetProjectItems(projectItem, filter),
+				_ => Enumerable.Empty<ProjectItem>()
+			};
 		}
 
 		#endregion

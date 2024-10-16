@@ -151,7 +151,7 @@ namespace SokoolTools.VsTools
 			webBrowser1.DocumentText = GetTabPage1Text();
 		}
 
-		private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+		private void TabControl1_SelectedIndexChanged(object sender, EventArgs e)
 		{
 			if (tabControl1.SelectedIndex != 1 || webBrowser2.DocumentText != String.Empty)
 				return;
@@ -465,7 +465,7 @@ namespace SokoolTools.VsTools
 		//------------------------------------------------------------------------------------------------------------------------
 		private static IEnumerable<string> GetDotNetVersionList()
 		{
-			void ProcessKids(RegistryKey node, Action<RegistryKey, string> action)
+			static void ProcessKids(RegistryKey node, Action<RegistryKey, string> action)
 			{
 				foreach (string childName in node.GetSubKeyNames())
 					using (RegistryKey child = node.OpenSubKey(childName))

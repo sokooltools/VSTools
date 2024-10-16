@@ -1,3 +1,4 @@
+using System.IO;
 using System.Text.RegularExpressions;
 
 namespace SokoolTools.VsTools
@@ -45,8 +46,33 @@ namespace SokoolTools.VsTools
 									 int logLevel = 3)
 		{
 			if (description != null)
-				Logging.LogReplace(pattern, replacement, description, logLevel);
+				LogReplace(pattern, replacement, description, logLevel);
 			return Regex.Replace(input, pattern, replacement, options);
+		}
+
+		//----------------------------------------------------------------------------------------------------
+		/// <summary>
+		/// Writes a message to the log file containing the criteria specifed as part of a find and replace 
+		/// action, but only when Logging is enabled and the specified log level is greater than or equal 
+		/// to the log level specified in the options dialog.
+		/// </summary>
+		/// <param name="find">The find.</param>
+		/// <param name="replace">The replace.</param>
+		/// <param name="description">The description.</param>
+		/// <param name="logLevel">The log level.</param>
+		//----------------------------------------------------------------------------------------------------
+		private static void LogReplace(string find, string replace, string description, int logLevel)
+		{
+			if (!OptionsHelper.IsLogEnabled || OptionsHelper.LogLevel < logLevel)
+				return;
+			try
+			{
+				string message = $"\t//--{description}\n\t\t Find:\t\t\"{find}\"\n\t\t Replace:\t\"{replace.Replace("\n", @"\n")}\"";
+				using var sw = new StreamWriter(OptionsHelper.LogFile, true);
+				sw.WriteLine(message);
+			}
+			// ReSharper disable once EmptyGeneralCatchClause
+			catch { }
 		}
 	}
 }

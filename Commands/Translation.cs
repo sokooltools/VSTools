@@ -164,27 +164,25 @@ namespace SokoolTools.VsTools
 				}
 
 				string fileName = Path.GetFileNameWithoutExtension(fileEnglish);
-				using (var sw = new StreamWriter(fileOutput, true))
+				using var sw = new StreamWriter(fileOutput, true);
+				foreach (KeyValuePair<string, string> en in dictEnglish)
 				{
-					foreach (KeyValuePair<string, string> en in dictEnglish)
+					string frValue;
+					if (dictOtherLang.TryGetValue(en.Key, out string value))
 					{
-						string frValue;
-						if (dictOtherLang.ContainsKey(en.Key))
-						{
-							frValue = dictOtherLang[en.Key];
-							if (OutputUntranslatedOnly && !frValue.StartsWith("#"))
-								continue;
-						}
-						else
-							frValue = "#" + en.Value;
-						sw.WriteLine("<row>");
-						sw.WriteLine("\t<Project>" + projectName + "</Project>");
-						sw.WriteLine("\t<Control>" + fileName + "</Control>");
-						sw.WriteLine("\t<Item>" + en.Key + "</Item>");
-						sw.WriteLine("\t<English>" + HttpUtility.HtmlEncode(en.Value) + "</English>");
-						sw.WriteLine("\t<French>" + HttpUtility.HtmlEncode(frValue) + "</French>");
-						sw.WriteLine("</row>");
+						frValue = value;
+						if (OutputUntranslatedOnly && !frValue.StartsWith("#"))
+							continue;
 					}
+					else
+						frValue = "#" + en.Value;
+					sw.WriteLine("<row>");
+					sw.WriteLine("\t<Project>" + projectName + "</Project>");
+					sw.WriteLine("\t<Control>" + fileName + "</Control>");
+					sw.WriteLine("\t<Item>" + en.Key + "</Item>");
+					sw.WriteLine("\t<English>" + HttpUtility.HtmlEncode(en.Value) + "</English>");
+					sw.WriteLine("\t<French>" + HttpUtility.HtmlEncode(frValue) + "</French>");
+					sw.WriteLine("</row>");
 				}
 			}
 			catch (Exception ex)

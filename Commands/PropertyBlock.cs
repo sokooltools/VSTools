@@ -78,7 +78,7 @@ namespace SokoolTools.VsTools
 			MyCodeElement myCodeElement = GetCodeElementAtCursor();
 			if (myCodeElement.Path != null)
 			{
-				Logging.Log($"StartPoint={myCodeElement.StartPoint.AbsoluteCharOffset}, EndPoint={myCodeElement.EndPoint.AbsoluteCharOffset}, Message={myCodeElement.Path}",3);
+				Logging.Log(3, $"StartPoint={myCodeElement.StartPoint.AbsoluteCharOffset}, EndPoint={myCodeElement.EndPoint.AbsoluteCharOffset}, Message={myCodeElement.Path}");
 			}
 
 			// Get the selection.
@@ -305,11 +305,11 @@ namespace SokoolTools.VsTools
 						elems += elem.Name + " (" + scope + ")\n";
 				}
 
-				Logging.Log("The following elements contain the insertion point:\n\n" + elems,3);
+				Logging.Log(3, "The following elements contain the insertion point:\n\n" + elems);
 			}
 			catch (Exception ex)
 			{
-				Logging.Log(ex.Message, 0);
+				Logging.Log(0, ex.Message);
 			}
 		}
 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+// ReSharper disable MemberCanBePrivate.Global
 
 namespace SokoolTools.VsTools
 {
@@ -12,6 +13,13 @@ namespace SokoolTools.VsTools
 	//------------------------------------------------------------------------------------------------------------------
 	public static class EnumerableExtensions
 	{
+		/// <summary>
+		/// Performs the specified Function of Type T on all the children of this enumerable of type T.
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="source">The source.</param>
+		/// <param name="getChildren">An enumerable of all the children of each parent of type T.</param>
+		/// <returns></returns>
 		[DebuggerStepThrough]
 		public static IEnumerable<T> Recursive<T>(this IEnumerable<T> source, Func<T, IEnumerable<T>> getChildren)
 		{
@@ -27,8 +35,14 @@ namespace SokoolTools.VsTools
 			}
 		}
 
+		/// <summary>
+		/// Performs the specified Action of type T on all items of this enumerable of type T.
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="source">The source.</param>
+		/// <param name="action">This enumerable.</param>
 		[DebuggerStepThrough]
-		private static void ForEach<T>(this IEnumerable<T> source, Action<T> action)
+		public static void ForEach<T>(this IEnumerable<T> source, Action<T> action)
 		{
 			IEnumerable<T> argumentValue = source.ToList();
 			ArgumentNotNull(argumentValue, nameof(source));

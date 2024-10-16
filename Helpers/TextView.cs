@@ -21,10 +21,10 @@ namespace SokoolTools.VsTools
 		//------------------------------------------------------------------------------------------------------------------------
 		public static IVsTextView GetActiveView(IVsWindowFrame windowFrame)
 		{
-            ThreadHelper.ThrowIfNotOnUIThread();
-
-            if (windowFrame == null)
+			if (windowFrame == null)
 				throw new ArgumentException(nameof(windowFrame));
+
+            ThreadHelper.ThrowIfNotOnUIThread();
 
 			ErrorHandler.ThrowOnFailure(windowFrame.GetProperty((int)__VSFPROPID.VSFPROPID_DocView, out object pVar));
 

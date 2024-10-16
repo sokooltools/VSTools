@@ -13,7 +13,7 @@ namespace SokoolTools.VsTools
 	{
 		//--------------------------------------------------------------------------------------------------------------
 		/// <summary>
-		/// The DTE2 object containg implementations of the main interface used by the Visual Studio Add-In.
+		/// The object containg implementations of the main Design Time Emvironment interface to Visual Studio Add-In.
 		/// </summary>
 		//--------------------------------------------------------------------------------------------------------------
 		public static readonly DTE2 objDte2;

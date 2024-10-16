@@ -9,7 +9,8 @@ namespace SokoolTools.VsTools
 {
 	//------------------------------------------------------------------------------------------------------------------
 	/// <summary>
-	/// 
+	/// Notifies registered VSPackages of changes to the current selection, element value, or command UI context and
+	/// to the soultion itself (such as when it is opened or closed).
 	/// </summary>
 	//------------------------------------------------------------------------------------------------------------------
 	internal class MySolutionEventsHandler : IVsSelectionEvents, IVsSolutionEvents, IDisposable
@@ -201,7 +202,8 @@ namespace SokoolTools.VsTools
 			int active = 0;
 			_monitorSelectionService?.IsCmdUIContextActive(_solutionExistsCookie, out active);
 
-			Debug.WriteLine(@"Solution Exists: {0}", active);
+			//Debug.WriteLine($@"Solution Exists: {active}" );
+			Logging.Log(3, $@"[UIContextChanged] Solution is { (active == 0 ? "Active" : "Inactive")}");
 
 			if (active == 0 || _solutionSubscriptionCookie != 0)
 				return VSConstants.S_OK;
@@ -244,7 +246,7 @@ namespace SokoolTools.VsTools
 
 		//--------------------------------------------------------------------------------------------------------------
 		/// <summary>
-		/// Notifies listening clients as to whether the project can be closed.
+		/// Queries listening clients as to whether the project can be closed.
 		/// </summary>
 		/// <returns>
 		/// If the method succeeds, it returns <see cref="F:Microsoft.VisualStudio.VSConstants.S_OK" />. If it fails, 
@@ -314,7 +316,7 @@ namespace SokoolTools.VsTools
 
 		//--------------------------------------------------------------------------------------------------------------
 		/// <summary>
-		/// Notifies listening clients as to whether the project can be unloaded.
+		/// Queries listening clients as to whether the project can be unloaded.
 		/// </summary>
 		/// <returns>
 		/// If the method succeeds, it returns <see cref="F:Microsoft.VisualStudio.VSConstants.S_OK" />. If it fails, 
@@ -375,7 +377,7 @@ namespace SokoolTools.VsTools
 
 		//--------------------------------------------------------------------------------------------------------------
 		/// <summary>
-		/// Notifies listening clients as to whether the solution can be closed.
+		/// Queries listening clients as to whether the solution can be closed.
 		/// </summary>
 		/// <returns>
 		/// If the method succeeds, it returns <see cref="F:Microsoft.VisualStudio.VSConstants.S_OK" />. If it fails, 
@@ -429,7 +431,8 @@ namespace SokoolTools.VsTools
 
 		private static int HandleSolutionEvent(string eventName)
 		{
-			Debug.WriteLine(eventName);
+			//Debug.WriteLine(eventName);
+			Logging.Log(3, eventName);
 			return VSConstants.S_OK;
 		}
 

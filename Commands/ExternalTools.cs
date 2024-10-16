@@ -57,7 +57,7 @@ namespace SokoolTools.VsTools
 			}
 			catch (Exception ex)
 			{
-				Logging.Log(ex.Message, 0);
+				Logging.Log(0, ex.Message);
 			}
 		}
 
@@ -80,7 +80,7 @@ namespace SokoolTools.VsTools
 			}
 			catch (Exception ex)
 			{
-				Logging.Log(ex.Message, 0);
+				Logging.Log(0, ex.Message);
 			}
 		}
 
@@ -128,7 +128,7 @@ namespace SokoolTools.VsTools
 			}
 			catch (Exception ex)
 			{
-				Logging.Log(ex.Message, 0);
+				Logging.Log(0, ex.Message);
 			}
 		}
 	}

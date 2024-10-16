@@ -223,9 +223,9 @@ namespace SokoolTools.VsTools
 		//----------------------------------------------------------------------------------------------------
 		private static object GetValue(string keyName, object defaultValue)
 		{
-			using (RegistryKey key = Registry.CurrentUser.OpenSubKey(REGISTRY_HIVE) ??
-									 Registry.CurrentUser.CreateSubKey(REGISTRY_HIVE))
-				return key != null ? key.GetValue(keyName, defaultValue) : defaultValue;
+			using RegistryKey key = Registry.CurrentUser.OpenSubKey(REGISTRY_HIVE) ??
+			                        Registry.CurrentUser.CreateSubKey(REGISTRY_HIVE);
+			return key != null ? key.GetValue(keyName, defaultValue) : defaultValue;
 		}
 
 		//----------------------------------------------------------------------------------------------------
@@ -237,11 +237,9 @@ namespace SokoolTools.VsTools
 		//----------------------------------------------------------------------------------------------------
 		private static void SetValue(string keyName, object value)
 		{
-			using (RegistryKey key = Registry.CurrentUser.OpenSubKey(REGISTRY_HIVE, true) ??
-									 Registry.CurrentUser.CreateSubKey(REGISTRY_HIVE))
-			{
-				key?.SetValue(keyName, value);
-			}
+			using RegistryKey key = Registry.CurrentUser.OpenSubKey(REGISTRY_HIVE, true) ??
+			                        Registry.CurrentUser.CreateSubKey(REGISTRY_HIVE);
+			key?.SetValue(keyName, value);
 		}
 
 		////------------------------------------------------------------------------------------------
