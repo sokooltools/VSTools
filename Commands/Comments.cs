@@ -41,7 +41,7 @@ namespace SokoolTools.VsTools
 			
 			Logging.Log(2);
 
-			Document doc = Connect.objDte2.ActiveWindow.Document;
+			Document doc = Connect.DteService.ActiveWindow.Document;
 
 			if (!(doc?.Selection is TextSelection sel))
 				return;
@@ -54,10 +54,10 @@ namespace SokoolTools.VsTools
 
 			// Need to change to insert tabs before doing smart formatting.
 			bool bInsertTabs =
-				Convert.ToBoolean(Connect.objDte2.DTE.Properties["TextEditor", "CSharp"].Item("InsertTabs").Value);
+				Convert.ToBoolean(Connect.DteService.DTE.Properties["TextEditor", "CSharp"].Item("InsertTabs").Value);
 
 			if (!bInsertTabs)
-				Connect.objDte2.DTE.Properties["TextEditor", "CSharp"].Item("InsertTabs").Value = true;
+				Connect.DteService.DTE.Properties["TextEditor", "CSharp"].Item("InsertTabs").Value = true;
 
 			// Always start out by formatting the entire text.
 			sel.SmartFormat();
@@ -72,7 +72,7 @@ namespace SokoolTools.VsTools
 			_isRightAligned = OptionsHelper.IsCommentDividerLineRightAligned;
 
 			// Get the actual tab size used for this document type.
-			_tabSize = Convert.ToInt32(Connect.objDte2.DTE.Properties["TextEditor", "CSharp"].Item("TabSize").Value);
+			_tabSize = Convert.ToInt32(Connect.DteService.DTE.Properties["TextEditor", "CSharp"].Item("TabSize").Value);
 
 			// Determine if code is surrounded by a namespace.
 			_isNamespaced = Regex.IsMatch(text, @"^[\s]*namespace ", RegexOptions.Multiline | RegexOptions.IgnoreCase);
@@ -351,16 +351,16 @@ namespace SokoolTools.VsTools
 
 					int iAdjLineLength = GetAdjLineLength(sLinBeg, _isCommentsIndented) - 1;
 
-					if (sWrappedTxt.Length <= iAdjLineLength)
-					{
-						desc = "";
-						sWrappedTxt = MyRegex.Replace(sWrappedTxt, "^", sLinBeg, RegexOptions.Multiline, desc);
+					if (sWrappedTxt.Length > iAdjLineLength) 
+						continue;
 
-						// Remove the current text.
-						sRetTxt = sRetTxt.Remove(iIdx, iLen);
-						// Insert the new text into its position.
-						sRetTxt = sRetTxt.Insert(iIdx, sWrappedTxt);
-					}
+					desc = "";
+					sWrappedTxt = MyRegex.Replace(sWrappedTxt, "^", sLinBeg, RegexOptions.Multiline, desc);
+
+					// Remove the current text.
+					sRetTxt = sRetTxt.Remove(iIdx, iLen);
+					// Insert the new text into its position.
+					sRetTxt = sRetTxt.Insert(iIdx, sWrappedTxt);
 				}
 				text = sRetTxt.ToString();
 			}
@@ -618,7 +618,7 @@ namespace SokoolTools.VsTools
 		{
             Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
             const string desc = "Replace tabs with spaces";
-			Connect.objDte2.DTE.Properties["TextEditor", "CSharp"].Item("InsertTabs").Value = false;
+			Connect.DteService.DTE.Properties["TextEditor", "CSharp"].Item("InsertTabs").Value = false;
 			return MyRegex.Replace(text, @"\t", new string(' ', _tabSize), RegexOptions.Multiline, desc);
 		}
 

@@ -20,7 +20,7 @@ namespace SokoolTools.VsTools
             Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
             Logging.Log(2);
 
-			var sel = (TextSelection)Connect.objDte2.ActiveWindow.Document.Selection;
+			var sel = (TextSelection)Connect.DteService.ActiveWindow.Document.Selection;
 
 			// Hold onto the current line number.
 			int iLine = sel.AnchorPoint.Line;

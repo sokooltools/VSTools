@@ -33,7 +33,7 @@ namespace SokoolTools.VsTools
 
 			StartAutomaticOutlining();
 
-			var sel = (TextSelection)Connect.objDte2.ActiveWindow.Selection;
+			var sel = (TextSelection)Connect.DteService.ActiveWindow.Selection;
 			EditPoint active = sel.ActivePoint.CreateEditPoint();
 			while (!active.AtStartOfDocument)
 			{
@@ -42,7 +42,7 @@ namespace SokoolTools.VsTools
 				if (line.StartsWith("#region"))
 				{
 					sel.MoveToLineAndOffset(active.Line, 1);
-					Connect.objDte2.ExecuteCommand("Edit.ToggleOutliningExpansion", String.Empty);
+					Connect.DteService.ExecuteCommand("Edit.ToggleOutliningExpansion", String.Empty);
 					return;
 				}
 				active.LineUp();
@@ -77,7 +77,7 @@ namespace SokoolTools.VsTools
 				{
 					int iLine = Regex.Matches(sTxt.Substring(0, mc[i].Index + 5), @"\n", RegexOptions.Multiline).Count + 1;
 					sel.MoveToLineAndOffset(iLine, 1);
-					Connect.objDte2.ExecuteCommand("Edit.ToggleOutliningExpansion", String.Empty);
+					Connect.DteService.ExecuteCommand("Edit.ToggleOutliningExpansion", String.Empty);
 				}
 			}
 			sel.StartOfDocument();
@@ -136,7 +136,7 @@ namespace SokoolTools.VsTools
 			//StartAutomaticOutlining();
             try
             {
-                Connect.objDte2.ExecuteCommand("Edit.StartAutomaticOutlining", String.Empty);
+                Connect.DteService.ExecuteCommand("Edit.StartAutomaticOutlining", String.Empty);
             }
             catch
             {
@@ -155,7 +155,7 @@ namespace SokoolTools.VsTools
 				{
 					int iLine = Regex.Matches(sTxt.Substring(0, mc[i].Index + 5), @"\n", RegexOptions.Multiline).Count + 1;
 					sel.MoveToLineAndOffset(iLine, 1);
-					Connect.objDte2.ExecuteCommand("Edit.ToggleOutliningExpansion", String.Empty);
+					Connect.DteService.ExecuteCommand("Edit.ToggleOutliningExpansion", String.Empty);
 				}
 			}
 			sel.StartOfDocument();
@@ -209,7 +209,7 @@ namespace SokoolTools.VsTools
 			{
                 //Connect.ApplicationObject.ExecuteCommand("Edit.ToggleAllOutlining", string.Empty);
                 //Connect.ApplicationObject.ExecuteCommand("Edit.ToggleOutliningExpansion", string.Empty);
-                Connect.objDte2.ExecuteCommand("Edit.StartAutomaticOutlining", String.Empty);
+                Connect.DteService.ExecuteCommand("Edit.StartAutomaticOutlining", String.Empty);
 			}
             catch
             {
@@ -226,7 +226,7 @@ namespace SokoolTools.VsTools
 		{
 			try
 			{
-				Connect.objDte2.ExecuteCommand("Edit.StopOutlining", String.Empty);
+				Connect.DteService.ExecuteCommand("Edit.StopOutlining", String.Empty);
 			}
 			catch
 			{

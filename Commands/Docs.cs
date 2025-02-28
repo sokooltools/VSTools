@@ -24,7 +24,7 @@ namespace SokoolTools.VsTools
             Logging.Log(2);
 
 			// Get the current selection.
-			var sel = (TextSelection)Connect.objDte2.ActiveWindow.Document.Selection;
+			var sel = (TextSelection)Connect.DteService.ActiveWindow.Document.Selection;
 
 			// This should never happen but just make sure some text is selected.
 			if (sel == null)
@@ -103,7 +103,7 @@ namespace SokoolTools.VsTools
 			string sLine;
 			int iPos;
 			int iMaxLength = 0;
-			var sel = (TextSelection)Connect.objDte2.ActiveWindow.Document.Selection;
+			var sel = (TextSelection)Connect.DteService.ActiveWindow.Document.Selection;
 			EditPoint botEditPt = sel.BottomPoint.CreateEditPoint();
 			EditPoint topEditPt = sel.TopPoint.CreateEditPoint();
 

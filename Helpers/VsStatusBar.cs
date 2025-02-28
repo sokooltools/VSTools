@@ -37,7 +37,7 @@ namespace SokoolTools.VsTools
 		static VsStatusBar()
 		{
 			ThreadHelper.ThrowIfNotOnUIThread();
-			var oleServiceProvider = Connect.objDte2 as Microsoft.VisualStudio.OLE.Interop.IServiceProvider;
+			var oleServiceProvider = Connect.DteService as Microsoft.VisualStudio.OLE.Interop.IServiceProvider;
 			var svc = new ServiceProvider(oleServiceProvider);
 			StatusBar = svc.GetService(typeof(SVsStatusbar)) as IVsStatusbar;
 		}

@@ -49,7 +49,7 @@ namespace SokoolTools.VsTools
 			_solution = solution;
 
 			// ReSharper disable once SuspiciousTypeConversion.Global
-			var oleServiceProvider = Connect.objDte2 as IServiceProvider;
+			var oleServiceProvider = Connect.DteService as IServiceProvider;
 			_serviceProvider = new ServiceProvider(oleServiceProvider);
 
 			if (_serviceProvider == null)

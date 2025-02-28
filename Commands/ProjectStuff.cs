@@ -48,7 +48,7 @@ namespace SokoolTools.VsTools
 				OutputPane.Write(header);
 
 				// Get all the projects into a generic list of projects so it can be sorted.
-				foreach (Project prj in Connect.objDte2.Solution.Projects)
+				foreach (Project prj in Connect.DteService.Solution.Projects)
 				{
 					if (prj.Object is VSProject)
 						projList.Add(prj);
@@ -307,7 +307,7 @@ namespace SokoolTools.VsTools
 		public static Project GetSelectedProject()
 		{
             Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-			if (Connect.objDte2.ActiveSolutionProjects is Array activeProjects && activeProjects.Length > 0)
+			if (Connect.DteService.ActiveSolutionProjects is Array activeProjects && activeProjects.Length > 0)
 				return activeProjects.GetValue(0) as Project;
 			return null;
 		}

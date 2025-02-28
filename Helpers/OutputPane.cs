@@ -20,7 +20,7 @@ namespace SokoolTools.VsTools
 		static OutputPane()
 		{
 			Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-			var ow = (OutputWindow)Connect.objDte2.Windows.Item(Constants.vsWindowKindOutput).Object;
+			var ow = (OutputWindow)Connect.DteService.Windows.Item(Constants.vsWindowKindOutput).Object;
 			try
 			{
 				_oWp = ow.OutputWindowPanes.Item(Vsix.Name);
@@ -80,8 +80,8 @@ namespace SokoolTools.VsTools
 			_oWp.Activate();
 			object customIn = Vsix.Name;
 			object customOut = null;
-			Connect.objDte2.Windows.Item(Constants.vsWindowKindOutput).Activate();
-			Connect.objDte2.Commands.Raise(StandardCommandSet2K_guid_string, OutputPaneCombo, ref customIn, ref customOut);
+			Connect.DteService.Windows.Item(Constants.vsWindowKindOutput).Activate();
+			Connect.DteService.Commands.Raise(StandardCommandSet2K_guid_string, OutputPaneCombo, ref customIn, ref customOut);
 		}
 	}
 }

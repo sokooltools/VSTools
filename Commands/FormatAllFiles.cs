@@ -19,7 +19,7 @@ namespace SokoolTools.VsTools
 
 			var generalOption = new GeneralOption();
 
-			IEnumerable<ProjectItem> allItems = GetSelectedProjectItems(Connect.objDte2.ToolWindows.SolutionExplorer, generalOption.CreateHierarchyFilter());
+			IEnumerable<ProjectItem> allItems = GetSelectedProjectItems(Connect.DteService.ToolWindows.SolutionExplorer, generalOption.CreateHierarchyFilter());
 
 			Func<string, bool> fileFilter = generalOption.CreateFileFilterFunc();
 
@@ -34,7 +34,7 @@ namespace SokoolTools.VsTools
 			int numFiles = projectItems.Count;
 			int numFailed = 0;
 			IList<string> commands = generalOption.GetCommands();
-			StatusBar statusBar = Connect.objDte2.StatusBar;
+			StatusBar statusBar = Connect.DteService.StatusBar;
 			OutputPane.Clear();
 			OutputPane.WriteLine($"{DateTime.Now:T} Started. ({numFiles} files)");
 			for (int index = 0; index < numFiles; index++)

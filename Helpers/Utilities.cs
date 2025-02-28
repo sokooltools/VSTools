@@ -26,7 +26,7 @@ namespace SokoolTools.VsTools
             get
             {
                 Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-                return Connect.objDte2.ActiveDocument.Language.Equals("CSharp");
+                return Connect.DteService.ActiveDocument.Language.Equals("CSharp");
             }
         }
 
@@ -40,7 +40,7 @@ namespace SokoolTools.VsTools
 			get
 			{
 				Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-				return Connect.objDte2.ActiveDocument.Language.Equals("Basic");
+				return Connect.DteService.ActiveDocument.Language.Equals("Basic");
 			}
 		}
 
@@ -54,10 +54,10 @@ namespace SokoolTools.VsTools
 		public static bool GetIsValidExtension(string extension)
 		{
             Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-            if (Connect.objDte2 == null || Connect.objDte2.ActiveWindow.Document == null)
+            if (Connect.DteService == null || Connect.DteService.ActiveWindow.Document == null)
 				return false;
 			return
-				String.Compare(Path.GetExtension(Connect.objDte2.ActiveWindow.Document.FullName),
+				String.Compare(Path.GetExtension(Connect.DteService.ActiveWindow.Document.FullName),
 					extension, StringComparison.InvariantCultureIgnoreCase) == 0;
 		}
 
@@ -73,7 +73,7 @@ namespace SokoolTools.VsTools
             Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
             // Get our current location
             EditPoint active = sel.ActivePoint.CreateEditPoint();
-			var pane = (TextPane)Connect.objDte2.ActiveDocument.Object("TextPane");
+			var pane = (TextPane)Connect.DteService.ActiveDocument.Object("TextPane");
 			EditPoint corner = pane.StartPoint.CreateEditPoint();
 
 			// Hold onto text currently on the clipboard.

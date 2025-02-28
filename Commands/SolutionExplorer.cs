@@ -22,9 +22,9 @@ namespace SokoolTools.VsTools
 			Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
 			Logging.Log(2);
 
-			// Get the the Solution Explorer tree
+			// Get the the Solution Explorer tree.
 			var solutionExplorer =
-				(UIHierarchy) Connect.objDte2.Windows.Item(Constants.vsWindowKindSolutionExplorer).Object;
+				(UIHierarchy) Connect.DteService.Windows.Item(Constants.vsWindowKindSolutionExplorer).Object;
 
 			// Check if there is an open solution.
 			if (solutionExplorer.UIHierarchyItems.Count == 0)
@@ -69,9 +69,11 @@ namespace SokoolTools.VsTools
 						.Where(eItem => { Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread(); return eItem.UIHierarchyItems.Count > 0; }))
 			{
 				Collapse(eItem, ref solutionExplorer);
-				if (!eItem.UIHierarchyItems.Expanded) continue;
+				if (!eItem.UIHierarchyItems.Expanded)
+					continue;
 				eItem.UIHierarchyItems.Expanded = false;
-				if (!eItem.UIHierarchyItems.Expanded) continue;
+				if (!eItem.UIHierarchyItems.Expanded)
+					continue;
 				// Resolves a _bug in VS 2005-2008!
 				eItem.Select(vsUISelectionType.vsUISelectionTypeSelect);
 				solutionExplorer.DoDefaultAction();

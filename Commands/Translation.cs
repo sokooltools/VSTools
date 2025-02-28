@@ -37,7 +37,7 @@ namespace SokoolTools.VsTools
 
 			try
 			{
-				if (!Connect.objDte2.Solution.IsOpen)
+				if (!Connect.DteService.Solution.IsOpen)
 					MessageBox.Show(Resources.CommandOnlyWorksOnActiveSolution, @"Generate Translation Report",
 						MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 				else
@@ -53,7 +53,7 @@ namespace SokoolTools.VsTools
 					VsStatusBar.Animation = true;
 
 					_outputFile = Path.Combine(Path.GetTempPath(),
-						Path.GetFileNameWithoutExtension(Connect.objDte2.Solution.FileName) + "_Translate.xml");
+						Path.GetFileNameWithoutExtension(Connect.DteService.Solution.FileName) + "_Translate.xml");
 					if (File.Exists(_outputFile))
 						File.Delete(_outputFile);
 					using (var sw = new StreamWriter(_outputFile, true))
@@ -61,7 +61,7 @@ namespace SokoolTools.VsTools
 						sw.WriteLine("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>");
 						sw.WriteLine("<document xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">");
 					}
-					foreach (Project objProject in Connect.objDte2.Solution.Projects)
+					foreach (Project objProject in Connect.DteService.Solution.Projects)
 					{
 						if (objProject.Kind == PrjKind.prjKindCSharpProject)
 							NavigateProjectItems(objProject, objProject.ProjectItems);

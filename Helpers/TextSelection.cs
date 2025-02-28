@@ -24,7 +24,7 @@ namespace SokoolTools.VsTools
 		public static TextSelection Current()
 		{
             Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-            _pane = (TextPane)Connect.objDte2.ActiveDocument.Object("TextPane");
+            _pane = (TextPane)Connect.DteService.ActiveDocument.Object("TextPane");
 			_corner = _pane.StartPoint.CreateEditPoint();
 			_sel = _pane.Selection;
 			_anchor = _sel.AnchorPoint.CreateEditPoint();

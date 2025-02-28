@@ -303,7 +303,7 @@ namespace SokoolTools.VsTools
 					Docs.SortSelectedLines();
 					break;
 				case PkgIds.RegexFindAndReplace:
-					new SearchForm(Connect.objDte2).Show();
+					new SearchForm(Connect.DteService).Show();
 					break;
 				case PkgIds.ExternalTools1:
 					ExternalTools.Run(1);

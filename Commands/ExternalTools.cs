@@ -21,7 +21,7 @@ namespace SokoolTools.VsTools
 
 			try
 			{
-				if (!(Connect.objDte2.ActiveSolutionProjects is Array activeProjects) || activeProjects.Length == 0)
+				if (!(Connect.DteService.ActiveSolutionProjects is Array activeProjects) || activeProjects.Length == 0)
 				{
 					MessageBox.Show(Resources.ProjectMustBeSelected, @"Copy Target Files", MessageBoxButtons.OK,
 						MessageBoxIcon.Exclamation);

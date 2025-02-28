@@ -22,7 +22,7 @@ namespace SokoolTools.VsTools
 			Logging.Log(2);
 			try  
 			{   // Open a solution before running this example  
-				Properties props = Connect.objDte2.Solution.Properties;
+				Properties props = Connect.DteService.Solution.Properties;
 				var sb = new StringBuilder();
 				sb.AppendLine( "Number of properties in the current solution: " + props.Count);  
 				sb.AppendLine( "The application containing this Properties collection is " + props.DTE.Name);  
@@ -78,7 +78,7 @@ namespace SokoolTools.VsTools
 
 				var usedNames = new List<string>();
 
-				Solution solution2 = Connect.objDte2.Solution;
+				Solution solution2 = Connect.DteService.Solution;
 				var solutionBuild2 = (SolutionBuild2)solution2.SolutionBuild;
 
 				var activeSolutionConfiguration2 = (SolutionConfiguration2)solutionBuild2.ActiveConfiguration;

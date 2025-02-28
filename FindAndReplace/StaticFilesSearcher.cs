@@ -159,7 +159,7 @@ namespace SokoolTools.VsTools.FindAndReplace
 		private void SearchEntireSolution(string fileTypes)
 		{
 			Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
-			foreach (Project project in Connect.objDte2.Solution.Projects)
+			foreach (Project project in Connect.DteService.Solution.Projects)
 			{
 				if (project.Kind != EnvDTE80.ProjectKinds.vsProjectKindSolutionFolder)
 					SearchProjectFiles(project.ProjectItems, fileTypes);
@@ -265,7 +265,7 @@ namespace SokoolTools.VsTools.FindAndReplace
 		{
 			Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
 			_ = fileTypes.Split(';');
-			foreach (Document document in Connect.objDte2.Documents)
+			foreach (Document document in Connect.DteService.Documents)
 			{
 				// TODO: Detect cancel here
 				SearchInOneFile(document.FullName);
