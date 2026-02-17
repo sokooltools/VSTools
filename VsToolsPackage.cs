@@ -20,7 +20,7 @@ namespace SokoolTools.VsTools
 	//------------------------------------------------------------------------------------------------------------------
 	[PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)]
 	[Guid(PackageGuidString)]
-	[InstalledProductRegistration("#110", "#112", "3.0.2.18", IconResourceID = 400)]
+	[InstalledProductRegistration("#110", "#112", "3.0.2.19", IconResourceID = 400)]
 	[ProvideMenuResource("Menus.ctmenu", 1)]
 	// These following two lines make our Command initialize at Visual Studio startup.
 	[ProvideAutoLoad(VSConstants.UICONTEXT.NoSolution_string, PackageAutoLoadFlags.BackgroundLoad)]
